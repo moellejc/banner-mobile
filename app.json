@@ -1,0 +1,12 @@
+{
+  "name": "neuron-mobile",
+  "displayName": "neuron-mobile",
+  "expo": {
+    "name": "neuron-mobile",
+    "slug": "neuron-mobile",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  }
+}
