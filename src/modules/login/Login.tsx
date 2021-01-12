@@ -1,6 +1,6 @@
 import React from "react";
-import { AsyncStorage } from "react-native";
-import { Text, Button, View, TextInput, StyleSheet } from "react-native";
+import { View, StyleSheet } from "react-native";
+import { TextInput, Button, Caption } from "react-native-paper";
 
 export interface Props {}
 export interface State {}
@@ -24,21 +24,60 @@ const defaultState = {
   isSubmitting: false,
 };
 
-class Signup extends React.Component<Props, State> {
-  state = defaultState;
+interface LoginProps {
+  defaultEmail?: "";
+}
 
-  render() {
-    return (
-      <View
+const Login: React.FC<LoginProps> = (props: LoginProps) => {
+  const [email, setEmail] = React.useState("");
+  const [password, setPassword] = React.useState("");
+
+  return (
+    <View
+      style={{
+        flex: 1,
+      }}
+    >
+      <TextInput
         style={{
           flex: 1,
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
+          flexDirection: "row",
+        }}
+        mode="flat"
+        label="Email"
+        value={email}
+        onChangeText={(email) => setEmail(email)}
+      />
+      <TextInput
+        style={{
+          flex: 1,
+          flexDirection: "row",
+        }}
+        mode="flat"
+        label="Password"
+        value={password}
+        onChangeText={(password) => setPassword(password)}
+      />
+      <Button
+        style={{
+          flex: 1,
+          flexDirection: "row",
+        }}
+        mode="outlined"
+        onPress={() => console.log("Login Pressed")}
+      >
+        Login
+      </Button>
+      <Caption
+        style={{
+          flex: 1,
+          flexDirection: "row",
         }}
       >
-        <Text style={{ textAlign: "center" }}>Hello Login</Text>
-      </View>
-    );
-  }
-}
+        Don’t have an account? Sign up!
+      </Caption>
+    </View>
+  );
+};
+
+export default Login;

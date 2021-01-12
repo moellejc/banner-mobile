@@ -1,14 +1,14 @@
 import React from "react";
 import { NativeRouter, Switch, Route } from "react-router-native";
-import Login from "./Login";
-import Register from "./Register";
+import Login from "../modules/login/Login";
+import Register from "../modules/register/Register";
 
 export default () => {
   return (
     <NativeRouter>
       <Switch>
-        <Route exact path="/" component={Register} />
-        <Route exact path="/login" component={Login} />
+        <Route exact path="/" component={Login} />
+        <Route exact path="/register" component={Register} />
       </Switch>
     </NativeRouter>
   );

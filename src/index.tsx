@@ -1,21 +1,16 @@
 import React from "react";
-import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
-import { Platform } from "react-native";
+import { ApolloProvider } from "@apollo/client";
 import Routes from "./routes";
-
-const host =
-  Platform.OS === "ios" ? "http://localhost:8000" : "http://10.0.0.2:8000";
-
-const client = new ApolloClient({
-  uri: `${host}/graphql`,
-  cache: new InMemoryCache(),
-});
+import { Provider as PaperProvider } from "react-native-paper";
+import { client } from "./lib/apollo";
 
 export default class App extends React.PureComponent {
   render() {
     return (
       <ApolloProvider client={client}>
-        <Routes />
+        <PaperProvider>
+          <Routes />
+        </PaperProvider>
       </ApolloProvider>
     );
   }
