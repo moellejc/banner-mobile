@@ -33,3 +33,15 @@ const AppTheme: ReactNativePaper.Theme = {
 };
 
 export default AppTheme;
+
+const textInputTheme = {
+  colors: {
+    placeholder: AppTheme.colors.textInputPlaceholderColor,
+    text: "white",
+    underlineColor: "white",
+    background: "black",
+    primary: "white",
+  },
+};
+
+export { textInputTheme };

@@ -1,8 +1,9 @@
 import React from "react";
 import { View, StyleSheet, Dimensions, Image, Text } from "react-native";
 import { TextInput, Button } from "react-native-paper";
-import AppTheme from "../../theme/Theme";
-import GradientButton from "react-native-gradient-buttons";
+import AppTheme, { textInputTheme } from "../../theme/Theme";
+import GradientBorderButton from "../../components/GradientBorderButton";
+import { useNavigation } from "@react-navigation/native";
 
 const defaultState = {
   values: {
@@ -14,14 +15,7 @@ const defaultState = {
   isSubmitting: false,
 };
 
-const inputTheme = {
-  colors: {
-    placeholder: AppTheme.colors.textInputPlaceholderColor,
-    text: "white",
-    underlineColor: "white",
-    background: "black",
-  },
-};
+const screenWidth = Dimensions.get("window").width - 60;
 
 interface LoginProps {
   defaultEmail?: "";
@@ -30,6 +24,7 @@ interface LoginProps {
 const Login: React.FC<LoginProps> = (props: LoginProps) => {
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
+  const navigation = useNavigation();
 
   return (
     <View style={styles.pageContainer}>
@@ -51,9 +46,10 @@ const Login: React.FC<LoginProps> = (props: LoginProps) => {
           mode="flat"
           label="Email"
           value={email}
-          theme={inputTheme}
+          theme={textInputTheme}
           underlineColor="white"
           onChangeText={(email) => setEmail(email)}
+          selectionColor={AppTheme.colors.neuronPurple}
         />
         <TextInput
           style={styles.input}
@@ -61,33 +57,35 @@ const Login: React.FC<LoginProps> = (props: LoginProps) => {
           label="Password"
           secureTextEntry={true}
           value={password}
-          theme={inputTheme}
+          theme={textInputTheme}
           underlineColor="white"
           onChangeText={(password) => setPassword(password)}
+          selectionColor={AppTheme.colors.neuronPurple}
         />
       </View>
       <View style={styles.row}>
-        <GradientButton
-          style={{
-            marginTop: 40,
-          }}
-          textStyle={{ fontSize: 20 }}
-          gradientBegin={AppTheme.colors.neuronBlue}
-          gradientEnd={AppTheme.colors.neuronRed}
-          gradientDirection="diagonal"
+        <GradientBorderButton
+          style={styles.buttonLogin}
+          text="Login"
+          gradientColors={[
+            AppTheme.colors.neuronBlue,
+            AppTheme.colors.neuronRed,
+          ]}
+          gradientPositions={{ start: { x: 0, y: 0 }, end: { x: 1, y: 1 } }}
           height={50}
-          width={Dimensions.get("window").width - 60}
-          radius={25}
-          impact
-          impactStyle="Light"
-          onPressAction={() => alert("You pressed Login!")}
-        >
-          Login
-        </GradientButton>
+          width={screenWidth}
+          borderRadius={25}
+          borderWidth={2}
+          textColor="#fff"
+          backgroundColor="#000"
+          onPress={() => console.log("LOGIN pressed")}
+        />
+
         <Button
           style={styles.buttonRegister}
           labelStyle={{ fontSize: 12 }}
           color="lightgray"
+          onPress={() => navigation.navigate("Register")}
         >
           Don’t have an account? Sign up!
         </Button>
@@ -105,7 +103,6 @@ const styles = StyleSheet.create({
   row: {
     flex: 1,
     flexDirection: "column",
-    flexWrap: "wrap",
     alignItems: "center",
     alignContent: "center",
   },
@@ -119,20 +116,14 @@ const styles = StyleSheet.create({
     height: 26,
   },
   buttonLogin: {
-    width: Dimensions.get("window").width - 60,
-    borderColor: "white",
-    borderWidth: 2,
-    height: 50,
-    borderRadius: 25,
-    alignContent: "center",
-    justifyContent: "center",
+    marginTop: 50,
   },
   buttonRegister: {
     marginTop: 15,
   },
   input: {
     marginBottom: 30,
-    width: Dimensions.get("window").width - 60,
+    width: screenWidth,
   },
 });
 

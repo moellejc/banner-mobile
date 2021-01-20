@@ -1,7 +1,12 @@
 import React from "react";
 import { View, StyleSheet, Dimensions, Image } from "react-native";
 import { TextInput, Button, Headline } from "react-native-paper";
-import AppTheme from "../../theme/Theme";
+import AppTheme, { textInputTheme } from "../../theme/Theme";
+import GradientBorderButton from "../../components/GradientBorderButton";
+import { useNavigation } from "@react-navigation/native";
+import { AntDesign } from "@expo/vector-icons";
+
+const screenWidth = Dimensions.get("window").width - 60;
 
 const Register: React.FC = () => {
   const [firstName, setFirstName] = React.useState("");
@@ -9,18 +14,32 @@ const Register: React.FC = () => {
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
   const [passwordAgain, setPasswordAgain] = React.useState("");
+  const navigation = useNavigation();
+
+  navigation.setOptions({
+    headerLeft: () => (
+      <AntDesign
+        name="arrowleft"
+        size={24}
+        color="white"
+        onPress={() => navigation.goBack()}
+      />
+    ),
+  });
 
   return (
     <View style={styles.pageContainer}>
-      <View style={styles.row}>
-        <Headline>Join in</Headline>
+      <View style={[styles.row, { flex: 1, alignItems: "flex-start" }]}>
+        <Headline style={styles.headline}>Join in</Headline>
       </View>
-      <View style={styles.row}>
+      <View style={[styles.row, { flex: 3 }]}>
         <TextInput
           style={styles.input}
           mode="flat"
           label="First Name"
           value={firstName}
+          theme={textInputTheme}
+          underlineColor="white"
           onChangeText={(firstName) => setFirstName(firstName)}
         />
         <TextInput
@@ -28,6 +47,8 @@ const Register: React.FC = () => {
           mode="flat"
           label="Last Name"
           value={lastName}
+          theme={textInputTheme}
+          underlineColor="white"
           onChangeText={(lastName) => setLastName(lastName)}
         />
         <TextInput
@@ -35,6 +56,8 @@ const Register: React.FC = () => {
           mode="flat"
           label="Email"
           value={email}
+          theme={textInputTheme}
+          underlineColor="white"
           onChangeText={(email) => setEmail(email)}
         />
         <TextInput
@@ -43,6 +66,8 @@ const Register: React.FC = () => {
           label="Password"
           value={password}
           secureTextEntry={true}
+          theme={textInputTheme}
+          underlineColor="white"
           onChangeText={(password) => setPassword(password)}
         />
         <TextInput
@@ -51,18 +76,29 @@ const Register: React.FC = () => {
           label="Password Again"
           secureTextEntry={true}
           value={passwordAgain}
+          theme={textInputTheme}
+          underlineColor="white"
           onChangeText={(passwordAgain) => setPasswordAgain(passwordAgain)}
         />
       </View>
 
-      <View style={styles.row}>
-        <Button
+      <View style={[styles.row, { flex: 1 }]}>
+        <GradientBorderButton
           style={styles.buttonLogin}
-          mode="outlined"
-          onPress={() => console.log("Sign up Pressed")}
-        >
-          Sign Up
-        </Button>
+          text="Sign Up"
+          gradientColors={[
+            AppTheme.colors.neuronBlue,
+            AppTheme.colors.neuronRed,
+          ]}
+          gradientPositions={{ start: { x: 0, y: 0 }, end: { x: 1, y: 1 } }}
+          height={50}
+          width={screenWidth}
+          borderRadius={25}
+          borderWidth={2}
+          textColor="#fff"
+          backgroundColor="#000"
+          onPress={() => console.log("REGISTER pressed")}
+        />
       </View>
     </View>
   );
@@ -71,13 +107,18 @@ const Register: React.FC = () => {
 const styles = StyleSheet.create({
   pageContainer: {
     flex: 1,
-    margin: 10,
+    margin: 30,
     flexDirection: "column",
   },
   row: {
-    flex: 1,
     flexDirection: "column",
-    flexWrap: "wrap",
+    alignItems: "center",
+    alignContent: "center",
+  },
+  headline: {
+    color: "white",
+    fontSize: 25,
+    fontWeight: "bold",
   },
   icon: {
     width: 36,
@@ -87,13 +128,11 @@ const styles = StyleSheet.create({
     width: 204,
     height: 26,
   },
-  buttonLogin: {
-    width: Dimensions.get("window").width - 20,
-  },
+  buttonLogin: {},
   buttonRegister: {},
   input: {
-    marginBottom: 5,
-    width: Dimensions.get("window").width - 20,
+    marginBottom: 10,
+    width: screenWidth,
   },
 });
 
