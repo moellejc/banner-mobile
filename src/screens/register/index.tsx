@@ -2,13 +2,13 @@ import React from "react";
 import { View, StyleSheet, Dimensions, Image } from "react-native";
 import { TextInput, Button, Headline } from "react-native-paper";
 import AppTheme, { textInputTheme } from "../../theme/Theme";
-import GradientBorderButton from "../../components/GradientBorderButton";
+import GradientBorderButton from "../../components/atoms/GradientBorderButton";
 import { useNavigation } from "@react-navigation/native";
 import { AntDesign } from "@expo/vector-icons";
 
 const screenWidth = Dimensions.get("window").width - 60;
 
-const Register: React.FC = () => {
+const RegisterScreen: React.FC = () => {
   const [firstName, setFirstName] = React.useState("");
   const [lastName, setLastName] = React.useState("");
   const [email, setEmail] = React.useState("");
@@ -136,4 +136,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Register;
+export default RegisterScreen;

@@ -1,14 +1,9 @@
 import React from "react";
 // import { NativeRouter, Switch, Route } from "react-router-native";
-import Login from "../modules/login/Login";
-import Register from "../modules/register/Register";
-import {
-  createStackNavigator,
-  HeaderBackButton,
-  StackNavigationOptions,
-} from "@react-navigation/stack";
-import AppTheme from "../theme/Theme";
-import { AntDesign } from "@expo/vector-icons";
+import LoginScreen from "../screens/login";
+import RegisterScreen from "../screens/register";
+import { createStackNavigator } from "@react-navigation/stack";
+import AppTheme from "../styles/Theme";
 
 const Stack = createStackNavigator();
 
@@ -28,10 +23,14 @@ export default () => {
         cardStyle: { backgroundColor: AppTheme.colors.appBackgroundColor },
       }}
     >
-      <Stack.Screen name="Login" component={Login} options={screenOptions} />
+      <Stack.Screen
+        name="Login"
+        component={LoginScreen}
+        options={screenOptions}
+      />
       <Stack.Screen
         name="Register"
-        component={Register}
+        component={RegisterScreen}
         options={screenOptions}
       />
     </Stack.Navigator>

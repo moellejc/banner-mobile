@@ -1,4 +1,13 @@
 import { DefaultTheme } from "react-native-paper";
+import {
+  BLACK,
+  BLUE,
+  DARK_PURPLE,
+  PINK,
+  PURPLE,
+  RED,
+  TEXTINPUT_PLACEHOLDER,
+} from "./Colors";
 
 declare global {
   namespace ReactNativePaper {
@@ -19,16 +28,16 @@ const AppTheme: ReactNativePaper.Theme = {
   // Specify custom property in nested object
   colors: {
     ...DefaultTheme.colors,
-    appBackgroundColor: "#000000",
+    appBackgroundColor: BLACK,
     // appBackgroundColor: "red",
     // background: "#000000",
     // backdrop: "#000000",
-    neuronBlue: "#2E51DC",
-    neuronDarkPurple: "#6040A3",
-    neuronPurple: "#7F3580",
-    neuronPink: "#9C2B5F",
-    neuronRed: "#DD1515",
-    textInputPlaceholderColor: "#6E6E6E",
+    neuronBlue: BLUE,
+    neuronDarkPurple: DARK_PURPLE,
+    neuronPurple: PURPLE,
+    neuronPink: PINK,
+    neuronRed: RED,
+    textInputPlaceholderColor: TEXTINPUT_PLACEHOLDER,
   },
 };
 

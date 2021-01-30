@@ -1,8 +1,8 @@
 import React from "react";
 import { View, StyleSheet, Dimensions, Image, Text } from "react-native";
 import { TextInput, Button } from "react-native-paper";
-import AppTheme, { textInputTheme } from "../../theme/Theme";
-import GradientBorderButton from "../../components/GradientBorderButton";
+import AppTheme, { textInputTheme } from "../../styles/Theme";
+import GradientBorderButton from "../../components/atoms/GradientBorderButton";
 import { useNavigation } from "@react-navigation/native";
 
 const defaultState = {
@@ -21,7 +21,7 @@ interface LoginProps {
   defaultEmail?: "";
 }
 
-const Login: React.FC<LoginProps> = (props: LoginProps) => {
+const LoginScreen: React.FC<LoginProps> = (props: LoginProps) => {
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
   const navigation = useNavigation();
@@ -127,4 +127,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Login;
+export default LoginScreen;
