@@ -4,6 +4,9 @@ import { TextInput, Button } from "react-native-paper";
 import AppTheme, { textInputTheme } from "../../styles/Theme";
 import GradientBorderButton from "../../components/atoms/GradientBorderButton";
 import { useNavigation } from "@react-navigation/native";
+import { ApolloError, gql, useMutation } from "@apollo/client";
+import { loginSchema } from "../../validation/UserValidation";
+import { LoginResponse } from "../../graphql/generator/NeuronGQLTypes";
 
 const defaultState = {
   values: {
@@ -14,6 +17,13 @@ const defaultState = {
   errors: {},
   isSubmitting: false,
 };
+const LOGIN_MUTATION = gql`
+  mutation LoginMutation($email: String!, $password: String!) {
+    login(options: { email: $email, password: $password }) {
+      accessToken
+    }
+  }
+`;
 
 const screenWidth = Dimensions.get("window").width - 60;
 
@@ -25,6 +35,12 @@ const LoginScreen: React.FC<LoginProps> = (props: LoginProps) => {
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
   const navigation = useNavigation();
+
+  const [login, { data, error, loading }] = useMutation(LOGIN_MUTATION);
+
+  if (data) console.log(`DATA:\n${JSON.stringify(data)}`);
+  if (error) console.log(`ERROR:\n${error}`);
+  if (loading) console.log(`Loading...`);
 
   return (
     <View style={styles.pageContainer}>
@@ -78,7 +94,14 @@ const LoginScreen: React.FC<LoginProps> = (props: LoginProps) => {
           borderWidth={2}
           textColor="#fff"
           backgroundColor="#000"
-          onPress={() => console.log("LOGIN pressed")}
+          onPress={() => {
+            login({
+              variables: {
+                email: email,
+                password: password,
+              },
+            });
+          }}
         />
 
         <Button

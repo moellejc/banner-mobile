@@ -4,8 +4,7 @@ import AppNav from "./navigations";
 import { Provider as PaperProvider } from "react-native-paper";
 import { client } from "./lib/apollo";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
-
-import AppTheme from "./theme/Theme";
+import AppTheme from "./styles/Theme";
 
 export default class App extends React.PureComponent {
   render() {

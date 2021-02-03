@@ -1,7 +1,7 @@
 import React from "react";
 import { View, StyleSheet, Dimensions, Image } from "react-native";
 import { TextInput, Button, Headline } from "react-native-paper";
-import AppTheme, { textInputTheme } from "../../theme/Theme";
+import AppTheme, { textInputTheme } from "../../styles/Theme";
 import GradientBorderButton from "../../components/atoms/GradientBorderButton";
 import { useNavigation } from "@react-navigation/native";
 import { AntDesign } from "@expo/vector-icons";

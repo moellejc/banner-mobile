@@ -1,9 +1,11 @@
 import { ApolloClient, InMemoryCache } from "@apollo/client";
 import { HttpLink } from "@apollo/client/link/http/HttpLink";
-import { Platform } from "react-native";
+import { API_URL } from "@env";
 
-const host =
-  Platform.OS === "ios" ? "http://localhost:4000" : "http://10.0.2.2:4000";
+const host = API_URL;
+
+console.log("This is the API URL");
+console.log(`${host}/graphql`);
 
 // TODO: update to get token
 const token = "testing_token";
