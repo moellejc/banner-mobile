@@ -1,14 +1,24 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import AuthNavigator from "./AuthNavigator";
 import AppNavigator from "./AppNavigator";
+import { isLoggedIn } from "../services/auth";
 
-const isLoggedIn = false;
+let loggedIn = false;
 
 export default () => {
+  useEffect(() => {
+    async function fetchLoginStatus() {
+      loggedIn = await isLoggedIn();
+      console.log(`Is user logged in: ${loggedIn}`);
+    }
+    fetchLoginStatus();
+  }, []);
+
   return (
     <NavigationContainer>
-      {!isLoggedIn ? <AuthNavigator /> : <AppNavigator />}
+      {console.log(`Is user logged in TSX: ${loggedIn}`)}
+      {!loggedIn ? <AuthNavigator /> : <AppNavigator />}
     </NavigationContainer>
   );
 };

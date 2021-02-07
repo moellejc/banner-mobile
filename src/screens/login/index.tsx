@@ -6,7 +6,11 @@ import GradientBorderButton from "../../components/atoms/GradientBorderButton";
 import { useNavigation } from "@react-navigation/native";
 import { ApolloError, gql, useMutation } from "@apollo/client";
 import { loginSchema } from "../../validation/UserValidation";
-import { LoginResponse } from "../../graphql/generator/NeuronGQLTypes";
+import {
+  LoginResponse,
+  FieldError,
+} from "../../graphql/generator/NeuronGQLTypes";
+import { setToken } from "../../services/auth";
 
 const defaultState = {
   values: {
@@ -17,6 +21,7 @@ const defaultState = {
   errors: {},
   isSubmitting: false,
 };
+
 const LOGIN_MUTATION = gql`
   mutation LoginMutation($email: String!, $password: String!) {
     login(options: { email: $email, password: $password }) {
@@ -31,16 +36,37 @@ interface LoginProps {
   defaultEmail?: "";
 }
 
-const LoginScreen: React.FC<LoginProps> = (props: LoginProps) => {
+const LoginScreen: React.FC = () => {
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
+  const [isInvalidLogin, setIsInvalidLogin] = React.useState(false);
   const navigation = useNavigation();
 
   const [login, { data, error, loading }] = useMutation(LOGIN_MUTATION);
 
-  if (data) console.log(`DATA:\n${JSON.stringify(data)}`);
-  if (error) console.log(`ERROR:\n${error}`);
   if (loading) console.log(`Loading...`);
+
+  const handleLogin = async () => {
+    console.log("handle login");
+    // try login
+    await login({
+      variables: {
+        email: email,
+        password: password,
+      },
+    });
+
+    console.log("before data");
+    // process results
+    if (data.login) {
+      const loginData = data.login as LoginResponse;
+      console.log(`JWT: ${loginData.accessToken}`);
+
+      if (data.errors) setIsInvalidLogin(true);
+
+      if (loginData.accessToken) setToken(loginData.accessToken);
+    }
+  };
 
   return (
     <View style={styles.pageContainer}>
@@ -94,14 +120,7 @@ const LoginScreen: React.FC<LoginProps> = (props: LoginProps) => {
           borderWidth={2}
           textColor="#fff"
           backgroundColor="#000"
-          onPress={() => {
-            login({
-              variables: {
-                email: email,
-                password: password,
-              },
-            });
-          }}
+          onPress={handleLogin}
         />
 
         <Button
