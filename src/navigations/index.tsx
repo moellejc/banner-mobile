@@ -7,18 +7,26 @@ import { isLoggedIn } from "../services/auth";
 let loggedIn = false;
 
 export default () => {
+  const [loginChecked, setLoginChecked] = React.useState(false);
+
   useEffect(() => {
     async function fetchLoginStatus() {
       loggedIn = await isLoggedIn();
-      console.log(`Is user logged in: ${loggedIn}`);
+      console.log("fetched login status");
+      setLoginChecked(true);
     }
     fetchLoginStatus();
   }, []);
 
-  return (
-    <NavigationContainer>
-      {console.log(`Is user logged in TSX: ${loggedIn}`)}
-      {!loggedIn ? <AuthNavigator /> : <AppNavigator />}
-    </NavigationContainer>
-  );
+  const getNavigator = (): any | null => {
+    if (loginChecked) {
+      console.log("checked login");
+      console.log(`Logged In? ${loggedIn}`);
+      return !loggedIn ? <AuthNavigator /> : <AppNavigator />;
+    }
+    console.log("NOT checked login");
+    return null;
+  };
+
+  return <NavigationContainer>{getNavigator()}</NavigationContainer>;
 };

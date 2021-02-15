@@ -6,11 +6,17 @@ interface Props {}
 const FeedScreen: React.FC = (props: Props) => {
   return (
     <View>
-      <Text>Hello Feed</Text>
+      <Text style={styles.helloText}>Hello Feed</Text>
     </View>
   );
 };
 
 export default FeedScreen;
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  helloText: {
+    color: "white",
+    fontSize: 25,
+    fontWeight: "bold",
+  },
+});
