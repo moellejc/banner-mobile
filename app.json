@@ -5,6 +5,14 @@
     "name": "fabric-mobile",
     "slug": "fabric-mobile",
     "version": "1.0.0",
-    "assetBundlePatterns": ["**/*"]
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "android": {
+      "package": "com.fabric.fabricmobile"
+    },
+    "ios": {
+      "bundleIdentifier": "com.fabric.fabricmobile"
+    }
   }
 }
