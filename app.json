@@ -1,12 +1,10 @@
 {
-  "name": "neuron-mobile",
-  "displayName": "neuron-mobile",
+  "name": "Fabric",
+  "displayName": "Fabric",
   "expo": {
-    "name": "neuron-mobile",
-    "slug": "neuron-mobile",
+    "name": "fabric-mobile",
+    "slug": "fabric-mobile",
     "version": "1.0.0",
-    "assetBundlePatterns": [
-      "**/*"
-    ]
+    "assetBundlePatterns": ["**/*"]
   }
 }

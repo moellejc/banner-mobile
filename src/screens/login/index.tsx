@@ -4,6 +4,7 @@ import { TextInput, Button } from "react-native-paper";
 import AppTheme, { textInputTheme } from "../../styles/Theme";
 import GradientBorderButton from "../../components/atoms/GradientBorderButton";
 import { useNavigation } from "@react-navigation/native";
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { ApolloError, gql, useMutation } from "@apollo/client";
 import { loginSchema } from "../../validation/UserValidation";
 import {
@@ -70,68 +71,70 @@ const LoginScreen: React.FC = () => {
 
   return (
     <View style={styles.pageContainer}>
-      <View style={styles.row}>
-        <Image
-          resizeMode="contain"
-          style={styles.icon}
-          source={require("../../../assets/images/icon-neuron.png")}
-        />
-        <Image
-          resizeMode="contain"
-          style={styles.logo}
-          source={require("../../../assets/images/logo-neuron.png")}
-        />
-      </View>
-      <View style={[styles.row]}>
-        <TextInput
-          style={styles.input}
-          mode="flat"
-          label="Email"
-          value={email}
-          theme={textInputTheme}
-          underlineColor="white"
-          onChangeText={(email) => setEmail(email)}
-          selectionColor={AppTheme.colors.neuronPurple}
-        />
-        <TextInput
-          style={styles.input}
-          mode="flat"
-          label="Password"
-          secureTextEntry={true}
-          value={password}
-          theme={textInputTheme}
-          underlineColor="white"
-          onChangeText={(password) => setPassword(password)}
-          selectionColor={AppTheme.colors.neuronPurple}
-        />
-      </View>
-      <View style={styles.row}>
-        <GradientBorderButton
-          style={styles.buttonLogin}
-          text="Login"
-          gradientColors={[
-            AppTheme.colors.neuronBlue,
-            AppTheme.colors.neuronRed,
-          ]}
-          gradientPositions={{ start: { x: 0, y: 0 }, end: { x: 1, y: 1 } }}
-          height={50}
-          width={screenWidth}
-          borderRadius={25}
-          borderWidth={2}
-          textColor="#fff"
-          backgroundColor="#000"
-          onPress={handleLogin}
-        />
+      <KeyboardAwareScrollView>
+        <View style={styles.row}>
+          <Image
+            resizeMode="contain"
+            style={styles.icon}
+            source={require("../../../assets/images/icon-neuron.png")}
+          />
+          <Image
+            resizeMode="contain"
+            style={styles.logo}
+            source={require("../../../assets/images/logo-neuron.png")}
+          />
+        </View>
+        <View style={[styles.row]}>
+          <TextInput
+            style={styles.input}
+            mode="flat"
+            label="Email"
+            value={email}
+            theme={textInputTheme}
+            underlineColor="white"
+            onChangeText={(email) => setEmail(email)}
+            selectionColor={AppTheme.colors.neuronPurple}
+          />
+          <TextInput
+            style={styles.input}
+            mode="flat"
+            label="Password"
+            secureTextEntry={true}
+            value={password}
+            theme={textInputTheme}
+            underlineColor="white"
+            onChangeText={(password) => setPassword(password)}
+            selectionColor={AppTheme.colors.neuronPurple}
+          />
+        </View>
+        <View style={styles.row}>
+          <GradientBorderButton
+            style={styles.buttonLogin}
+            text="Login"
+            gradientColors={[
+              AppTheme.colors.neuronBlue,
+              AppTheme.colors.neuronRed,
+            ]}
+            gradientPositions={{ start: { x: 0, y: 0 }, end: { x: 1, y: 1 } }}
+            height={50}
+            width={screenWidth}
+            borderRadius={25}
+            borderWidth={2}
+            textColor="#fff"
+            backgroundColor="#000"
+            onPress={handleLogin}
+          />
 
-        <Button
-          style={styles.buttonRegister}
-          labelStyle={{ fontSize: 12 }}
-          color="lightgray"
-          onPress={() => navigation.navigate("Register")}
-        >
-          Don’t have an account? Sign up!
-        </Button>
-      </View>
+          <Button
+            style={styles.buttonRegister}
+            labelStyle={{ fontSize: 12 }}
+            color="lightgray"
+            onPress={() => navigation.navigate("Register")}
+          >
+            Don’t have an account? Sign up!
+          </Button>
+        </View>
+      </KeyboardAwareScrollView>
     </View>
   );
 };
