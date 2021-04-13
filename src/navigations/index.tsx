@@ -11,12 +11,13 @@ export default () => {
   const [loginChecked, setLoginChecked] = React.useState(false);
 
   useEffect(() => {
+    console.log("calling useEffect in index nav");
     async function fetchLoginStatus() {
       loggedIn = await isLoggedIn();
       setLoginChecked(true);
     }
-    // fetchLoginStatus();
-    logout();
+    fetchLoginStatus();
+    // logout();
   }, []);
 
   const getNavigator = (): any | null => {

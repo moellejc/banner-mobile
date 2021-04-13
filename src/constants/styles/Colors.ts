@@ -2,10 +2,10 @@ export const PRIMARY = "#";
 export const SECONDARY = "#";
 export const WHITE = "#FFFFFF";
 export const BLACK = "#000000";
-export const BLUE = "#2E51DC";
+export const BLUE = "#2B0EAC";
 export const DARK_PURPLE = "#6040A3";
-export const PURPLE = "#7F3580";
-export const PINK = "#9C2B5F";
+export const PURPLE = "#7B46E4";
+export const PINK = "#AE0BB5";
 export const RED = "#DD1515";
 
 // ACTIONS

@@ -1,8 +1,7 @@
 import React from "react";
 import { View, StyleSheet, Dimensions, Image, Text } from "react-native";
 import { TextInput, Button } from "react-native-paper";
-import AppTheme, { textInputTheme } from "../../styles/Theme";
-import GradientBorderButton from "../../components/atoms/GradientBorderButton";
+import AppTheme, { textInputTheme } from "../../constants/styles/Theme";
 import { useNavigation } from "@react-navigation/native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { ApolloError, gql, useMutation } from "@apollo/client";
@@ -12,6 +11,7 @@ import {
   FieldError,
 } from "../../graphql/generator/NeuronGQLTypes";
 import { setToken } from "../../services/auth";
+import FabricButton from "../../components/atoms/FabricButton";
 
 const defaultState = {
   values: {
@@ -48,7 +48,6 @@ const LoginScreen: React.FC = () => {
   if (loading) console.log(`Loading...`);
 
   const handleLogin = async () => {
-    console.log("handle login");
     // try login
     await login({
       variables: {
@@ -57,7 +56,6 @@ const LoginScreen: React.FC = () => {
       },
     });
 
-    console.log("before data");
     // process results
     if (data.login) {
       const loginData = data.login as LoginResponse;
@@ -70,61 +68,53 @@ const LoginScreen: React.FC = () => {
   };
 
   return (
-    <View style={styles.pageContainer}>
-      <KeyboardAwareScrollView>
-        <View style={styles.row}>
+    <View style={[styles.pageContainer, {}]}>
+      <KeyboardAwareScrollView contentContainerStyle={{ flexGrow: 1 }}>
+        <View style={[{ flex: 1 }, styles.row]}>
           <Image
             resizeMode="contain"
             style={styles.icon}
-            source={require("../../../assets/images/icon-neuron.png")}
+            source={require("../../../assets/images/icon-fabric.png")}
           />
           <Image
             resizeMode="contain"
             style={styles.logo}
-            source={require("../../../assets/images/logo-neuron.png")}
+            source={require("../../../assets/images/txt-fabric-white.png")}
           />
         </View>
-        <View style={[styles.row]}>
-          <TextInput
-            style={styles.input}
-            mode="flat"
-            label="Email"
-            value={email}
-            theme={textInputTheme}
-            underlineColor="white"
-            onChangeText={(email) => setEmail(email)}
-            selectionColor={AppTheme.colors.neuronPurple}
-          />
-          <TextInput
-            style={styles.input}
-            mode="flat"
-            label="Password"
-            secureTextEntry={true}
-            value={password}
-            theme={textInputTheme}
-            underlineColor="white"
-            onChangeText={(password) => setPassword(password)}
-            selectionColor={AppTheme.colors.neuronPurple}
-          />
+        <View style={[{ flex: 3 }, styles.row]}>
+          <View style={{ alignContent: "center" }}>
+            <TextInput
+              style={styles.input}
+              mode="flat"
+              label="Email"
+              value={email}
+              theme={textInputTheme}
+              underlineColor="white"
+              onChangeText={(email) => setEmail(email)}
+              selectionColor={AppTheme.colors.fabricPurple}
+            />
+            <TextInput
+              style={styles.input}
+              mode="flat"
+              label="Password"
+              secureTextEntry={true}
+              value={password}
+              theme={textInputTheme}
+              underlineColor="white"
+              onChangeText={(password) => setPassword(password)}
+              selectionColor={AppTheme.colors.fabricPurple}
+            />
+          </View>
         </View>
-        <View style={styles.row}>
-          <GradientBorderButton
-            style={styles.buttonLogin}
+        <View style={[{ flex: 1 }, styles.row]}>
+          <FabricButton
             text="Login"
-            gradientColors={[
-              AppTheme.colors.neuronBlue,
-              AppTheme.colors.neuronRed,
-            ]}
-            gradientPositions={{ start: { x: 0, y: 0 }, end: { x: 1, y: 1 } }}
             height={50}
             width={screenWidth}
             borderRadius={25}
-            borderWidth={2}
-            textColor="#fff"
-            backgroundColor="#000"
             onPress={handleLogin}
           />
-
           <Button
             style={styles.buttonRegister}
             labelStyle={{ fontSize: 12 }}
@@ -144,21 +134,22 @@ const styles = StyleSheet.create({
     flex: 1,
     margin: 30,
     flexDirection: "column",
+    alignItems: "stretch",
   },
   row: {
-    flex: 1,
     flexDirection: "column",
     alignItems: "center",
     alignContent: "center",
+    justifyContent: "center",
   },
   icon: {
-    width: 36,
-    height: 44,
+    width: 66,
+    height: 66,
     marginBottom: 40,
   },
   logo: {
-    width: 204,
-    height: 26,
+    width: 161,
+    height: 65,
   },
   buttonLogin: {
     marginTop: 50,

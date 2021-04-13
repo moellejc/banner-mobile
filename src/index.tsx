@@ -3,8 +3,10 @@ import { ApolloProvider } from "@apollo/client";
 import AppNav from "./navigations";
 import { Provider as PaperProvider } from "react-native-paper";
 import { client } from "./lib/apollo";
-import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
-import AppTheme from "./styles/Theme";
+import { SafeAreaProvider } from "react-native-safe-area-context";
+import AppTheme from "./constants/styles/Theme";
+import { Provider } from "react-redux";
+import { store } from "./state/store";
 
 export default class App extends React.PureComponent {
   render() {
@@ -12,7 +14,9 @@ export default class App extends React.PureComponent {
       <ApolloProvider client={client}>
         <PaperProvider theme={AppTheme}>
           <SafeAreaProvider>
-            <AppNav />
+            <Provider store={store}>
+              <AppNav />
+            </Provider>
           </SafeAreaProvider>
         </PaperProvider>
       </ApolloProvider>

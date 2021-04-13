@@ -1,12 +1,46 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { View, StyleSheet, Dimensions, Image } from "react-native";
 import { TextInput, Button, Headline } from "react-native-paper";
-import AppTheme, { textInputTheme } from "../../styles/Theme";
-import GradientBorderButton from "../../components/atoms/GradientBorderButton";
+import AppTheme, { textInputTheme } from "../../constants/styles/Theme";
+import { ApolloError, gql, useMutation } from "@apollo/client";
 import { useNavigation } from "@react-navigation/native";
 import { AntDesign } from "@expo/vector-icons";
+import FabricButton from "../../components/atoms/FabricButton";
+import {
+  RegisterResponse,
+  FieldError,
+} from "../../graphql/generator/FarbicGQLTypes";
+import { useSelector, useDispatch } from "react-redux";
+import { userConstants } from "../../constants/state";
 
 const screenWidth = Dimensions.get("window").width - 60;
+
+const REGISTER_MUTATION = gql`
+  mutation RegisterMutation(
+    $firstName: String!
+    $lastName: String!
+    $email: String!
+    $screeName: String!
+    $password: String!
+    $repassword: String!
+  ) {
+    register(
+      options: {
+        firstName: $firstName
+        lastName: $lastName
+        email: $email
+        screenName: $screeName
+        password: $password
+        repassword: $repassword
+      }
+    ) {
+      accessToken
+      user {
+        id
+      }
+    }
+  }
+`;
 
 const RegisterScreen: React.FC = () => {
   const [firstName, setFirstName] = React.useState("");
@@ -14,18 +48,50 @@ const RegisterScreen: React.FC = () => {
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
   const [passwordAgain, setPasswordAgain] = React.useState("");
+  const [isInvalidLogin, setIsInvalidLogin] = React.useState(false);
   const navigation = useNavigation();
 
-  navigation.setOptions({
-    headerLeft: () => (
-      <AntDesign
-        name="arrowleft"
-        size={24}
-        color="white"
-        onPress={() => navigation.goBack()}
-      />
-    ),
+  const dispatch = useDispatch();
+
+  const [register, { data, error, loading }] = useMutation(REGISTER_MUTATION);
+
+  useEffect(() => {
+    navigation.setOptions({
+      headerLeft: () => (
+        <AntDesign
+          name="arrowleft"
+          size={24}
+          color="white"
+          onPress={() => navigation.goBack()}
+        />
+      ),
+    });
   });
+
+  const handleRegister = async () => {
+    // try login
+    await register({
+      variables: {
+        firstName: firstName,
+        lastName: lastName,
+        email: email,
+        password: password,
+        repassword: passwordAgain,
+      },
+    });
+
+    // process results
+    if (data.register) {
+      const registerData = data.login as RegisterResponse;
+
+      if (data.errors) setIsInvalidLogin(true);
+
+      dispatch({
+        type: userConstants.REGISTER_REQUEST,
+        payload: { user: registerData.user, token: registerData.accessToken },
+      });
+    }
+  };
 
   return (
     <View style={styles.pageContainer}>
@@ -83,20 +149,11 @@ const RegisterScreen: React.FC = () => {
       </View>
 
       <View style={[styles.row, { flex: 1 }]}>
-        <GradientBorderButton
-          style={styles.buttonLogin}
+        <FabricButton
           text="Sign Up"
-          gradientColors={[
-            AppTheme.colors.neuronBlue,
-            AppTheme.colors.neuronRed,
-          ]}
-          gradientPositions={{ start: { x: 0, y: 0 }, end: { x: 1, y: 1 } }}
           height={50}
           width={screenWidth}
           borderRadius={25}
-          borderWidth={2}
-          textColor="#fff"
-          backgroundColor="#000"
           onPress={() => console.log("REGISTER pressed")}
         />
       </View>
