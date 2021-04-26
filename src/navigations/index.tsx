@@ -17,6 +17,9 @@ export default () => {
       setLoginChecked(true);
     }
     fetchLoginStatus();
+
+    // TODO: set token in state
+
     // logout();
   }, []);
 

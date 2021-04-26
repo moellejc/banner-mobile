@@ -1,0 +1,6 @@
+export const meConstants = {
+  REGISTER: "ME/REGISTER",
+  LOGIN: "ME/LOGIN",
+  LOGOUT: "ME/LOGOUT",
+  SET_LOCATION: "ME/UPDATE_LOCATION",
+};

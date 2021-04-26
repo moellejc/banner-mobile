@@ -1,17 +1,20 @@
-import { userConstants } from "../../constants/state";
+import { meConstants } from "../../constants/state";
 import {
   UserRoles,
   UserStatuses,
   UserTypes,
 } from "../../graphql/generator/FarbicGQLTypes";
+import { Coordinates } from "../../types/Coordinates";
 import { User } from "../../types/User";
 
-interface UserState {
+interface MeState {
+  loggedIn: boolean;
   user: User;
-  token: string;
+  location: Coordinates | null;
 }
 
-const initialUserState: UserState = {
+const initialMeState: MeState = {
+  loggedIn: false,
   user: {
     id: "",
     email: "",
@@ -34,15 +37,24 @@ const initialUserState: UserState = {
     lastActiveAt: new Date(),
     createdAt: new Date(),
   },
-  token: "",
+  location: null,
 };
 
-const initialState = {};
-
-export function userReducer(state = initialState, action: any) {
+export function meReducer(state = initialMeState, action: any) {
   switch (action.type) {
-    case userConstants.LOGIN_REQUEST:
-      return state;
+    case meConstants.LOGIN:
+      return {
+        ...state,
+        loggedIn: true,
+        user: action.payload,
+      };
+    case meConstants.LOGOUT:
+      return initialMeState;
+    case meConstants.SET_LOCATION:
+      return {
+        ...state,
+        location: null,
+      };
     default:
       return state;
   }

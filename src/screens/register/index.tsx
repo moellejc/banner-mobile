@@ -11,7 +11,8 @@ import {
   FieldError,
 } from "../../graphql/generator/FarbicGQLTypes";
 import { useSelector, useDispatch } from "react-redux";
-import { userConstants } from "../../constants/state";
+import { authConstants } from "../../constants/state";
+import { meConstants } from "../../constants/state";
 
 const screenWidth = Dimensions.get("window").width - 60;
 
@@ -87,7 +88,7 @@ const RegisterScreen: React.FC = () => {
       if (data.errors) setIsInvalidLogin(true);
 
       dispatch({
-        type: userConstants.REGISTER_REQUEST,
+        type: authConstants.REGISTER,
         payload: { user: registerData.user, token: registerData.accessToken },
       });
     }
@@ -101,6 +102,7 @@ const RegisterScreen: React.FC = () => {
       <View style={[styles.row, { flex: 3 }]}>
         <TextInput
           style={styles.input}
+          textAlign="left"
           mode="flat"
           label="First Name"
           value={firstName}
@@ -110,6 +112,7 @@ const RegisterScreen: React.FC = () => {
         />
         <TextInput
           style={styles.input}
+          textAlign="left"
           mode="flat"
           label="Last Name"
           value={lastName}
@@ -119,6 +122,7 @@ const RegisterScreen: React.FC = () => {
         />
         <TextInput
           style={styles.input}
+          textAlign="left"
           mode="flat"
           label="Email"
           value={email}
@@ -128,6 +132,7 @@ const RegisterScreen: React.FC = () => {
         />
         <TextInput
           style={styles.input}
+          textAlign="left"
           mode="flat"
           label="Password"
           value={password}
@@ -138,6 +143,7 @@ const RegisterScreen: React.FC = () => {
         />
         <TextInput
           style={styles.input}
+          textAlign="left"
           mode="flat"
           label="Password Again"
           secureTextEntry={true}

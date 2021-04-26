@@ -1,63 +1,25 @@
-import { userConstants } from "../../constants/state";
-import {
-  UserRoles,
-  UserStatuses,
-  UserTypes,
-} from "../../graphql/generator/FarbicGQLTypes";
-import { User } from "../../types/User";
+import { authConstants } from "../../constants/state";
+import { setToken } from "../../services/auth";
 
-// let user = JSON.parse(localStorage.getItem('user'));
-// const initialState = user ? { loggedIn: true, user } : {};
-interface UserState {
-  loggedIn: boolean;
-  user: User;
+interface AuthState {
   token: string;
 }
 
-const initialUserState: UserState = {
-  loggedIn: false,
-  user: {
-    id: "",
-    email: "",
-    firstName: "",
-    lastName: "",
-    profilePic: "",
-    verified: false,
-    role: UserRoles.Basic,
-    screenName: "",
-    status: UserStatuses.Active,
-    userType: UserTypes.Standard,
-    likes: [],
-    media: [],
-    posts: [],
-    totalFollowers: 0,
-    totalFollowing: 0,
-    totalFollowingPlaces: 0,
-    totalLikes: 0,
-    totalPosts: 0,
-    lastActiveAt: new Date(),
-    createdAt: new Date(),
-  },
+const initialAuthState: AuthState = {
   token: "",
 };
 
-export function authReducer(state = initialUserState, action: any) {
+export function authReducer(state = initialAuthState, action: any) {
   switch (action.type) {
-    case userConstants.REGISTER_REQUEST:
+    case authConstants.SET_TOKEN:
+      console.log(action);
+      setToken(action.payload.token);
       return {
-        loggedIn: true,
-        user: action.user,
-        token: action.token,
+        token: action.payload.token,
       };
-    case userConstants.LOGIN_REQUEST:
+    case authConstants.CLEAR_TOKEN:
       return {
-        loggedIn: true,
-        user: action.user,
-        token: action.token,
-      };
-    case userConstants.LOGOUT:
-      return {
-        loggingIn: false,
+        token: "",
       };
     default:
       return state;

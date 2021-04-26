@@ -1,6 +1,6 @@
 import React from "react";
 // import { NativeRouter, Switch, Route } from "react-router-native";
-import LoginScreen from "../screens/login";
+import { LoginScreen } from "../screens/login";
 import RegisterScreen from "../screens/register";
 import { createStackNavigator } from "@react-navigation/stack";
 import AppTheme from "../constants/styles/Theme";

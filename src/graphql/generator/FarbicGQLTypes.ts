@@ -40,7 +40,7 @@ export type Like = {
 
 export type LoginResponse = {
   __typename?: "LoginResponse";
-  accessToken?: Scalars["String"];
+  accessToken?: Scalars["String"] | null;
   errors?: Maybe<Array<FieldError>>;
 };
 
