@@ -5,15 +5,35 @@ import {
   UserTypes,
 } from "../../graphql/generator/FarbicGQLTypes";
 import { Coordinates } from "../../types/Coordinates";
-import { User } from "../../types/User";
 
-interface MeState {
+export interface IMeState {
   loggedIn: boolean;
-  user: User;
+  user: {
+    id: string;
+    email: string;
+    firstName: string;
+    lastName: string;
+    profilePic: string;
+    verified: boolean;
+    role: string;
+    screenName: string;
+    status: string;
+    userType: string;
+    likes: [];
+    media: [];
+    posts: [];
+    totalFollowers: number;
+    totalFollowing: number;
+    totalFollowingPlaces: number;
+    totalLikes: number;
+    totalPosts: number;
+    lastActiveAt: string;
+    createdAt: string;
+  };
   location: Coordinates | null;
 }
 
-const initialMeState: MeState = {
+const initialMeState: IMeState = {
   loggedIn: false,
   user: {
     id: "",
@@ -34,8 +54,8 @@ const initialMeState: MeState = {
     totalFollowingPlaces: 0,
     totalLikes: 0,
     totalPosts: 0,
-    lastActiveAt: new Date(),
-    createdAt: new Date(),
+    lastActiveAt: "",
+    createdAt: "",
   },
   location: null,
 };

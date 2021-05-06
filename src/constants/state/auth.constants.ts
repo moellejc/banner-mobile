@@ -1,4 +1,5 @@
 export const authConstants = {
   SET_TOKEN: "AUTH/SET_TOKEN",
+  COMPLETE_LOGIN: "AUTH/COMPLETE_LOGIN",
   CLEAR_TOKEN: "AUTH/CLEAR_TOKEN",
 };

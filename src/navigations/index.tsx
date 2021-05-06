@@ -2,29 +2,46 @@ import React, { useEffect } from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import AuthNavigator from "./AuthNavigator";
 import AppNavigator from "./AppNavigator";
-import { isLoggedIn, logout } from "../services/auth";
+import { checkLoginStatus, getToken, logout } from "../services/auth";
 import { Loader } from "../components/atoms/Loader";
-
-let loggedIn = false;
+import { useSelector, useDispatch } from "react-redux";
+import { RootState } from "../state/store/";
+import { authConstants } from "../constants/state/auth.constants";
+import { store } from "../state/store";
 
 export default () => {
   const [loginChecked, setLoginChecked] = React.useState(false);
+  const [isLoggedIn, setIsLoggedIn] = React.useState(false);
+  const dispatch = useDispatch();
+
+  // watch for changes in login state
+  let unsubscribe = store.subscribe(() => {
+    setIsLoggedIn(store.getState().auth.loginComplete);
+  });
 
   useEffect(() => {
     console.log("calling useEffect in index nav");
     async function fetchLoginStatus() {
-      loggedIn = await isLoggedIn();
+      // check is user token is stored and valid
+      if (await checkLoginStatus()) {
+        // update store
+        let token = await getToken();
+        dispatch({
+          type: authConstants.SET_TOKEN,
+          payload: { token },
+        });
+
+        // TODO: get user info from storage
+      }
       setLoginChecked(true);
     }
     fetchLoginStatus();
-
-    // TODO: set token in state
 
     // logout();
   }, []);
 
   const getNavigator = (): any | null => {
-    if (loginChecked) return !loggedIn ? <AuthNavigator /> : <AppNavigator />;
+    if (loginChecked) return !isLoggedIn ? <AuthNavigator /> : <AppNavigator />;
     return <Loader />;
   };
 

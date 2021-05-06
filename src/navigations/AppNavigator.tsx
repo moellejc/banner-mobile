@@ -1,5 +1,5 @@
 import React from "react";
-import FeedScreen from "../screens/feed";
+import { FeedScreen } from "../screens/feed";
 import { createStackNavigator } from "@react-navigation/stack";
 import AppTheme from "../constants/styles/Theme";
 

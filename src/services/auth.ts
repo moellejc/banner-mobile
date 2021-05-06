@@ -10,8 +10,10 @@ export const getToken = async (): Promise<string | null> => {
   return await SecureStore.getItemAsync(TOKEN_KEY);
 };
 
-export const isLoggedIn = async () => {
+export const checkLoginStatus = async () => {
   const token = await SecureStore.getItemAsync(TOKEN_KEY);
+
+  // TODO: confirm token is valid
 
   return token !== null ? true : false;
 };

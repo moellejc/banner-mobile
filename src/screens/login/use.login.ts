@@ -19,79 +19,69 @@ let isValid = (email: string, password: string): boolean => {
   return email && password ? true : false;
 };
 
-export const useLogin = (): [string, string, IUseLoginResponse] => {
+export const useLogin = (
+  callback?: () => any
+): [string, string, IUseLoginResponse] => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [isInvalidLogin, setIsInvalidLogin] = useState(false);
   const dispatch = useDispatch();
 
-  const [
-    login,
-    { data: loginData, error: loginError, loading: loginLoading },
-  ] = useMutation(LOGIN_MUTATION);
-  const [
-    getMe,
-    { data: meData, error: meError, loading: meLoading },
-  ] = useLazyQuery(GET_ME_QUERY);
+  const [login] = useMutation(LOGIN_MUTATION, {
+    variables: { email, password },
+    onCompleted: (data) => {
+      // process results
+      if (data.login) {
+        const loginRes = data.login as LoginResponse;
 
-  //   if (loginLoading || meLoading) console.log(`Loading...`);
+        if (loginRes.errors) setIsInvalidLogin(true);
 
-  // loagin with user creds and get JWT
-  const handleLogin = async () => {
-    // try login
-    await login({
-      variables: {
-        email: email,
-        password: password,
-      },
-    });
-    console.log(loginData);
+        // login was successful
+        if (loginRes.accessToken) {
+          // setup redux with token
+          dispatch({
+            type: authConstants.SET_TOKEN,
+            payload: { token: loginRes.accessToken },
+          });
 
-    // process results
-    if (loginData.login) {
-      const loginRes = loginData.login as LoginResponse;
-
-      if (loginRes.errors) setIsInvalidLogin(true);
-
-      // loagin was successful
-      if (loginRes.accessToken) {
-        // setup redux with token
-        dispatch({
-          type: authConstants.SET_TOKEN,
-          payload: { token: loginRes.accessToken },
-        });
-        await handleGetMe();
+          // get the logged in users info
+          getMe();
+        }
       }
-    }
-  };
+    },
+    onError: (error) => {
+      setIsLoading(false);
+      console.log(error);
+    },
+  });
 
-  // get logged in user data
-  const handleGetMe = async () => {
-    await getMe();
-    console.log("print me data");
-    console.log(meData);
-    console.log(meError);
+  const [getMe] = useLazyQuery(GET_ME_QUERY, {
+    onCompleted: (data) => {
+      dispatch({
+        type: meConstants.LOGIN,
+        payload: data,
+      });
 
-    dispatch({
-      type: meConstants.LOGIN,
-      payload: meData,
-    });
-  };
+      // authentication complete
+      setIsLoading(false);
+      if (typeof callback !== "undefined") callback();
+    },
+    onError: (error) => {
+      setIsLoading(false);
+      console.log(error);
+    },
+  });
 
   // submit login info
-  const handleSubmit = async () => {
+  const handleSubmit = () => {
     // check for valid creds
     if (!isValid(email, password)) return;
 
     // set loading while loginning in
     setIsLoading(true);
 
-    console.log("before login");
-    await handleLogin();
-
-    // turn off loading when complete
-    setIsLoading(false);
+    login();
   };
 
   return [

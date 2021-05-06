@@ -6,6 +6,9 @@ import { useNavigation } from "@react-navigation/native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import FabricButton from "../../components/atoms/FabricButton";
 import { useLogin } from "./use.login";
+import { authConstants, meConstants } from "../../constants/state";
+import { useDispatch } from "react-redux";
+import { store } from "../../state/store";
 
 const defaultState = {
   values: {
@@ -20,15 +23,26 @@ const defaultState = {
 const screenWidth = Dimensions.get("window").width - 60;
 
 export const LoginScreen: React.FC = () => {
+  const dispatch = useDispatch();
+  const navigation = useNavigation();
+
+  const handleAfterLogin = () => {
+    console.log("authentication complete go to feed page");
+    let loginState = store.getState();
+
+    if (loginState.me.user != null && loginState.auth.token != "") {
+      dispatch({
+        type: authConstants.COMPLETE_LOGIN,
+      });
+    } else {
+      console.log("error logging in. not all auth data retrieved");
+    }
+  };
   const [
     email,
     password,
     { setEmail, setPassword, validate, login, loading, errors },
-  ] = useLogin();
-  const navigation = useNavigation();
-
-  if (loading) console.log("logging in now");
-  // if (!loading) console.log("not logging in");
+  ] = useLogin(handleAfterLogin);
 
   return (
     <View style={[styles.pageContainer, {}]}>
@@ -74,7 +88,7 @@ export const LoginScreen: React.FC = () => {
         </View>
         <View style={[{ flex: 1 }, styles.row]}>
           <FabricButton
-            text="Login"
+            text={loading ? "Logging In..." : "Login"}
             height={50}
             width={screenWidth}
             borderRadius={25}
@@ -128,5 +142,3 @@ const styles = StyleSheet.create({
     textAlign: "left",
   },
 });
-
-export default LoginScreen;

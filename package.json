@@ -41,6 +41,7 @@
     "react-redux": "^7.2.3",
     "react-router-native": "^5.2.0",
     "redux": "^4.0.5",
+    "redux-subscriber": "^1.1.0",
     "typesafe-actions": "^5.1.0",
     "yup": "^0.32.8"
   },
@@ -54,6 +55,7 @@
     "@types/react-redux": "^7.1.16",
     "@types/react-router-native": "^5.1.0",
     "@types/redux": "^3.6.0",
+    "@types/redux-subscriber": "^1.1.0",
     "@types/yup": "^0.29.11",
     "babel-jest": "~25.2.6",
     "babel-preset-expo": "~8.3.0",
