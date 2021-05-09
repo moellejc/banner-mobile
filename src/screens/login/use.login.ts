@@ -3,9 +3,9 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { LOGIN_MUTATION } from "../../constants/graphql/auth";
 import { GET_ME_QUERY } from "../../constants/graphql/me";
-import { authConstants, meConstants } from "../../constants/state";
-import { LoginResponse } from "../../graphql/generator/FarbicGQLTypes";
-
+import { LoginResponse } from "../../graphql/generator/FabricGQLTypes";
+import { Services } from "../../services";
+import { Actions } from "../../state";
 interface IUseLoginResponse {
   setEmail: React.Dispatch<React.SetStateAction<string>>;
   setPassword: React.Dispatch<React.SetStateAction<string>>;
@@ -41,7 +41,7 @@ export const useLogin = (
         if (loginRes.accessToken) {
           // setup redux with token
           dispatch({
-            type: authConstants.SET_TOKEN,
+            type: Actions.AuthActions.SET_TOKEN,
             payload: { token: loginRes.accessToken },
           });
 
@@ -59,7 +59,7 @@ export const useLogin = (
   const [getMe] = useLazyQuery(GET_ME_QUERY, {
     onCompleted: (data) => {
       dispatch({
-        type: meConstants.LOGIN,
+        type: Actions.MeActions.LOGIN,
         payload: data,
       });
 
@@ -81,7 +81,9 @@ export const useLogin = (
     // set loading while loginning in
     setIsLoading(true);
 
-    login();
+    let res = Services.AuthService.login(email, password);
+
+    // login();
   };
 
   return [

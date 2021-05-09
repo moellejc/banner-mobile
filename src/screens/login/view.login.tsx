@@ -6,9 +6,9 @@ import { useNavigation } from "@react-navigation/native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import FabricButton from "../../components/atoms/FabricButton";
 import { useLogin } from "./use.login";
-import { authConstants, meConstants } from "../../constants/state";
 import { useDispatch } from "react-redux";
-import { store } from "../../state/store";
+import { store } from "../../state";
+import { Actions } from "../../state";
 
 const defaultState = {
   values: {
@@ -32,7 +32,7 @@ export const LoginScreen: React.FC = () => {
 
     if (loginState.me.user != null && loginState.auth.token != "") {
       dispatch({
-        type: authConstants.COMPLETE_LOGIN,
+        type: Actions.AuthActions.COMPLETE_LOGIN,
       });
     } else {
       console.log("error logging in. not all auth data retrieved");

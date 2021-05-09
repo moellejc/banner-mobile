@@ -1,4 +1,4 @@
-export const authConstants = {
+export const AuthActions = {
   SET_TOKEN: "AUTH/SET_TOKEN",
   COMPLETE_LOGIN: "AUTH/COMPLETE_LOGIN",
   CLEAR_TOKEN: "AUTH/CLEAR_TOKEN",

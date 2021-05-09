@@ -1,4 +1,4 @@
-export const meConstants = {
+export const MeActions = {
   REGISTER: "ME/REGISTER",
   LOGIN: "ME/LOGIN",
   LOGOUT: "ME/LOGOUT",

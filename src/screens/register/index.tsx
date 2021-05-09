@@ -9,10 +9,11 @@ import FabricButton from "../../components/atoms/FabricButton";
 import {
   RegisterResponse,
   FieldError,
-} from "../../graphql/generator/FarbicGQLTypes";
+} from "../../graphql/generator/FabricGQLTypes";
 import { useSelector, useDispatch } from "react-redux";
-import { authConstants } from "../../constants/state";
-import { meConstants } from "../../constants/state";
+import { authConstants } from "../../constants/state_old";
+import { meConstants } from "../../constants/state_old";
+import { Actions } from "../../state";
 
 const screenWidth = Dimensions.get("window").width - 60;
 
@@ -88,7 +89,7 @@ const RegisterScreen: React.FC = () => {
       if (data.errors) setIsInvalidLogin(true);
 
       dispatch({
-        type: authConstants.REGISTER,
+        type: Actions.MeActions.REGISTER,
         payload: { user: registerData.user, token: registerData.accessToken },
       });
     }

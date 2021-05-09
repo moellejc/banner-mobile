@@ -1,5 +1,5 @@
-import { authConstants } from "../../constants/state";
 import { logout, setToken } from "../../services/auth";
+import { AuthActions } from "../constants";
 
 export interface IAuthState {
   token: string;
@@ -15,19 +15,19 @@ const initialAuthState: IAuthState = {
 
 export function authReducer(state = initialAuthState, action: any) {
   switch (action.type) {
-    case authConstants.SET_TOKEN:
+    case AuthActions.SET_TOKEN:
       setToken(action.payload.token);
       return {
         ...state,
         token: action.payload.token,
         isLoggedIn: true,
       };
-    case authConstants.COMPLETE_LOGIN:
+    case AuthActions.COMPLETE_LOGIN:
       return {
         ...state,
         loginComplete: true,
       };
-    case authConstants.CLEAR_TOKEN:
+    case AuthActions.CLEAR_TOKEN:
       logout();
       return {
         token: "",

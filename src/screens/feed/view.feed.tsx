@@ -4,7 +4,7 @@ import { StyleSheet, Text, View } from "react-native";
 import { Button } from "react-native-paper";
 import { useNavigation } from "@react-navigation/native";
 import { useDispatch } from "react-redux";
-import { authConstants } from "../../constants/state/auth.constants";
+import { Actions } from "../../state";
 import { LOGOUT_MUTATION } from "../../constants/graphql/auth";
 
 interface Props {}
@@ -16,7 +16,7 @@ export const FeedScreen: React.FC = () => {
   const [logout] = useMutation(LOGOUT_MUTATION, {
     onCompleted: (data) => {
       dispatch({
-        type: authConstants.CLEAR_TOKEN,
+        type: Actions.AuthActions.CLEAR_TOKEN,
       });
     },
     onError: (data) => {

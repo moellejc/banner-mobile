@@ -4,10 +4,9 @@ import AuthNavigator from "./AuthNavigator";
 import AppNavigator from "./AppNavigator";
 import { checkLoginStatus, getToken, logout } from "../services/auth";
 import { Loader } from "../components/atoms/Loader";
-import { useSelector, useDispatch } from "react-redux";
-import { RootState } from "../state/store/";
-import { authConstants } from "../constants/state/auth.constants";
-import { store } from "../state/store";
+import { useDispatch } from "react-redux";
+import { Actions } from "../state";
+import { store } from "../state";
 
 export default () => {
   const [loginChecked, setLoginChecked] = React.useState(false);
@@ -27,7 +26,7 @@ export default () => {
         // update store
         let token = await getToken();
         dispatch({
-          type: authConstants.SET_TOKEN,
+          type: Actions.AuthActions.SET_TOKEN,
           payload: { token },
         });
 

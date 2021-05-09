@@ -1,12 +1,12 @@
 import { action } from "typesafe-actions";
-import { meConstants } from "../../constants/state";
 import { User } from "../../types/User";
+import { MeActions } from "../constants";
 
-export const register = (user: User) => action(meConstants.REGISTER, { user });
+export const register = (user: User) => action(MeActions.REGISTER, { user });
 
-export const login = (user: User) => action(meConstants.LOGIN, { user });
+export const login = (user: User) => action(MeActions.LOGIN, { user });
 
 export const setLocation = (user: User) =>
-  action(meConstants.SET_LOCATION, { user });
+  action(MeActions.SET_LOCATION, { user });
 
-export const logout = () => action(meConstants.LOGOUT, {});
+export const logout = () => action(MeActions.LOGOUT, {});

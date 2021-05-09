@@ -1,10 +1,10 @@
-import { meConstants } from "../../constants/state";
 import {
   UserRoles,
   UserStatuses,
   UserTypes,
-} from "../../graphql/generator/FarbicGQLTypes";
+} from "../../graphql/generator/FabricGQLTypes";
 import { Coordinates } from "../../types/Coordinates";
+import { MeActions } from "../constants";
 
 export interface IMeState {
   loggedIn: boolean;
@@ -62,15 +62,15 @@ const initialMeState: IMeState = {
 
 export function meReducer(state = initialMeState, action: any) {
   switch (action.type) {
-    case meConstants.LOGIN:
+    case MeActions.LOGIN:
       return {
         ...state,
         loggedIn: true,
         user: action.payload,
       };
-    case meConstants.LOGOUT:
+    case MeActions.LOGOUT:
       return initialMeState;
-    case meConstants.SET_LOCATION:
+    case MeActions.SET_LOCATION:
       return {
         ...state,
         location: null,

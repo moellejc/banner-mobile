@@ -1,7 +1,7 @@
 import { action } from "typesafe-actions";
-import { authConstants } from "../../constants/state";
+import { AuthActions } from "../constants";
 
 export const setToken = (token: string) =>
-  action(authConstants.SET_TOKEN, { token });
+  action(AuthActions.SET_TOKEN, { token });
 
-export const clearToken = () => action(authConstants.CLEAR_TOKEN, {});
+export const clearToken = () => action(AuthActions.CLEAR_TOKEN, {});
