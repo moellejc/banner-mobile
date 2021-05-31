@@ -41,7 +41,7 @@ export const useLogin = (
         if (loginRes.accessToken) {
           // setup redux with token
           dispatch({
-            type: Actions.AuthActions.SET_TOKEN,
+            type: Actions.AuthActions.SET_TOKENS,
             payload: { token: loginRes.accessToken },
           });
 

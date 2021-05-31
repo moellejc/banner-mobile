@@ -3,19 +3,21 @@ import { AuthActions } from "../constants";
 
 export interface IAuthState {
   token: string;
+  refreshToken: string;
   isLoggedIn: boolean;
   loginComplete: boolean;
 }
 
 const initialAuthState: IAuthState = {
   token: "",
+  refreshToken: "",
   isLoggedIn: false,
   loginComplete: false,
 };
 
 export function authReducer(state = initialAuthState, action: any) {
   switch (action.type) {
-    case AuthActions.SET_TOKEN:
+    case AuthActions.SET_TOKENS:
       setToken(action.payload.token);
       return {
         ...state,
@@ -27,7 +29,7 @@ export function authReducer(state = initialAuthState, action: any) {
         ...state,
         loginComplete: true,
       };
-    case AuthActions.CLEAR_TOKEN:
+    case AuthActions.CLEAR_TOKENS:
       logout();
       return {
         token: "",
