@@ -22,6 +22,7 @@ export function authReducer(state = initialAuthState, action: any) {
       return {
         ...state,
         token: action.payload.token,
+        refreshToken: action.payload.refreshToken,
         isLoggedIn: true,
       };
     case AuthActions.COMPLETE_LOGIN:
@@ -31,11 +32,7 @@ export function authReducer(state = initialAuthState, action: any) {
       };
     case AuthActions.CLEAR_TOKENS:
       logout();
-      return {
-        token: "",
-        isLoggedIn: false,
-        loginComplete: false,
-      };
+      return initialAuthState;
     default:
       return state;
   }

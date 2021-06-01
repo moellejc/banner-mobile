@@ -1,5 +1,9 @@
 import { gql } from "@apollo/client";
-import { LoginResponse } from "../graphql/generator/FabricGQLTypes";
+import {
+  LoginResponse,
+  RefreshResponse,
+  RegisterResponse,
+} from "../graphql/generator/FabricGQLTypes";
 import { client } from "../lib/apollo";
 
 const LOGIN_MUTATION = gql`
@@ -16,14 +20,61 @@ const LOGIN_MUTATION = gql`
   }
 `;
 
+const REGISTER_MUTATION = gql`
+  mutation RegisterMutation(
+    $firstName: String!
+    $lastName: String!
+    $email: String!
+    $screeName: String!
+    $password: String!
+    $repassword: String!
+  ) {
+    register(
+      options: {
+        firstName: $firstName
+        lastName: $lastName
+        email: $email
+        screenName: $screeName
+        password: $password
+        repassword: $repassword
+      }
+    ) {
+      accessToken
+      user {
+        id
+      }
+    }
+  }
+`;
+
+const REFRESH_ACCESS_TOKEN_MUTATION = gql`
+  mutation AccessTokenMutation {
+    refreshToken
+  }
+`;
+
 const LOGOUT_MUTATION = gql`
   mutation LogoutMutation {
     logout
   }
 `;
 
-export const register = (): string => {
-  return "";
+export const register = async (
+  firstName: string,
+  lastName: string,
+  email: string,
+  screenName: string,
+  password: string,
+  repassword: string
+): Promise<RegisterResponse> => {
+  let registerRes = await client.mutate({
+    mutation: REGISTER_MUTATION,
+    variables: { firstName, lastName, email, screenName, password, repassword },
+  });
+
+  if (registerRes.data.register.errors) throw new Error("Error Registering");
+
+  return registerRes.data.register as RegisterResponse;
 };
 
 export const login = async (
@@ -44,8 +95,15 @@ export const logout = (): string => {
   return "";
 };
 
-export const refreshAccessToken = (): string => {
-  return "";
+export const refreshAccessToken = async (): Promise<RefreshResponse> => {
+  let refreshRes = await client.mutate({
+    mutation: REFRESH_ACCESS_TOKEN_MUTATION,
+    variables: {},
+  });
+
+  if (refreshRes.data.errors) throw new Error("Error Authenticating");
+
+  return refreshRes.data as RefreshResponse;
 };
 
 export const createRefreshToken = (): string => {
