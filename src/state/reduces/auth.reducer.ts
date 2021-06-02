@@ -1,4 +1,3 @@
-import { logout, setToken } from "../../services/auth";
 import { AuthActions } from "../constants";
 
 export interface IAuthState {
@@ -18,7 +17,6 @@ const initialAuthState: IAuthState = {
 export function authReducer(state = initialAuthState, action: any) {
   switch (action.type) {
     case AuthActions.SET_TOKENS:
-      setToken(action.payload.token);
       return {
         ...state,
         token: action.payload.token,
@@ -31,7 +29,6 @@ export function authReducer(state = initialAuthState, action: any) {
         loginComplete: true,
       };
     case AuthActions.CLEAR_TOKENS:
-      logout();
       return initialAuthState;
     default:
       return state;

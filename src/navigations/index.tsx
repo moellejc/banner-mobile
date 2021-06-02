@@ -1,16 +1,15 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import AuthNavigator from "./AuthNavigator";
 import AppNavigator from "./AppNavigator";
-import { checkLoginStatus, getToken, logout } from "../services/auth";
 import { Loader } from "../components/atoms/Loader";
 import { useDispatch } from "react-redux";
-import { Actions } from "../state";
 import { store } from "../state";
+import { Services } from "../services";
 
 export default () => {
-  const [loginChecked, setLoginChecked] = React.useState(false);
-  const [isLoggedIn, setIsLoggedIn] = React.useState(false);
+  const loginChecked = useRef(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const dispatch = useDispatch();
 
   // watch for changes in login state
@@ -19,20 +18,19 @@ export default () => {
   });
 
   useEffect(() => {
-    console.log("calling useEffect in index nav");
+    if (loginChecked.current) return;
+
     async function fetchLoginStatus() {
       // check is user token is stored and valid
-      if (await checkLoginStatus()) {
-        // update store
-        let token = await getToken();
-        dispatch({
-          type: Actions.AuthActions.SET_TOKEN,
-          payload: { token },
-        });
+      if (await Services.AuthService.isRefreshValid()) {
+        const [res, errors] = await Services.AuthService.refreshAccessToken();
+
+        // if refresh was sucessful go to feed
+        if (res) setIsLoggedIn(true);
 
         // TODO: get user info from storage
       }
-      setLoginChecked(true);
+      loginChecked.current = true;
     }
     fetchLoginStatus();
 
@@ -40,7 +38,8 @@ export default () => {
   }, []);
 
   const getNavigator = (): any | null => {
-    if (loginChecked) return !isLoggedIn ? <AuthNavigator /> : <AppNavigator />;
+    if (loginChecked.current)
+      return !isLoggedIn ? <AuthNavigator /> : <AppNavigator />;
     return <Loader />;
   };
 

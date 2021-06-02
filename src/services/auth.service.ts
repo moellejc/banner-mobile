@@ -2,6 +2,7 @@ import * as SecureStore from "expo-secure-store";
 import { decode } from "jsonwebtoken";
 import { FabricAPI } from "../api";
 import {
+  FieldError,
   LoginResponse,
   RegisterResponse,
 } from "../graphql/generator/FabricGQLTypes";
@@ -18,7 +19,7 @@ export const getRefreshToken = async (): Promise<string | null> => {
   return await SecureStore.getItemAsync(TOKEN_REFRESH_KEY);
 };
 
-export const isRefreshValid = async () => {
+export const isRefreshValid = async (): Promise<boolean> => {
   const refreshToken = await getRefreshToken();
 
   if (!refreshToken) return false;
@@ -54,7 +55,7 @@ export const register = async (
   screenName: string,
   password: string,
   repassword: string
-): Promise<boolean> => {
+): Promise<[boolean, FieldError[] | null]> => {
   // call Login API
   let res: RegisterResponse = await FabricAPI.Auth.register(
     firstName,
@@ -66,7 +67,7 @@ export const register = async (
   );
 
   // TOOD: check for failure
-  if (res.errors) return false;
+  if (res.errors) return [false, res.errors];
 
   // update redux
   store.dispatch({
@@ -74,24 +75,26 @@ export const register = async (
     payload: { token: res.accessToken, refreshToken: res.refreshToken },
   });
 
+  store.dispatch({
+    type: Actions.MeActions.LOGIN,
+  });
+
   // update secure storage
   setRefreshToken(res.refreshToken);
 
   // request me info
-  await Services.MeService.getMe();
-
-  return true;
+  return await Services.MeService.getMe();
 };
 
 export const login = async (
   email: string,
   password: string
-): Promise<boolean> => {
+): Promise<[boolean, FieldError[] | null]> => {
   // call Login API
   let res: LoginResponse = await FabricAPI.Auth.login(email, password);
 
   // TOOD: check for failure
-  if (res.errors) return false;
+  if (res.errors) return [false, res.errors];
 
   // update redux
   store.dispatch({
@@ -99,21 +102,25 @@ export const login = async (
     payload: { token: res.accessToken, refreshToken: res.refreshToken },
   });
 
+  store.dispatch({
+    type: Actions.MeActions.LOGIN,
+  });
+
   // update secure storage
   setRefreshToken(res.refreshToken);
 
   // request me info
-  await Services.MeService.updateMe();
-
-  return true;
+  return await Services.MeService.getMe();
 };
 
-export const refreshAccessToken = async (): Promise<boolean> => {
+export const refreshAccessToken = async (): Promise<
+  [boolean, FieldError[] | null]
+> => {
   // make API call
   const res = await FabricAPI.Auth.refreshAccessToken();
 
   // TODO: check for failures
-  if (res.errors) return false;
+  if (res.errors) return [false, res.errors];
 
   // TODO: update access token
   store.dispatch({
@@ -121,7 +128,7 @@ export const refreshAccessToken = async (): Promise<boolean> => {
     payload: { token: res.accessToken },
   });
 
-  return true;
+  return [true, null];
 };
 
 export const logout = () => SecureStore.deleteItemAsync(TOKEN_REFRESH_KEY);

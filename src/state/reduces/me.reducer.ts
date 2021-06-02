@@ -66,10 +66,14 @@ export function meReducer(state = initialMeState, action: any) {
       return {
         ...state,
         loggedIn: true,
-        user: action.payload,
       };
     case MeActions.LOGOUT:
       return initialMeState;
+    case MeActions.SET_USER_DATA:
+      return {
+        ...state,
+        user: action.payload.user,
+      };
     case MeActions.SET_LOCATION:
       return {
         ...state,

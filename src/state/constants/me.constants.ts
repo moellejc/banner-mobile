@@ -3,4 +3,5 @@ export const MeActions = {
   LOGIN: "ME/LOGIN",
   LOGOUT: "ME/LOGOUT",
   SET_LOCATION: "ME/UPDATE_LOCATION",
+  SET_USER_DATA: "ME/SET_USER_DATA",
 };
