@@ -62,7 +62,7 @@ const initialMeState: IMeState = {
 
 export function meReducer(state = initialMeState, action: any) {
   switch (action.type) {
-    case MeActions.LOGIN:
+    case MeActions.LOGGED_IN:
       return {
         ...state,
         loggedIn: true,

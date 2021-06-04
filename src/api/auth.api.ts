@@ -1,7 +1,6 @@
 import { gql } from "@apollo/client";
 import {
   LoginResponse,
-  RefreshResponse,
   RegisterResponse,
 } from "../graphql/generator/FabricGQLTypes";
 import { client } from "../lib/apollo";
@@ -95,17 +94,19 @@ export const logout = (): string => {
   return "";
 };
 
-export const refreshAccessToken = async (): Promise<RefreshResponse> => {
-  let refreshRes = await client.mutate({
-    mutation: REFRESH_ACCESS_TOKEN_MUTATION,
-    variables: {},
-  });
+// export const refreshAccessToken = async (): Promise<RefreshResponse> => {
+//   let refreshRes = await client.mutate({
+//     mutation: REFRESH_ACCESS_TOKEN_MUTATION,
+//     variables: {},
+//   });
 
-  if (refreshRes.data.errors) throw new Error("Error Authenticating");
+//   if (refreshRes.data.errors) throw new Error("Error Authenticating");
 
-  return refreshRes.data as RefreshResponse;
-};
+//   const res = new Response()
 
-export const createRefreshToken = (): string => {
-  return "";
-};
+//   return refreshRes.data as RefreshResponse;
+// };
+
+// export const createRefreshToken = (): string => {
+//   return "";
+// };

@@ -15,8 +15,13 @@ const setRefreshToken = async (token: string) => {
   await SecureStore.setItemAsync(TOKEN_REFRESH_KEY, token);
 };
 
-export const getRefreshToken = async (): Promise<string | null> => {
-  return await SecureStore.getItemAsync(TOKEN_REFRESH_KEY);
+export const getRefreshToken = (): string => {
+  //   return await SecureStore.getItemAsync(TOKEN_REFRESH_KEY);
+  return store.getState().auth.refreshToken;
+};
+
+export const getAccessToken = (): string => {
+  return store.getState().auth.token;
 };
 
 export const isRefreshValid = async (): Promise<boolean> => {
@@ -32,9 +37,7 @@ export const isRefreshValid = async (): Promise<boolean> => {
   return true;
 };
 
-export const isAccessValid = async () => {
-  if (!(await isRefreshValid())) return false;
-
+export const isAccessValid = () => {
   let authState = store.getState();
   const accessToken = authState.auth.token;
 
@@ -75,8 +78,9 @@ export const register = async (
     payload: { token: res.accessToken, refreshToken: res.refreshToken },
   });
 
+  // set boolean that user is logged in
   store.dispatch({
-    type: Actions.MeActions.LOGIN,
+    type: Actions.MeActions.LOGGED_IN,
   });
 
   // update secure storage
@@ -102,8 +106,9 @@ export const login = async (
     payload: { token: res.accessToken, refreshToken: res.refreshToken },
   });
 
+  // set boolean that user is logged in
   store.dispatch({
-    type: Actions.MeActions.LOGIN,
+    type: Actions.MeActions.LOGGED_IN,
   });
 
   // update secure storage
@@ -113,22 +118,41 @@ export const login = async (
   return await Services.MeService.getMe();
 };
 
-export const refreshAccessToken = async (): Promise<
-  [boolean, FieldError[] | null]
-> => {
-  // make API call
-  const res = await FabricAPI.Auth.refreshAccessToken();
+// TODO: Update with fetch http call instead of graphql
+// export const refreshAccessToken = async (): Promise<
+//   [boolean, FieldError[] | null]
+// > => {
+//   // make API call
+//   const res = await FabricAPI.Auth.refreshAccessToken();
 
-  // TODO: check for failures
-  if (res.errors) return [false, res.errors];
+//   // TODO: check for failures
+//   if (res.errors) return [false, res.errors];
 
-  // TODO: update access token
+//   // update access token in the store
+//   updateAccessToken(res.accessToken);
+
+//   return [true, null];
+// };
+
+export const updateAccessToken = (newAccessToken: string) => {
   store.dispatch({
     type: Actions.AuthActions.SET_ACCESS_TOKEN,
-    payload: { token: res.accessToken },
+    payload: { token: newAccessToken },
   });
-
-  return [true, null];
 };
 
-export const logout = () => SecureStore.deleteItemAsync(TOKEN_REFRESH_KEY);
+export const logout = () => {
+  // increment refresh token version in DB
+  FabricAPI.Auth.logout();
+
+  // clear redux store
+  store.dispatch({
+    type: Actions.MeActions.LOGOUT,
+  });
+  store.dispatch({
+    type: Actions.AuthActions.CLEAR_TOKENS,
+  });
+
+  // clear secure storage locations
+  SecureStore.deleteItemAsync(TOKEN_REFRESH_KEY);
+};
