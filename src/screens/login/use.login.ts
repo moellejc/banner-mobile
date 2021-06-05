@@ -14,9 +14,7 @@ let isValid = (email: string, password: string): boolean => {
   return email && password ? true : false;
 };
 
-export const useLogin = (
-  callback?: (errors: FieldError[] | null) => any
-): [string, string, IUseLoginResponse] => {
+export const useLogin = (): [string, string, IUseLoginResponse] => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
@@ -29,7 +27,11 @@ export const useLogin = (
 
     let [res, errors] = await Services.AuthService.login(email, password);
 
-    if (errors) setErrors(errors);
+    if (errors) {
+      console.log("Errors Found:");
+      console.log(errors);
+      setErrors(errors);
+    }
 
     setIsLoading(false);
 

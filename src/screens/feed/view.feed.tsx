@@ -5,7 +5,7 @@ import { Button } from "react-native-paper";
 import { useNavigation } from "@react-navigation/native";
 import { useDispatch } from "react-redux";
 import { Actions } from "../../state";
-import { LOGOUT_MUTATION } from "../../constants/graphql/auth";
+import { Services } from "../../services/index";
 
 interface Props {}
 
@@ -13,21 +13,10 @@ export const FeedScreen: React.FC = () => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
 
-  const [logout] = useMutation(LOGOUT_MUTATION, {
-    onCompleted: (data) => {
-      dispatch({
-        type: Actions.AuthActions.CLEAR_TOKEN,
-      });
-    },
-    onError: (data) => {
-      console.log("error during logout");
-    },
-  });
-
   return (
     <View>
       <Text style={styles.helloText}>Hello Feed</Text>
-      <Button mode="outlined" onPress={logout}>
+      <Button mode="outlined" onPress={Services.AuthService.logout}>
         Logout
       </Button>
     </View>

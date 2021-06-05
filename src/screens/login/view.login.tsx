@@ -99,6 +99,7 @@ export const LoginScreen: React.FC = () => {
             height={50}
             width={screenWidth}
             borderRadius={25}
+            disabled={loading ? true : false}
             onPress={() => setIsSubmitted(true)}
           />
           <Button

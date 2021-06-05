@@ -8,7 +8,7 @@ import { store } from "../state";
 import { Services } from "../services";
 
 export default () => {
-  const loginChecked = useRef(false);
+  const [loginChecked, setLoginChecked] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const dispatch = useDispatch();
 
@@ -18,28 +18,30 @@ export default () => {
   });
 
   useEffect(() => {
-    if (loginChecked.current) return;
+    if (loginChecked) return;
 
     async function fetchLoginStatus() {
       // check is user token is stored and valid
-      if (await Services.AuthService.isRefreshValid()) {
-        const [res, errors] = await Services.AuthService.refreshAccessToken();
+      if (await Services.TokenService.isRefreshValid()) {
+        const res = await Services.TokenService.refreshAccessToken();
 
         // if refresh was sucessful go to feed
-        if (res) setIsLoggedIn(true);
+        if (!res) setIsLoggedIn(false);
 
-        // TODO: get user info from storage
+        // TODO: restore info from secure storage
+
+        setIsLoggedIn(true);
+      } else {
+        console.log("refresh token is NOT valid");
+        setIsLoggedIn(false);
       }
-      loginChecked.current = true;
+      setLoginChecked(true);
     }
     fetchLoginStatus();
-
-    // logout();
   }, []);
 
   const getNavigator = (): any | null => {
-    if (loginChecked.current)
-      return !isLoggedIn ? <AuthNavigator /> : <AppNavigator />;
+    if (loginChecked) return !isLoggedIn ? <AuthNavigator /> : <AppNavigator />;
     return <Loader />;
   };
 

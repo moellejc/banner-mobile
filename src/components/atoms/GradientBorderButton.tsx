@@ -24,6 +24,7 @@ interface GradientBorderButtonProps {
   fontSize?: number;
   backgroundColor?: string;
   pressBackgroundColor?: string;
+  disabled?: boolean;
   style: any;
   onPress?: () => void;
 }
@@ -46,7 +47,9 @@ const GradientBorderButton: React.FC<GradientBorderButtonProps> = (
         },
         props.style,
       ]}
-      onPress={props.onPress}
+      onPress={() => {
+        if (!props.disabled && props.onPress) props.onPress();
+      }}
       onPressIn={() => setButtonBackgroundColor(props.pressBackgroundColor)}
       onPressOut={() => setButtonBackgroundColor(props.backgroundColor)}
     >
@@ -109,6 +112,7 @@ GradientBorderButton.defaultProps = {
   backgroundColor: "#000",
   pressBackgroundColor: "rgba(0,0,0,0.75)",
   fontSize: 18,
+  disabled: false,
   style: {},
 };
 

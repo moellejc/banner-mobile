@@ -1,5 +1,3 @@
-import * as SecureStore from "expo-secure-store";
-import { decode } from "jsonwebtoken";
 import { FabricAPI } from "../api";
 import {
   FieldError,
@@ -7,49 +5,8 @@ import {
   RegisterResponse,
 } from "../graphql/generator/FabricGQLTypes";
 import { Actions, store } from "../state";
-import { Services } from "./";
-
-const TOKEN_REFRESH_KEY = "fabric-jwt_refresh_token";
-
-const setRefreshToken = async (token: string) => {
-  await SecureStore.setItemAsync(TOKEN_REFRESH_KEY, token);
-};
-
-export const getRefreshToken = (): string => {
-  //   return await SecureStore.getItemAsync(TOKEN_REFRESH_KEY);
-  return store.getState().auth.refreshToken;
-};
-
-export const getAccessToken = (): string => {
-  return store.getState().auth.token;
-};
-
-export const isRefreshValid = async (): Promise<boolean> => {
-  const refreshToken = await getRefreshToken();
-
-  if (!refreshToken) return false;
-
-  // confirm token is valid
-  let { exp }: any = decode(refreshToken);
-
-  if (Date.now() >= exp * 1000) return false;
-
-  return true;
-};
-
-export const isAccessValid = () => {
-  let authState = store.getState();
-  const accessToken = authState.auth.token;
-
-  if (!accessToken) return false;
-
-  // confirm token is valid
-  let { exp }: any = decode(accessToken);
-
-  if (Date.now() >= exp * 1000) return false;
-
-  return true;
-};
+import * as MeService from "./me.service";
+import * as TokenService from "./token.service";
 
 export const register = async (
   firstName: string,
@@ -84,10 +41,10 @@ export const register = async (
   });
 
   // update secure storage
-  setRefreshToken(res.refreshToken);
+  TokenService.setRefreshToken(res.refreshToken);
 
   // request me info
-  return await Services.MeService.getMe();
+  return await MeService.getMe();
 };
 
 export const login = async (
@@ -112,33 +69,10 @@ export const login = async (
   });
 
   // update secure storage
-  setRefreshToken(res.refreshToken);
+  TokenService.setRefreshToken(res.refreshToken);
 
   // request me info
-  return await Services.MeService.getMe();
-};
-
-// TODO: Update with fetch http call instead of graphql
-// export const refreshAccessToken = async (): Promise<
-//   [boolean, FieldError[] | null]
-// > => {
-//   // make API call
-//   const res = await FabricAPI.Auth.refreshAccessToken();
-
-//   // TODO: check for failures
-//   if (res.errors) return [false, res.errors];
-
-//   // update access token in the store
-//   updateAccessToken(res.accessToken);
-
-//   return [true, null];
-// };
-
-export const updateAccessToken = (newAccessToken: string) => {
-  store.dispatch({
-    type: Actions.AuthActions.SET_ACCESS_TOKEN,
-    payload: { token: newAccessToken },
-  });
+  return await MeService.getMe();
 };
 
 export const logout = () => {
@@ -146,13 +80,5 @@ export const logout = () => {
   FabricAPI.Auth.logout();
 
   // clear redux store
-  store.dispatch({
-    type: Actions.MeActions.LOGOUT,
-  });
-  store.dispatch({
-    type: Actions.AuthActions.CLEAR_TOKENS,
-  });
-
-  // clear secure storage locations
-  SecureStore.deleteItemAsync(TOKEN_REFRESH_KEY);
+  TokenService.clearTokens();
 };

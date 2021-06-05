@@ -12,6 +12,7 @@ interface FabricButtonProps {
   text: string;
   fontSize?: number;
   style?: any;
+  disabled?: boolean;
   onPress?: () => void;
 }
 
@@ -35,6 +36,7 @@ const FabricButton: React.FC<FabricButtonProps> = (
       textColor="#fff"
       backgroundColor="#000"
       pressBackgroundColor="rgba(0,0,0,0.75)"
+      disabled={props.disabled}
       onPress={props.onPress}
     />
   );
@@ -45,6 +47,7 @@ FabricButton.defaultProps = {
   width: 100,
   borderRadius: 15,
   fontSize: 18,
+  disabled: false,
   style: {},
 };
 

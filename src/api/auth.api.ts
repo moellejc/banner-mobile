@@ -93,20 +93,3 @@ export const login = async (
 export const logout = (): string => {
   return "";
 };
-
-// export const refreshAccessToken = async (): Promise<RefreshResponse> => {
-//   let refreshRes = await client.mutate({
-//     mutation: REFRESH_ACCESS_TOKEN_MUTATION,
-//     variables: {},
-//   });
-
-//   if (refreshRes.data.errors) throw new Error("Error Authenticating");
-
-//   const res = new Response()
-
-//   return refreshRes.data as RefreshResponse;
-// };
-
-// export const createRefreshToken = (): string => {
-//   return "";
-// };
