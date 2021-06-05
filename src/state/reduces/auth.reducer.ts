@@ -26,6 +26,7 @@ export function authReducer(state = initialAuthState, action: any) {
     case AuthActions.COMPLETE_LOGIN:
       return {
         ...state,
+        isLoggedIn: true,
         loginComplete: true,
       };
     case AuthActions.CLEAR_TOKENS:

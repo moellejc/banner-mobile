@@ -71,8 +71,6 @@ export const register = async (
     variables: { firstName, lastName, email, screenName, password, repassword },
   });
 
-  if (registerRes.data.register.errors) throw new Error("Error Registering");
-
   return registerRes.data.register as RegisterResponse;
 };
 
@@ -83,9 +81,8 @@ export const login = async (
   let loginRes = await client.mutate({
     mutation: LOGIN_MUTATION,
     variables: { email, password },
+    errorPolicy: "ignore",
   });
-
-  if (loginRes.data.login.errors) throw new Error("Error Authenticating");
 
   return loginRes.data.login as LoginResponse;
 };

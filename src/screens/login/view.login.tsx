@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { View, StyleSheet, Dimensions, Image } from "react-native";
-import { TextInput, Button } from "react-native-paper";
+import { TextInput, Button, Text } from "react-native-paper";
 import AppTheme, { textInputTheme } from "../../constants/styles/Theme";
 import { useNavigation } from "@react-navigation/native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import FabricButton from "../../components/atoms/FabricButton";
 import { useLogin } from "./use.login";
 import { useDispatch } from "react-redux";
+import { FieldError } from "../../graphql/generator/FabricGQLTypes";
 
 const defaultState = {
   values: {
@@ -24,13 +25,20 @@ export const LoginScreen: React.FC = () => {
   const dispatch = useDispatch();
   const navigation = useNavigation();
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
   const [
     email,
     password,
     { setEmail, setPassword, validate, login, loading, errors },
   ] = useLogin();
 
-  const handleAfterLogin = () => {};
+  const handleLoginErrors = (errors: FieldError[] | null) => {
+    if (errors && errors[0].constraints) {
+      setErrorMessage(`* ${errors[0].constraints[0]}`);
+    } else {
+      setErrorMessage("* Invalid email or password");
+    }
+  };
 
   useEffect(() => {
     // submit login
@@ -38,14 +46,18 @@ export const LoginScreen: React.FC = () => {
       setIsSubmitted(false);
 
       // TODO: check for valid creds and set error message
-      if (!validate()) return;
+      if (!validate()) {
+        setErrorMessage("* Invalid email or password");
+        return;
+      }
 
       const submitLogin = async () => {
         const validLogin = await login();
 
-        if (validLogin) console.log("go to feed");
-
-        // TODO: login failed and display errors
+        // set the error message to the first error
+        if (!validLogin) {
+          handleLoginErrors(errors);
+        }
       };
       submitLogin();
     }
@@ -91,6 +103,7 @@ export const LoginScreen: React.FC = () => {
               onChangeText={(password) => setPassword(password)}
               selectionColor={AppTheme.colors.fabricPurple}
             />
+            <Text style={styles.error}>{errorMessage}</Text>
           </View>
         </View>
         <View style={[{ flex: 1 }, styles.row]}>
@@ -148,5 +161,8 @@ const styles = StyleSheet.create({
     marginBottom: 30,
     width: screenWidth,
     textAlign: "left",
+  },
+  error: {
+    color: "lightgray",
   },
 });

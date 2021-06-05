@@ -20,15 +20,17 @@ export default () => {
   useEffect(() => {
     if (loginChecked) return;
 
+    // NOTE: this function should only be called once on app startup to load previous state
     async function fetchLoginStatus() {
+      // restore info from secure storage
+      await Services.restore();
+
       // check is user token is stored and valid
       if (await Services.TokenService.isRefreshValid()) {
         const res = await Services.TokenService.refreshAccessToken();
 
         // if refresh was sucessful go to feed
         if (!res) setIsLoggedIn(false);
-
-        // TODO: restore info from secure storage
 
         setIsLoggedIn(true);
       } else {

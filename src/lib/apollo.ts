@@ -12,10 +12,31 @@ const httpLink = new HttpLink({
 
 const tokenRefreshLink = new TokenRefreshLink({
   accessTokenField: "accessToken",
-  isTokenValidOrUndefined: () =>
-    TokenService.getAccessToken() != "" && !TokenService.isAccessValid(), // TODO: check for requests not requiring access token
+  isTokenValidOrUndefined: () => {
+    console.log(`Access Token: ${TokenService.getAccessToken()}`);
+    console.log(`Refresh Token: ${TokenService.getRefreshToken()}`);
+
+    // check for guest if both tokens are empty
+    console.log("check token guest");
+    if (!TokenService.getAccessToken() && !TokenService.getRefreshToken())
+      return true;
+
+    console.log("check access token bad refresh good");
+    // check for inital user if refresh token is valid but access is not
+    if (!TokenService.isAccessValid() && TokenService.isRefreshValid())
+      return false;
+
+    console.log("check access token good refresh bad");
+    // user's refresh has expired and logout will need to be called
+    if (TokenService.isAccessValid() && !TokenService.isRefreshValid())
+      return false;
+
+    console.log("default token check response");
+    // default response to do nothing
+    return true;
+  }, // TODO: check for requests not requiring access token
   fetchAccessToken: () => {
-    console.log("refresh access token from apollo middleware");
+    console.log(`refresh access token from apollo middleware}`);
     return fetch(`${HOST_URL}${API_URI}/refresh_token`, {
       method: "POST",
       headers: {

@@ -18,7 +18,7 @@ export const useLogin = (): [string, string, IUseLoginResponse] => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const [errors, setErrors] = useState<FieldError[] | null>(null);
+  const [errors, setErrors] = useState<FieldError[] | null>(null); // TODO: convert to ref
 
   // submit login info
   const handleSubmit = async (): Promise<boolean> => {
@@ -27,13 +27,11 @@ export const useLogin = (): [string, string, IUseLoginResponse] => {
 
     let [res, errors] = await Services.AuthService.login(email, password);
 
-    if (errors) {
-      console.log("Errors Found:");
-      console.log(errors);
+    // login failed to rerender UI
+    if (!res) {
       setErrors(errors);
+      setIsLoading(false);
     }
-
-    setIsLoading(false);
 
     return res;
   };

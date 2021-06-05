@@ -29,19 +29,15 @@ export const register = async (
   // TOOD: check for failure
   if (res.errors) return [false, res.errors];
 
-  // update redux
-  store.dispatch({
-    type: Actions.AuthActions.SET_TOKENS,
-    payload: { token: res.accessToken, refreshToken: res.refreshToken },
-  });
+  if (!res.accessToken || !res.refreshToken) return [false, null];
+
+  // update store token in redus and secure storage
+  TokenService.setTokens(res.accessToken, res.refreshToken);
 
   // set boolean that user is logged in
   store.dispatch({
     type: Actions.MeActions.LOGGED_IN,
   });
-
-  // update secure storage
-  TokenService.setRefreshToken(res.refreshToken);
 
   // request me info
   return await MeService.getMe();
@@ -57,22 +53,22 @@ export const login = async (
   // TOOD: check for failure
   if (res.errors) return [false, res.errors];
 
-  // update redux
+  if (!res.accessToken || !res.refreshToken) return [false, null];
+
+  // update store token in redus and secure storage
+  TokenService.setTokens(res.accessToken, res.refreshToken);
+
+  // request me info after login
+  const [meRes, meErrors] = await MeService.getMe();
+
+  if (!meRes) return [false, null];
+
+  // set boolean the login process to complete to signal app to switch navigators
   store.dispatch({
-    type: Actions.AuthActions.SET_TOKENS,
-    payload: { token: res.accessToken, refreshToken: res.refreshToken },
+    type: Actions.AuthActions.COMPLETE_LOGIN,
   });
 
-  // set boolean that user is logged in
-  store.dispatch({
-    type: Actions.MeActions.LOGGED_IN,
-  });
-
-  // update secure storage
-  TokenService.setRefreshToken(res.refreshToken);
-
-  // request me info
-  return await MeService.getMe();
+  return [true, null];
 };
 
 export const logout = () => {
