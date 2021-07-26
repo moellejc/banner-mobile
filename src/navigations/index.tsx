@@ -43,7 +43,8 @@ export default () => {
   }, []);
 
   const getNavigator = (): any | null => {
-    if (loginChecked) return !isLoggedIn ? <AuthNavigator /> : <AppNavigator />;
+    // if (loginChecked) return !isLoggedIn ? <AuthNavigator /> : <AppNavigator />;
+    if (loginChecked) return !isLoggedIn ? <AppNavigator /> : <AppNavigator />;
     return <Loader />;
   };
 

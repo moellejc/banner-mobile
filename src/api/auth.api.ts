@@ -39,9 +39,7 @@ const REGISTER_MUTATION = gql`
       }
     ) {
       accessToken
-      user {
-        id
-      }
+      refreshToken
     }
   }
 `;
