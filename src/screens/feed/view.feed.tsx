@@ -16,12 +16,11 @@ import { Actions } from "../../state";
 import { Services } from "../../services/index";
 import { GRAY_MEDIUM, WHITE, GRAY_LIGHT } from "../../constants/styles/Colors";
 import { NativeRouter } from "react-router-native";
-import { Places } from "../../components/organisms/Places";
+import { Place } from "../../components/organisms/Place";
 
 /**
  Page Component
 */
-type PageProps = {};
 /** 
 const Page: React.FC = ({ item }: PageProps) => {
   return (
@@ -60,7 +59,7 @@ export const FeedScreen: React.FC = () => {
     <View style={feedRoodStyle.container}>
       {/* Search */}
       {/* <View style={searchStyle.container}></View> */}
-      <Places />
+      <Place />
     </View>
   );
 };

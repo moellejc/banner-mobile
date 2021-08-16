@@ -1,9 +1,8 @@
 import React from "react";
-import { useMutation } from "@apollo/client";
 import { Text, View, Dimensions, GestureResponderEvent } from "react-native";
 import { TouchableOpacity } from "react-native";
 import { PlaceMenuData } from "./PlaceMenu";
-import { placeMenuData } from "../organisms/Places";
+import { getCurrentPlaceOptions } from "../../services/place.service";
 
 const { width: screenWidth, height: screenHeight } = Dimensions.get("screen");
 
@@ -24,7 +23,7 @@ export const PlaceMenuTab = React.forwardRef<View, PlaceMenuTabProps>(
           <Text
             style={{
               color: "white",
-              fontSize: 84 / placeMenuData.length,
+              fontSize: 84 / getCurrentPlaceOptions().length,
               fontWeight: "800",
               textTransform: "uppercase",
             }}
