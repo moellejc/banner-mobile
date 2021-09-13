@@ -1,9 +1,9 @@
-import { FabricAPI } from "../api";
+import { UltraAPI } from "../api";
 import {
   FieldError,
   LoginResponse,
   RegisterResponse,
-} from "../graphql/generator/FabricGQLTypes";
+} from "../graphql/generator/UltraGQLTypes";
 import { Actions, store } from "../state";
 import * as MeService from "./me.service";
 import * as TokenService from "./token.service";
@@ -17,7 +17,7 @@ export const register = async (
   repassword: string
 ): Promise<[boolean, FieldError[] | null]> => {
   // call Login API
-  let res: RegisterResponse = await FabricAPI.Auth.register(
+  let res: RegisterResponse = await UltraAPI.Auth.register(
     firstName,
     lastName,
     email,
@@ -48,7 +48,7 @@ export const login = async (
   password: string
 ): Promise<[boolean, FieldError[] | null]> => {
   // call Login API
-  let res: LoginResponse = await FabricAPI.Auth.login(email, password);
+  let res: LoginResponse = await UltraAPI.Auth.login(email, password);
 
   // TOOD: check for failure
   if (res.errors) return [false, res.errors];
@@ -73,7 +73,7 @@ export const login = async (
 
 export const logout = () => {
   // increment refresh token version in DB
-  FabricAPI.Auth.logout();
+  UltraAPI.Auth.logout();
 
   // clear redux store
   TokenService.clearTokens();

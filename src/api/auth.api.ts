@@ -2,7 +2,7 @@ import { gql } from "@apollo/client";
 import {
   LoginResponse,
   RegisterResponse,
-} from "../graphql/generator/FabricGQLTypes";
+} from "../graphql/generator/UltraGQLTypes";
 import { client } from "../lib/apollo";
 
 const LOGIN_MUTATION = gql`

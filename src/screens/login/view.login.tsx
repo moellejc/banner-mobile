@@ -4,10 +4,10 @@ import { TextInput, Button, Text } from "react-native-paper";
 import AppTheme, { textInputTheme } from "../../constants/styles/Theme";
 import { useNavigation } from "@react-navigation/native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
-import FabricButton from "../../components/atoms/FabricButton";
+import UltraButton from "../../components/atoms/UltraButton";
 import { useLogin } from "./use.login";
 import { useDispatch } from "react-redux";
-import { FieldError } from "../../graphql/generator/FabricGQLTypes";
+import { FieldError } from "../../graphql/generator/UltraGQLTypes";
 
 const defaultState = {
   values: {
@@ -89,7 +89,7 @@ export const LoginScreen: React.FC = () => {
               theme={textInputTheme}
               underlineColor="white"
               onChangeText={(email) => setEmail(email)}
-              selectionColor={AppTheme.colors.fabricPurple}
+              selectionColor={AppTheme.colors.ultraPurple}
             />
             <TextInput
               style={styles.input}
@@ -101,13 +101,13 @@ export const LoginScreen: React.FC = () => {
               theme={textInputTheme}
               underlineColor="white"
               onChangeText={(password) => setPassword(password)}
-              selectionColor={AppTheme.colors.fabricPurple}
+              selectionColor={AppTheme.colors.ultraPurple}
             />
             <Text style={styles.error}>{errorMessage}</Text>
           </View>
         </View>
         <View style={[{ flex: 1 }, styles.row]}>
-          <FabricButton
+          <UltraButton
             text={loading ? "Logging In..." : "Login"}
             height={50}
             width={screenWidth}

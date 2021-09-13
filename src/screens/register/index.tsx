@@ -5,14 +5,14 @@ import AppTheme, { textInputTheme } from "../../constants/styles/Theme";
 import { ApolloError, gql, useMutation } from "@apollo/client";
 import { useNavigation } from "@react-navigation/native";
 import { AntDesign } from "@expo/vector-icons";
-import FabricButton from "../../components/atoms/FabricButton";
+import UltraButton from "../../components/atoms/UltraButton";
 import {
   RegisterResponse,
   FieldError,
-} from "../../graphql/generator/FabricGQLTypes";
+} from "../../graphql/generator/UltraGQLTypes";
 import { useSelector, useDispatch } from "react-redux";
-import { authConstants } from "../../constants/state_old";
-import { meConstants } from "../../constants/state_old";
+// import { authConstants } from "../../constants/state_old";
+// import { meConstants } from "../../constants/state_old";
 import { Actions } from "../../state";
 
 const screenWidth = Dimensions.get("window").width - 60;
@@ -88,10 +88,10 @@ const RegisterScreen: React.FC = () => {
 
       if (data.errors) setIsInvalidLogin(true);
 
-      dispatch({
-        type: Actions.MeActions.REGISTER,
-        payload: { user: registerData.user, token: registerData.accessToken },
-      });
+      // dispatch({
+      //   type: Actions.MeActions.REGISTER,
+      //   payload: { user: registerData.user, token: registerData.accessToken },
+      // });
     }
   };
 
@@ -156,7 +156,7 @@ const RegisterScreen: React.FC = () => {
       </View>
 
       <View style={[styles.row, { flex: 1 }]}>
-        <FabricButton
+        <UltraButton
           text="Sign Up"
           height={50}
           width={screenWidth}

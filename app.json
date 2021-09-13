@@ -1,18 +1,18 @@
 {
-  "name": "Fabric",
-  "displayName": "Fabric",
+  "name": "Ultra",
+  "displayName": "Ultra",
   "expo": {
-    "name": "fabric-mobile",
-    "slug": "fabric-mobile",
+    "name": "ultra-mobile",
+    "slug": "ultra-mobile",
     "version": "1.0.0",
     "assetBundlePatterns": [
       "**/*"
     ],
     "android": {
-      "package": "com.fabric.fabricmobile"
+      "package": "com.ultra.ultramobile"
     },
     "ios": {
-      "bundleIdentifier": "com.fabric.fabricmobile"
+      "bundleIdentifier": "com.ultra.ultramobile"
     }
   }
 }

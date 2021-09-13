@@ -1,4 +1,4 @@
-import { Post } from "../graphql/generator/FabricGQLTypes";
+import { Post } from "../graphql/generator/UltraGQLTypes";
 import { User } from "./User";
 
 export type PostReply = {

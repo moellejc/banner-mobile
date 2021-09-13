@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { FieldError } from "../../graphql/generator/FabricGQLTypes";
+import { FieldError } from "../../graphql/generator/UltraGQLTypes";
 import { Services } from "../../services";
 interface IUseLoginResponse {
   setEmail: React.Dispatch<React.SetStateAction<string>>;

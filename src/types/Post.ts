@@ -1,4 +1,4 @@
-import { Like } from "../graphql/generator/FabricGQLTypes";
+import { Like } from "../graphql/generator/UltraGQLTypes";
 import { Coordinates } from "./Coordinates";
 import { Media } from "./Media";
 import { PostReply } from "./PostReply";

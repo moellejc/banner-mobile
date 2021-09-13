@@ -1,5 +1,5 @@
 import { gql } from "@apollo/client";
-import { User } from "../graphql/generator/FabricGQLTypes";
+import { User } from "../graphql/generator/UltraGQLTypes";
 import { client } from "../lib/apollo";
 
 const GET_ME_QUERY = gql`

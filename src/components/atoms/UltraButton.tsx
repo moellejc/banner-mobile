@@ -5,7 +5,7 @@ import AppTheme from "../../constants/styles/Theme";
 import { DARK_PURPLE } from "../../constants/styles/Colors";
 import { StringLocale } from "yup/lib/locale";
 
-interface FabricButtonProps {
+interface UltraButtonProps {
   height?: number;
   width?: number;
   borderRadius?: number;
@@ -16,17 +16,17 @@ interface FabricButtonProps {
   onPress?: () => void;
 }
 
-const FabricButton: React.FC<FabricButtonProps> = (
-  props: FabricButtonProps
+const UltraButton: React.FC<UltraButtonProps> = (
+  props: UltraButtonProps
 ) => {
   return (
     <GradientBorderButton
       style={styles.btn}
       text={props.text}
       gradientColors={[
-        AppTheme.colors.fabricBlue,
-        AppTheme.colors.fabricPurple,
-        AppTheme.colors.fabricPink,
+        AppTheme.colors.ultraBlue,
+        AppTheme.colors.ultraPurple,
+        AppTheme.colors.ultraPink,
       ]}
       gradientPositions={{ start: { x: 0, y: 0 }, end: { x: 1, y: 1 } }}
       height={props.height}
@@ -42,7 +42,7 @@ const FabricButton: React.FC<FabricButtonProps> = (
   );
 };
 
-FabricButton.defaultProps = {
+UltraButton.defaultProps = {
   height: 30,
   width: 100,
   borderRadius: 15,
@@ -55,4 +55,4 @@ const styles = StyleSheet.create({
   btn: {},
 });
 
-export default FabricButton;
+export default UltraButton;

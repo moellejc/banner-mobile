@@ -13,11 +13,11 @@ declare global {
   namespace ReactNativePaper {
     interface ThemeColors {
       appBackgroundColor: string;
-      fabricBlue: string;
-      fabricDarkPurple: string;
-      fabricPurple: string;
-      fabricPink: string;
-      fabricRed: string;
+      ultraBlue: string;
+      ultraDarkPurple: string;
+      ultraPurple: string;
+      ultraPink: string;
+      ultraRed: string;
       textInputPlaceholderColor: string;
     }
   }
@@ -32,11 +32,11 @@ const AppTheme: ReactNativePaper.Theme = {
     // appBackgroundColor: "red",
     // background: "#000000",
     // backdrop: "#000000",
-    fabricBlue: BLUE,
-    fabricDarkPurple: DARK_PURPLE,
-    fabricPurple: PURPLE,
-    fabricPink: PINK,
-    fabricRed: RED,
+    ultraBlue: BLUE,
+    ultraDarkPurple: DARK_PURPLE,
+    ultraPurple: PURPLE,
+    ultraPink: PINK,
+    ultraRed: RED,
     textInputPlaceholderColor: TEXTINPUT_PLACEHOLDER,
   },
 };
