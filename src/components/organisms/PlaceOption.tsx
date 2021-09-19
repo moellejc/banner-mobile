@@ -9,10 +9,10 @@ type PlaceOptionProps = {
   title: string;
 };
 
-export const PlaceOption = ({ key, title }: PlaceOptionProps) => {
+export const PlaceOption = (props: PlaceOptionProps) => {
   return (
-    <View style={placeStyle.container} key={key}>
-      <Text style={placeStyle.placeholderText}>{title}</Text>
+    <View style={placeStyle.container}>
+      <Text style={placeStyle.placeholderText}>{props.title}</Text>
     </View>
   );
 };

@@ -1,3 +1,4 @@
+import { PlaceMenuData } from "../components/molecules/PlaceMenu";
 import { store } from "../state";
 import { Place } from "../types/Place";
 
@@ -7,6 +8,10 @@ export const getCurrentPlace = (): Place => {
   return currentPlace;
 };
 
-export const getCurrentPlaceOptions = (): string[] => {
-  return getCurrentPlace().menu_options;
+export const getCurrentPlaceOptions = (): PlaceMenuData[] => {
+  return getCurrentPlace().menu_options.map((i) => ({
+    key: i,
+    title: i,
+    page: i,
+  }));
 };

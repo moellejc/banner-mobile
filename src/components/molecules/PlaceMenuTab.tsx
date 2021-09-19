@@ -10,13 +10,14 @@ const { width: screenWidth, height: screenHeight } = Dimensions.get("screen");
  Tab Component
 */
 type PlaceMenuTabProps = {
+  key: string;
   item: PlaceMenuData;
   onItemPress: () => void;
 };
 export const PlaceMenuTab = React.forwardRef<View, PlaceMenuTabProps>(
-  ({ item, onItemPress }: PlaceMenuTabProps, ref: React.ForwardedRef<View>) => {
+  ({ key, item, onItemPress }: PlaceMenuTabProps, ref: React.ForwardedRef<View>) => {
     return (
-      <TouchableOpacity
+      <TouchableOpacity key={key}
         onPress={(event: GestureResponderEvent) => onItemPress()}
       >
         <View ref={ref}>

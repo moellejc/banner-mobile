@@ -11,7 +11,7 @@ const initialPlaceState: IPlaceState = {
     title: "",
     address: "",
     location: null,
-    menu_options: ["Feed"],
+    menu_options: ["Feed", "check-in", "order"],
   },
 };
 

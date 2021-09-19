@@ -22,15 +22,15 @@ type PlaceMenuDataRefs = {
   ref: React.RefObject<View>;
 };
 type PlaceMenuProps = {
-  data: PlaceMenuData[];
+  menuData: PlaceMenuData[];
   scrollX: Animated.Value;
   onItemPress: (itemIndex: number) => void;
 };
-export const PlaceMenu = ({ data, scrollX, onItemPress }: PlaceMenuProps) => {
+export const PlaceMenu = ({ menuData, scrollX, onItemPress }: PlaceMenuProps) => {
   const [measures, setMeasures] = React.useState<PlaceMenuDimensions[]>([]);
   const containerRef = React.useRef<View>(null);
   const dataItemRefs = React.useRef<PlaceMenuDataRefs[]>(
-    data.map((item) => ({ data: item, ref: React.createRef<View>() }))
+    menuData.map((item) => ({ data: item, ref: React.createRef<View>() }))
   );
   React.useEffect(() => {
     const m: PlaceMenuDimensions[] = [];

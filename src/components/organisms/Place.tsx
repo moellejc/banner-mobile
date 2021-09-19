@@ -30,7 +30,7 @@ const { width: screenWidth, height: screenHeight } = Dimensions.get("screen");
 
 type PlaceProps = {};
 export const Place = ({}: PlaceProps) => {
-  const placeMenuDataRef = React.useRef<PlaceMenuData[] | null>(null);
+  const placeMenuDataRef = React.useRef<PlaceMenuData[] | null>(getCurrentPlaceOptions());
   const ref = React.useRef<FlatList<PlaceMenuData>>(null);
   const scrollX = React.useRef(new Animated.Value(0)).current;
   const onItemPress = React.useCallback((itemIndex: number) => {
@@ -40,11 +40,7 @@ export const Place = ({}: PlaceProps) => {
   }, []);
 
   React.useEffect(() => {
-    placeMenuDataRef.current = getCurrentPlaceOptions().map((i) => ({
-      key: i,
-      title: i,
-      page: i,
-    }));
+    console.log("Call Place useEffect");
   }, []);
 
   const extractPage: ListRenderItem<PlaceMenuData> = ({ item }) => (
@@ -53,26 +49,30 @@ export const Place = ({}: PlaceProps) => {
 
   return (
     <View>
-      <Animated.FlatList
-        style={{ backgroundColor: "red" }}
-        ref={ref}
-        data={placeMenuDataRef.current!}
-        horizontal
-        showsHorizontalScrollIndicator={false}
-        pagingEnabled
-        bounces={false}
-        keyExtractor={(item) => item.key}
-        renderItem={extractPage}
-        onScroll={Animated.event(
-          [{ nativeEvent: { contentOffset: { x: scrollX } } }],
-          { useNativeDriver: false }
-        )}
-      />
-      <PlaceMenu
-        scrollX={scrollX}
-        data={placeMenuDataRef.current!}
-        onItemPress={onItemPress}
-      />
+      { placeMenuDataRef.current ?
+        <View>
+          <Animated.FlatList
+          style={{ backgroundColor: "red" }}
+          ref={ref}
+          data={placeMenuDataRef.current!}
+          horizontal
+          showsHorizontalScrollIndicator={false}
+          pagingEnabled
+          bounces={false}
+          keyExtractor={(item) => item.key}
+          renderItem={extractPage}
+          onScroll={Animated.event(
+            [{ nativeEvent: { contentOffset: { x: scrollX } } }],
+            { useNativeDriver: false }
+          )}
+          />
+          <PlaceMenu
+            scrollX={scrollX}
+            menuData={placeMenuDataRef.current!}
+            onItemPress={onItemPress}
+          />
+        </View>
+      : null }
     </View>
   );
 };
