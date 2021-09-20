@@ -85,7 +85,13 @@ export const refreshAccessToken = async (): Promise<boolean> => {
 
   console.log(`access token response: ${res}`);
 
-  if (!res.ok) return false;
+  if (!res.ok) {
+    // refersh failed so clear all token locally and logout
+    clearTokens();
+    
+    return false;
+  }
+  
 
   // get access token and update in app
   updateAccessToken(

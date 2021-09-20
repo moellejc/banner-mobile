@@ -2,10 +2,8 @@ import React, { useEffect, useRef, useState } from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import AuthNavigator from "./AuthNavigator";
 import AppNavigator from "./AppNavigator";
-import { Loader } from "../components/atoms/Loader";
 import { useDispatch } from "react-redux";
 import { store } from "../state";
-import { Services } from "../services";
 
 export default () => {
   const [loginChecked, setLoginChecked] = useState(false);
@@ -18,34 +16,14 @@ export default () => {
   });
 
   useEffect(() => {
-    if (loginChecked) return;
 
-    // NOTE: this function should only be called once on app startup to load previous state
-    async function fetchLoginStatus() {
-      // restore info from secure storage
-      await Services.restore();
-
-      // check is user token is stored and valid
-      if (await Services.TokenService.isRefreshValid()) {
-        const res = await Services.TokenService.refreshAccessToken();
-
-        // if refresh was sucessful go to feed
-        if (!res) setIsLoggedIn(false);
-
-        setIsLoggedIn(true);
-      } else {
-        console.log("refresh token is NOT valid");
-        setIsLoggedIn(false);
-      }
-      setLoginChecked(true);
-    }
-    fetchLoginStatus();
+    // if user is logged in then render appropriate nav
+    setIsLoggedIn(store.getState().auth.isLoggedIn);
   }, []);
 
   const getNavigator = (): any | null => {
-    // if (loginChecked) return !isLoggedIn ? <AuthNavigator /> : <AppNavigator />;
-    if (loginChecked) return !isLoggedIn ? <AppNavigator /> : <AppNavigator />;
-    return <Loader />;
+    return !isLoggedIn ? <AuthNavigator /> : <AppNavigator />;
+    // if (loginChecked) return !isLoggedIn ? <AppNavigator /> : <AppNavigator />; // use for testing feed
   };
 
   return <NavigationContainer>{getNavigator()}</NavigationContainer>;

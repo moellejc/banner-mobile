@@ -70,12 +70,12 @@ export const LoginScreen: React.FC = () => {
           <Image
             resizeMode="contain"
             style={styles.icon}
-            source={require("../../../assets/images/icon-fabric.png")}
+            source={require("../../../assets/images/icon-ultra-grad.png")}
           />
           <Image
             resizeMode="contain"
             style={styles.logo}
-            source={require("../../../assets/images/txt-fabric-white.png")}
+            source={require("../../../assets/images/logo-ultra-white.png")}
           />
         </View>
         <View style={[{ flex: 3 }, styles.row]}>
