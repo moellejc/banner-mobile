@@ -16,7 +16,7 @@ import { Actions } from "../../state";
 import { Services } from "../../services/index";
 import { GRAY_MEDIUM, WHITE, GRAY_LIGHT } from "../../constants/styles/Colors";
 import { NativeRouter } from "react-router-native";
-import { Place } from "../../components/organisms/Place";
+import { Place } from "../place/Place";
 
 /**
  Page Component

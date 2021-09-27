@@ -143,13 +143,13 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   icon: {
-    width: 66,
-    height: 66,
-    marginBottom: 40,
+    width: 50,
+    height: 50,
+    marginBottom: 20,
   },
   logo: {
-    width: 161,
-    height: 65,
+    width: 200,
+    height: 80,
   },
   buttonLogin: {
     marginTop: 50,

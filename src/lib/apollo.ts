@@ -18,8 +18,11 @@ const tokenRefreshLink = new TokenRefreshLink({
 
     // check for guest if both tokens are empty
     console.log("check token guest");
-    if (!TokenService.getAccessToken() && !TokenService.getRefreshToken())
+    if (!TokenService.getAccessToken() && !TokenService.getRefreshToken()){
+      console.log("user is a guest");
       return true;
+    }
+      
 
     console.log("check access token bad refresh good");
     // check for inital user if refresh token is valid but access is not
@@ -46,6 +49,7 @@ const tokenRefreshLink = new TokenRefreshLink({
     });
   },
   handleFetch: (accessToken) => {
+    console.log("handle token refresh fetch");
     TokenService.updateAccessToken(accessToken);
   },
   handleError: (err) => {
