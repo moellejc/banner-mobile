@@ -22,7 +22,10 @@ export default () => {
   }, []);
 
   const getNavigator = (): any | null => {
-    return !isLoggedIn ? <AuthNavigator /> : <AppNavigator />;
+    console.log("get nav");
+    return !isLoggedIn ? <AppNavigator /> : <AppNavigator />;
+    // return !isLoggedIn ? <AuthNavigator /> : <AppNavigator />;
+    
     // if (loginChecked) return !isLoggedIn ? <AppNavigator /> : <AppNavigator />; // use for testing feed
   };
 

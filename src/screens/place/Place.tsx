@@ -6,8 +6,8 @@ import {
   Animated,
   Dimensions,
 } from "react-native";
-import { PlaceMenu, PlaceMenuData } from "../molecules/PlaceMenu";
-import { PlaceOption } from "./PlaceOption";
+import { PlaceMenu, PlaceMenuData } from "../../components/molecules/PlaceMenu";
+import { PlaceOption } from "../../components/molecules/PlaceOption";
 import { getCurrentPlaceOptions } from "../../services/place.service";
 
 const { width: screenWidth, height: screenHeight } = Dimensions.get("screen");
