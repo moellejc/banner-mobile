@@ -1,131 +1,117 @@
+import { AnyTypeAnnotation, identifier } from "@babel/types";
 import React from "react";
-import { StyleSheet, Text, View, SafeAreaView, FlatList, SectionList, StatusBar } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  Image,
+  Dimensions,
+  View,
+  SafeAreaView,
+  FlatList,
+  SectionList,
+  StatusBar,
+} from "react-native";
+import { margin } from "../../constants/styles/Mixins";
+import { PlaceHeader } from "./PlaceHeader";
+import { PlacePeopleHeader, PlacePeopleContent } from "./PlacePeople";
+import { PlaceStoriesHeader, PlaceStoriesContent } from "./PlaceStories";
+
+const WINDOW_WIDTH = Dimensions.get("window").width;
+const WINDOW_HEIGHT = Dimensions.get("window").height;
+const FEED_TOP_START = WINDOW_HEIGHT * 0.33 + 80;
+
+enum PlaceFeedSections {
+  HEAD = 1,
+  PEOPLE = 2,
+  STORIES = 3,
+  POSTS = 4,
+}
 
 const SectionData = [
-    {
-      title: "People",
-      data: ["Pizza", "Burger", "Risotto"]
-    },
-    {
-      title: "Stories",
-      data: ["French Fries", "Onion Rings", "Fried Shrimps"]
-    },
-  ];
+  {
+    id: PlaceFeedSections.PEOPLE,
+    title: "People",
+    data: ["Pizza"],
+  },
+  {
+    id: PlaceFeedSections.STORIES,
+    title: "Stories",
+    data: ["French Fries"],
+  },
+];
 
-  const PeopleData = [
-    {
-      id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
-      title: 'First Person',
-    },
-    {
-      id: '3ac68afc-c605-48d3-a4f8-fbd91aa97f63',
-      title: 'Second Person',
-    },
-    {
-      id: '58694a0f-3da1-471f-bd96-145571e29d72',
-      title: 'Third Person',
-    },
-  ];
+const EmptySection = () => <View></View>;
 
-  const StoriesData = [
-    {
-      id: 'bd7acbea-c1b1-46c2-aed5-98a7ds9fp8',
-      title: 'First Story',
-    },
-    {
-      id: '3ac68afc-c605-48d3-a4f8-9a8sdyfnp9ua',
-      title: 'Second Story',
-    },
-    {
-      id: '58694a0f-3da1-471f-bd96-fhiludhdfg',
-      title: 'Third Story',
-    },
-  ];
-
-type FeedSectionProps = {
-    title: string
+const chooseSectionHeader = (sectionID: PlaceFeedSections): React.ReactNode => {
+  switch (sectionID) {
+    case PlaceFeedSections.PEOPLE:
+      return <PlacePeopleHeader />;
+    case PlaceFeedSections.STORIES:
+      return <PlaceStoriesHeader />;
+    default:
+      return <EmptySection />;
+  }
 };
-const Item = ({ title }: FeedSectionProps) => (
-<View style={styles.item}>
-    <Text style={styles.title}>{title}</Text>
-</View>
-);
 
-const PlaceSectionHeader = () => (
-    <View>
-        <View><Text>People</Text></View>
-        <View><Text>Who's Here</Text></View>
-    </View>
-);
-
-const PersonHere = () => (
-    <View></View>
-);
-
-const WhosHereContent = () => (
-    <View>
-        <FlatList
-        data={PeopleData}
-        horizontal={true}
-        renderItem={PersonHere}
-        keyExtractor={item => item.id}
-      />
-    </View>
-);
-
-const StoryHere = () => (
-    <View></View>
-);
-const StoriesContent = () => (
-    <View>
-        <FlatList
-        data={StoriesData}
-        horizontal={true}
-        renderItem={StoryHere}
-        keyExtractor={item => item.id}
-      />
-    </View>
-);
+const chooseSection = (sectionID: PlaceFeedSections): React.ReactNode => {
+  switch (sectionID) {
+    case PlaceFeedSections.PEOPLE:
+      return <PlacePeopleContent />;
+    case PlaceFeedSections.STORIES:
+      return <PlaceStoriesContent />;
+    default:
+      return <EmptySection />;
+  }
+};
 
 type UltraAppProps = {};
 export const UltraApp: React.FC = () => {
-
   return (
-    <View>
-      <View style={{backgroundColor: "blue"}}><Text>Place Background</Text></View>
-      <View><Text>Place Header</Text></View>
+    <SafeAreaView style={styles.container}>
+      <PlaceHeader />
 
-      
       <SectionList
+        style={[styles.placeFeedContainer]}
         sections={SectionData}
-        keyExtractor={(item, index) => item + index}
-        renderItem={({ item }) => {
-            return <WhosHereContent />}
-        }
-        renderSectionHeader={({ section: { title } }) => (<PlaceSectionHeader />)
-        }
-        /> 
-
-    </View>
+        renderSectionHeader={({ section: { id } }) => {
+          return (
+            <View style={styles.placeFeedSectionHeader}>
+              {chooseSectionHeader(id)}
+            </View>
+          );
+        }}
+        renderItem={({ item, section }) => {
+          return (
+            <View style={styles.placeFeedSection}>
+              {chooseSection(section.id)}
+            </View>
+          );
+        }}
+      />
+    </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
-    container: {
-      flex: 1,
-      paddingTop: StatusBar.currentHeight,
-      marginHorizontal: 16
-    },
-    item: {
-      backgroundColor: "#f9c2ff",
-      padding: 20,
-      marginVertical: 8
-    },
-    header: {
-      fontSize: 32,
-      backgroundColor: "#fff"
-    },
-    title: {
-      fontSize: 24
-    }
-  });
+  container: {
+    backgroundColor: "black",
+    flex: 1,
+    justifyContent: "space-between",
+    alignItems: "center",
+  },
+
+  placeFeedContainer: {
+    position: "absolute",
+    top: FEED_TOP_START,
+  },
+  placeFeedSectionHeader: {
+    marginBottom: 10,
+  },
+  placeFeedSection: {
+    marginBottom: 20,
+  },
+
+  title: {
+    fontSize: 24,
+  },
+});
