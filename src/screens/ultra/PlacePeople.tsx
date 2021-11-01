@@ -10,6 +10,7 @@ import {
   SectionList,
   StatusBar,
 } from "react-native";
+import { UserIcon, UserIconSizes } from "../../components/molecules/UserIcon";
 
 const WINDOW_WIDTH = Dimensions.get("window").width;
 const WINDOW_HEIGHT = Dimensions.get("window").height;
@@ -56,18 +57,12 @@ export const PlacePeopleHeader = () => (
   </View>
 );
 
-const PlacePerson = () => (
-  <View style={styles.personContainer}>
-    <View style={styles.personPhoto}></View>
-  </View>
-);
-
 export const PlacePeopleContent = () => (
   <View>
     <FlatList
       data={PeopleData}
       horizontal={true}
-      renderItem={PlacePerson}
+      renderItem={() => <UserIcon size={UserIconSizes.MEDIUM} />}
       keyExtractor={(item) => item.id}
       showsVerticalScrollIndicator={false}
       showsHorizontalScrollIndicator={false}
@@ -90,21 +85,5 @@ const styles = StyleSheet.create({
   subheaderTxt: {
     fontSize: 32,
     color: "#FFF",
-  },
-  personContainer: {
-    width: 64,
-    height: 64,
-    marginRight: 20,
-    backgroundColor: "white",
-    borderRadius: 32,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  personPhoto: {
-    width: 58,
-    height: 58,
-    borderRadius: 29,
-    backgroundColor: "blue",
-    borderColor: "black",
   },
 });

@@ -10,6 +10,7 @@ import {
   SectionList,
   StatusBar,
 } from "react-native";
+import { UserIcon, UserIconSizes } from "../../components/molecules/UserIcon";
 
 const WINDOW_WIDTH = Dimensions.get("window").width;
 const WINDOW_HEIGHT = Dimensions.get("window").height;
@@ -50,7 +51,9 @@ export const PlaceStoriesHeader = () => (
 
 const PlaceStory = () => (
   <View style={styles.storyContainer}>
-    <View style={styles.storyPerson}></View>
+    <View style={styles.storyPerson}>
+      <UserIcon size={UserIconSizes.SMALL} />
+    </View>
   </View>
 );
 export const PlaceStoriesContent = () => (
@@ -91,11 +94,7 @@ const styles = StyleSheet.create({
   },
   storyPerson: {
     position: "absolute",
-    width: 32,
-    height: 32,
-    borderRadius: 16,
     top: 10,
     left: 10,
-    backgroundColor: "red",
   },
 });

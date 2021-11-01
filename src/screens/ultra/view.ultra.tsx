@@ -26,7 +26,11 @@ enum PlaceFeedSections {
   STORIES = 3,
   POSTS = 4,
 }
-
+type SectionInfo = {
+  id: PlaceFeedSections;
+  title: string;
+  data: string[];
+};
 const SectionData = [
   {
     id: PlaceFeedSections.PEOPLE,
@@ -73,6 +77,7 @@ export const UltraApp: React.FC = () => {
       <SectionList
         style={[styles.placeFeedContainer]}
         sections={SectionData}
+        keyExtractor={(item, index) => `id-${item}-${index}`}
         renderSectionHeader={({ section: { id } }) => {
           return (
             <View style={styles.placeFeedSectionHeader}>
