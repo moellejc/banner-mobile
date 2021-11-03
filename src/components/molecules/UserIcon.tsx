@@ -1,5 +1,13 @@
 import React, { useRef, useEffect } from "react";
-import { View, Text, Dimensions, StyleSheet, ViewStyle } from "react-native";
+import {
+  View,
+  Image,
+  Text,
+  Dimensions,
+  StyleSheet,
+  ViewStyle,
+  ImageStyle,
+} from "react-native";
 import { WHITE } from "../../constants/styles/Colors";
 
 const { width: screenWidth, height: screenHeight } = Dimensions.get("screen");
@@ -13,11 +21,13 @@ export enum UserIconSizes {
 type UserIconProps = {
   size?: UserIconSizes;
   userProfilePhoto?: string;
+  verified?: boolean;
 };
 
 const defaultProps: UserIconProps = {
   size: UserIconSizes.MEDIUM,
   userProfilePhoto: "",
+  verified: true,
 };
 
 const chooseSize = (size: UserIconSizes): SizeStyle => {
@@ -39,7 +49,24 @@ export const UserIcon = (props: UserIconProps) => {
 
   return (
     <View style={sizeStyleRef.current.container}>
+      {props.verified ? (
+        <Image
+          style={styles.verifiedBackground}
+          source={require("../../../assets/images/ultra-user-photo-verified-ring.png")}
+        />
+      ) : (
+        <Image
+          style={styles.verifiedBackground}
+          source={require("../../../assets/images/ultra-user-photo-ring.png")}
+        />
+      )}
       <View style={sizeStyleRef.current.photo}></View>
+      {props.verified && props.size == UserIconSizes.MEDIUM ? (
+        <Image
+          style={styles.verfiedCheck}
+          source={require("../../../assets/images/ico-confirmed.png")}
+        />
+      ) : null}
     </View>
   );
 };
@@ -53,17 +80,18 @@ type Style = {
   userPhotoMedium: ViewStyle;
   containerLarge: ViewStyle;
   userPhotoLarge: ViewStyle;
+  verifiedBackground: ImageStyle;
+  verfiedCheck: ImageStyle;
 };
 const styles = StyleSheet.create<Style>({
   containerDefaults: {
     marginRight: 20,
-    backgroundColor: "white",
+    backgroundColor: "transparent",
     justifyContent: "center",
     alignItems: "center",
   },
   userPhotoDefaults: {
     backgroundColor: "green",
-    borderColor: "black",
   },
   containerSmall: {
     width: 32,
@@ -71,9 +99,9 @@ const styles = StyleSheet.create<Style>({
     borderRadius: 16,
   },
   userPhotoSmall: {
-    width: 30,
-    height: 30,
-    borderRadius: 15,
+    width: 28,
+    height: 28,
+    borderRadius: 14,
   },
   containerMedium: {
     width: 64,
@@ -81,9 +109,9 @@ const styles = StyleSheet.create<Style>({
     borderRadius: 32,
   },
   userPhotoMedium: {
-    width: 58,
-    height: 58,
-    borderRadius: 29,
+    width: 50,
+    height: 50,
+    borderRadius: 25,
   },
   containerLarge: {
     width: 100,
@@ -91,9 +119,27 @@ const styles = StyleSheet.create<Style>({
     borderRadius: 50,
   },
   userPhotoLarge: {
-    width: 90,
-    height: 90,
-    borderRadius: 45,
+    width: 82,
+    height: 82,
+    borderRadius: 41,
+  },
+  verifiedBackground: {
+    resizeMode: "cover",
+    position: "absolute",
+    top: 0,
+    bottom: 0,
+    left: 0,
+    right: 0,
+    width: undefined,
+    height: undefined,
+  },
+  verfiedCheck: {
+    position: "absolute",
+    top: 0,
+    right: 0,
+    width: 16,
+    height: 16,
+    borderRadius: 8,
   },
 });
 

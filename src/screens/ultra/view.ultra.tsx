@@ -11,7 +11,6 @@ import {
   SectionList,
   StatusBar,
 } from "react-native";
-import { margin } from "../../constants/styles/Mixins";
 import { PlaceHeader } from "./PlaceHeader";
 import { PlacePeopleHeader, PlacePeopleContent } from "./PlacePeople";
 import { PlaceStoriesHeader, PlaceStoriesContent } from "./PlaceStories";
