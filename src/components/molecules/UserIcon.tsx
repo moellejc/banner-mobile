@@ -16,18 +16,21 @@ export enum UserIconSizes {
   SMALL = "small",
   MEDIUM = "medium",
   LARGE = "large",
+  CUSTOM = "custom",
 }
 
 type UserIconProps = {
   size?: UserIconSizes;
   userProfilePhoto?: string;
   verified?: boolean;
+  style?: ViewStyle;
 };
 
 const defaultProps: UserIconProps = {
   size: UserIconSizes.MEDIUM,
   userProfilePhoto: "",
   verified: true,
+  style: StyleSheet.create({}),
 };
 
 const chooseSize = (size: UserIconSizes): SizeStyle => {
@@ -38,6 +41,8 @@ const chooseSize = (size: UserIconSizes): SizeStyle => {
       return sizeStyles.medium;
     case UserIconSizes.LARGE:
       return sizeStyles.large;
+    case UserIconSizes.CUSTOM:
+      return sizeStyles.custom;
     default:
       return sizeStyles.medium;
   }
@@ -48,7 +53,7 @@ export const UserIcon = (props: UserIconProps) => {
   const sizeStyleRef = useRef(chooseSize(props.size!));
 
   return (
-    <View style={sizeStyleRef.current.container}>
+    <View style={[sizeStyleRef.current.container, props.style]}>
       {props.verified ? (
         <Image
           style={styles.verifiedBackground}
@@ -85,7 +90,6 @@ type Style = {
 };
 const styles = StyleSheet.create<Style>({
   containerDefaults: {
-    marginRight: 20,
     backgroundColor: "transparent",
     justifyContent: "center",
     alignItems: "center",
@@ -151,6 +155,7 @@ type SizesStyle = {
   small: SizeStyle;
   medium: SizeStyle;
   large: SizeStyle;
+  custom: SizeStyle;
 };
 const sizeStyles: SizesStyle = {
   small: {
@@ -164,5 +169,9 @@ const sizeStyles: SizesStyle = {
   large: {
     container: [styles.containerDefaults, styles.containerLarge],
     photo: [styles.userPhotoDefaults, styles.userPhotoLarge],
+  },
+  custom: {
+    container: [styles.containerDefaults],
+    photo: [styles.userPhotoDefaults],
   },
 };

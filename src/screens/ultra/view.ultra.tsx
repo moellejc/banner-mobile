@@ -14,6 +14,7 @@ import {
 import { PlaceHeader } from "./PlaceHeader";
 import { PlacePeopleHeader, PlacePeopleContent } from "./PlacePeople";
 import { PlaceStoriesHeader, PlaceStoriesContent } from "./PlaceStories";
+import { PlaceSideMenu } from "../../components/molecules/PlaceSideMenu";
 
 const WINDOW_WIDTH = Dimensions.get("window").width;
 const WINDOW_HEIGHT = Dimensions.get("window").height;
@@ -71,6 +72,7 @@ type UltraAppProps = {};
 export const UltraApp: React.FC = () => {
   return (
     <SafeAreaView style={styles.container}>
+      <PlaceSideMenu />
       <PlaceHeader />
 
       <SectionList

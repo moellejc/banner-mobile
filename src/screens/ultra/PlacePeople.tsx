@@ -62,7 +62,9 @@ export const PlacePeopleContent = () => (
     <FlatList
       data={PeopleData}
       horizontal={true}
-      renderItem={() => <UserIcon size={UserIconSizes.MEDIUM} />}
+      renderItem={() => (
+        <UserIcon size={UserIconSizes.MEDIUM} style={{ marginRight: 20 }} />
+      )}
       keyExtractor={(item) => item.id}
       showsVerticalScrollIndicator={false}
       showsHorizontalScrollIndicator={false}
