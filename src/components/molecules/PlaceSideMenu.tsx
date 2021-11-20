@@ -64,7 +64,7 @@ export const PlaceSideMenu = (props: PlaceSideMenuProps) => {
 const styles = StyleSheet.create({
   container: {
     position: "absolute",
-    right: 0,
+    right: -10,
     bottom: 150,
     width: 75,
     zIndex: 1000,
@@ -72,7 +72,7 @@ const styles = StyleSheet.create({
   menuItem: {
     marginTop: 20,
     alignItems: "center",
-    backgroundColor: "purple",
+    // backgroundColor: "purple",
   },
   menuItemImage: {
     width: 32,
@@ -86,10 +86,10 @@ const styles = StyleSheet.create({
   },
   background: {
     position: "absolute",
-    top: 0,
+    top: -10,
     right: -10,
     bottom: 0,
-    width: 75,
+    left: -30,
     zIndex: -1,
     resizeMode: "stretch",
   },
