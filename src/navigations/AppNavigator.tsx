@@ -28,6 +28,7 @@ function AppNavigator() {
     <Tab.Navigator
       screenOptions={{
         tabBarShowLabel: false,
+        headerShown: false,
         tabBarStyle: {
           backgroundColor: "black",
           position: "absolute",
@@ -38,126 +39,102 @@ function AppNavigator() {
         },
       }}
     >
-      <Tab.Screen name="Feed" component={FeedScreen} />
-      <Tab.Screen name="Messages" component={MessagesScreen} />
-      <Tab.Screen name="Camera" component={CameraScreen} />
-      <Tab.Screen name="Discover" component={DiscoverScreen} />
-      <Tab.Screen name="Add" component={AddScreen} />
+      <Tab.Screen
+        name="Feed"
+        component={FeedScreen}
+        options={{
+          tabBarIcon: ({ focused: boolean }) => (
+            <View>
+              <Image
+                source={require("../../assets/images/icon-feed-white.png")}
+                resizeMode="contain"
+                style={{
+                  width: 25,
+                  height: 25,
+                  tintColor: "white",
+                }}
+              />
+            </View>
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="Messages"
+        component={MessagesScreen}
+        options={{
+          tabBarIcon: ({ focused: boolean }) => (
+            <View>
+              <Image
+                source={require("../../assets/images/icon-chat-full-white.png")}
+                resizeMode="contain"
+                style={{
+                  width: 25,
+                  height: 25,
+                  tintColor: "white",
+                }}
+              />
+            </View>
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="Camera"
+        component={CameraScreen}
+        options={{
+          tabBarIcon: ({ focused: boolean }) => (
+            <View>
+              <Image
+                source={require("../../assets/images/icon-camera-circle.png")}
+                resizeMode="contain"
+                style={{
+                  width: 25,
+                  height: 25,
+                }}
+              />
+            </View>
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="Discover"
+        component={DiscoverScreen}
+        options={{
+          tabBarIcon: ({ focused: boolean }) => (
+            <View>
+              <Image
+                source={require("../../assets/images/icon-explore.png")}
+                resizeMode="contain"
+                style={{
+                  width: 25,
+                  height: 25,
+                  tintColor: "white",
+                }}
+              />
+            </View>
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="Add"
+        component={AddScreen}
+        options={{
+          tabBarIcon: ({ focused: boolean }) => (
+            <View>
+              <Image
+                source={require("../../assets/images/icon-plus-thick-white.png")}
+                resizeMode="contain"
+                style={{
+                  width: 25,
+                  height: 25,
+                  tintColor: "white",
+                }}
+              />
+            </View>
+          ),
+        }}
+      />
     </Tab.Navigator>
   );
 }
-
-// function AppNavigator() {
-//   return (
-//     <Tab.Navigator
-//       screenOptions={{
-//         tabBarShowLabel: false,
-//         tabBarStyle: {
-//           backgroundColor: "black",
-//           position: "absolute",
-//           bottom: 0,
-//           left: 0,
-//           right: 0,
-//           height: 100,
-//         },
-//       }}
-//     >
-//       <Tab.Screen
-//         name="Feed"
-//         component={FeedScreen}
-//         options={{
-//           tabBarIcon: ({ focused: boolean }) => (
-//             <View>
-//               <Image
-//                 source={require("../../assets/images/icon-feed-white.png")}
-//                 resizeMode="contain"
-//                 style={{
-//                   width: 25,
-//                   height: 25,
-//                   tintColor: "white",
-//                 }}
-//               />
-//             </View>
-//           ),
-//         }}
-//       />
-//       <Tab.Screen
-//         name="Messages"
-//         component={MessagesScreen}
-//         options={{
-//           tabBarIcon: ({ focused: boolean }) => (
-//             <View>
-//               <Image
-//                 source={require("../../assets/images/icon-chat-full-white.png")}
-//                 resizeMode="contain"
-//                 style={{
-//                   width: 25,
-//                   height: 25,
-//                   tintColor: "white",
-//                 }}
-//               />
-//             </View>
-//           ),
-//         }}
-//       />
-//       <Tab.Screen
-//         name="Camera"
-//         component={CameraScreen}
-//         options={{
-//           tabBarIcon: ({ focused: boolean }) => (
-//             <View>
-//               <Image
-//                 source={require("../../assets/images/icon-camera-circle.png")}
-//                 resizeMode="contain"
-//                 style={{
-//                   width: 25,
-//                   height: 25,
-//                 }}
-//               />
-//             </View>
-//           ),
-//         }}
-//       />
-//       <Tab.Screen
-//         name="Discover"
-//         component={DiscoverScreen}
-//         options={{
-//           tabBarIcon: ({ focused: boolean }) => (
-//             <View>
-//               <Image
-//                 source={require("../../assets/images/icon-explore.png")}
-//                 resizeMode="contain"
-//                 style={{
-//                   width: 25,
-//                   height: 25,
-//                   tintColor: "white",
-//                 }}
-//               />
-//             </View>
-//           ),
-//         }}
-//       />
-//       <Tab.Screen
-//         name="Add"
-//         component={AddScreen}
-//         options={{
-//           tabBarIcon: ({ focused: boolean }) => (
-//             <View>
-//               <Image
-//                 source={require("../../assets/images/icon-plus-thick-white.png")}
-//                 resizeMode="contain"
-//                 style={{
-//                   width: 25,
-//                   height: 25,
-//                   tintColor: "white",
-//                 }}
-//               />
-//             </View>
-//           ),
-//         }}
-//       />
-//     </Tab.Navigator>
-//   );
-// }
 
 export default AppNavigator;

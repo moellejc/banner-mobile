@@ -16,16 +16,16 @@ export default () => {
   });
 
   useEffect(() => {
-
     // if user is logged in then render appropriate nav
-    setIsLoggedIn(store.getState().auth.isLoggedIn);
+    setIsLoggedIn(true);
+    // setIsLoggedIn(store.getState().auth.isLoggedIn);
   }, []);
 
   const getNavigator = (): any | null => {
     console.log("get nav");
     return !isLoggedIn ? <AppNavigator /> : <AppNavigator />;
     // return !isLoggedIn ? <AuthNavigator /> : <AppNavigator />;
-    
+
     // if (loginChecked) return !isLoggedIn ? <AppNavigator /> : <AppNavigator />; // use for testing feed
   };
 
