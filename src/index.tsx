@@ -7,17 +7,15 @@ import { SafeAreaProvider } from "react-native-safe-area-context";
 import AppTheme from "./constants/styles/Theme";
 import { Provider } from "react-redux";
 import { store } from "./state";
-import AppLoading from 'expo-app-loading';
+import AppLoading from "expo-app-loading";
 import { appStartupLoader } from "./loaders/appstartup.loader";
 
 export default class App extends React.PureComponent {
-  
   state = {
     isReady: false,
   };
-  
-  render() {
 
+  render() {
     if (!this.state.isReady) {
       return (
         <AppLoading
@@ -25,8 +23,21 @@ export default class App extends React.PureComponent {
           onFinish={() => this.setState({ isReady: true })}
           onError={console.warn}
         />
-      ); 
+      );
     }
+
+    /**
+     * Application Hierarchy
+     * ---------------------
+     * App
+     * * Navigation (Auth | App - Menu & Search)
+     * * * Feed
+     * * * * Current Place
+     * * * Profile
+     * * * Search
+     * * * Discover
+     * * * Add
+     */
 
     return (
       <ApolloProvider client={client}>

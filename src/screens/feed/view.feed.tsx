@@ -21,31 +21,6 @@ import { Place } from "../place/Place";
 /**
  Page Component
 */
-/** 
-const Page: React.FC = ({ item }: PageProps) => {
-  return (
-    <View style={pageStyle.container}>
-      
-      <View style={headerStyle.container}>
-
-        <View style={headerInfoStyle.container}>
-          <Text style={headerInfoStyle.title}>Topgolf</Text>
-          <Text style={headerInfoStyle.address}>
-            9568 Water Front Dr. West Chester, OH
-          </Text>
-        </View>
-
-        <View>
-          <Button>Follow</Button>
-        </View>
-      </View>
-      <View>
-        <Text>{item.title}</Text>
-      </View>
-    </View>
-  );
-};
-*/
 
 /**
  Screen Component
@@ -57,8 +32,11 @@ export const FeedScreen: React.FC = () => {
 
   return (
     <View style={feedRoodStyle.container}>
-      {/* Search */}
-      {/* <View style={searchStyle.container}></View> */}
+      {
+        <View style={searchStyle.container}>
+          <Text>Feed</Text>
+        </View>
+      }
       <Place />
     </View>
   );

@@ -1,12 +1,11 @@
 import React from "react";
-import { View } from "react-native";
+import { View, Text } from "react-native";
 
 type DiscoverScreenProps = {};
 export const DiscoverScreen: React.FC = () => {
-
   return (
     <View>
-      Discover
+      <Text>Discover</Text>
     </View>
   );
 };
