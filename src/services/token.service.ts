@@ -4,7 +4,7 @@ import * as TokenAPI from "../api/token.api";
 import { Actions, store } from "../state";
 
 // Secure Storage Keys
-const TOKEN_REFRESH_KEY = "ultra-jwt_refresh_token";
+const TOKEN_REFRESH_KEY = "banner-jwt_refresh_token";
 
 export const setTokens = (accessToken: string, refreshToken: string) => {
   store.dispatch({
@@ -88,10 +88,9 @@ export const refreshAccessToken = async (): Promise<boolean> => {
   if (!res.ok) {
     // refersh failed so clear all token locally and logout
     clearTokens();
-    
+
     return false;
   }
-  
 
   // get access token and update in app
   updateAccessToken(

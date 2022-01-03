@@ -1,20 +1,18 @@
 {
-  "name": "Ultra",
-  "displayName": "Ultra",
+  "name": "Banner",
+  "displayName": "Banner",
   "expo": {
-    "name": "ultra-mobile",
-    "slug": "ultra-mobile",
+    "name": "banner-mobile",
+    "slug": "banner-mobile",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/appicon/appicon-ultra-white-1024@1x.png",
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "android": {
-      "package": "com.ultra.ultramobile"
+      "package": "com.banner.bannermobile"
     },
     "ios": {
-      "bundleIdentifier": "com.ultra.ultramobile"
+      "bundleIdentifier": "com.banner.bannermobile"
     }
   }
 }

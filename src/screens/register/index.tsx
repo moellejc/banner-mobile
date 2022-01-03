@@ -5,11 +5,11 @@ import AppTheme, { textInputTheme } from "../../constants/styles/Theme";
 import { ApolloError, gql, useMutation } from "@apollo/client";
 import { useNavigation } from "@react-navigation/native";
 import { AntDesign } from "@expo/vector-icons";
-import UltraButton from "../../components/atoms/UltraButton";
+import BannerButton from "../../components/atoms/BannerButton";
 import {
   RegisterResponse,
   FieldError,
-} from "../../graphql/generator/UltraGQLTypes";
+} from "../../graphql/generator/BannerGQLTypes";
 import { useSelector, useDispatch } from "react-redux";
 // import { authConstants } from "../../constants/state_old";
 // import { meConstants } from "../../constants/state_old";
@@ -156,7 +156,7 @@ const RegisterScreen: React.FC = () => {
       </View>
 
       <View style={[styles.row, { flex: 1 }]}>
-        <UltraButton
+        <BannerButton
           text="Sign Up"
           height={50}
           width={screenWidth}

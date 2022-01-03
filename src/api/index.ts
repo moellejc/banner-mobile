@@ -3,7 +3,7 @@ import * as Location from "./location.api";
 import * as Token from "./token.api";
 import * as User from "./user.api";
 
-export const UltraAPI = {
+export const BannerAPI = {
   Auth,
   User,
   Location,

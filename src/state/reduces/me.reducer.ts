@@ -2,7 +2,7 @@ import {
   UserRoles,
   UserStatuses,
   UserTypes,
-} from "../../graphql/generator/UltraGQLTypes";
+} from "../../graphql/generator/BannerGQLTypes";
 import { Coordinates } from "../../types/Coordinates";
 import { MeActions } from "../constants";
 

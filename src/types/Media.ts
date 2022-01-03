@@ -1,4 +1,4 @@
-import { MediaTypes } from "../graphql/generator/UltraGQLTypes";
+import { MediaTypes } from "../graphql/generator/BannerGQLTypes";
 import { Post } from "./Post";
 import { User } from "./User";
 

@@ -73,6 +73,6 @@
     "preset": "react-native"
   },
   "private": true,
-  "name": "ultra-mobile",
+  "name": "banner-mobile",
   "version": "1.0.0"
 }

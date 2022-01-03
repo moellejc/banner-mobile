@@ -68,8 +68,8 @@ const chooseSection = (sectionID: PlaceFeedSections): React.ReactNode => {
   }
 };
 
-type UltraAppProps = {};
-export const UltraApp: React.FC = () => {
+type BannerAppProps = {};
+export const BannerApp: React.FC = () => {
   return (
     <SafeAreaView style={styles.container}>
       <PlaceSideMenu />

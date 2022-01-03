@@ -1,1 +1,1 @@
-export { UltraApp } from "./view.ultra";
+export { BannerApp } from "./view.banner";

@@ -5,7 +5,7 @@ import AppTheme from "../../constants/styles/Theme";
 import { DARK_PURPLE } from "../../constants/styles/Colors";
 import { StringLocale } from "yup/lib/locale";
 
-interface UltraButtonProps {
+interface BannerButtonProps {
   height?: number;
   width?: number;
   borderRadius?: number;
@@ -16,17 +16,17 @@ interface UltraButtonProps {
   onPress?: () => void;
 }
 
-const UltraButton: React.FC<UltraButtonProps> = (
-  props: UltraButtonProps
+const BannerButton: React.FC<BannerButtonProps> = (
+  props: BannerButtonProps
 ) => {
   return (
     <GradientBorderButton
       style={styles.btn}
       text={props.text}
       gradientColors={[
-        AppTheme.colors.ultraBlue,
-        AppTheme.colors.ultraPurple,
-        AppTheme.colors.ultraPink,
+        AppTheme.colors.bannerBlue,
+        AppTheme.colors.bannerPurple,
+        AppTheme.colors.bannerPink,
       ]}
       gradientPositions={{ start: { x: 0, y: 0 }, end: { x: 1, y: 1 } }}
       height={props.height}
@@ -42,7 +42,7 @@ const UltraButton: React.FC<UltraButtonProps> = (
   );
 };
 
-UltraButton.defaultProps = {
+BannerButton.defaultProps = {
   height: 30,
   width: 100,
   borderRadius: 15,
@@ -55,4 +55,4 @@ const styles = StyleSheet.create({
   btn: {},
 });
 
-export default UltraButton;
+export default BannerButton;

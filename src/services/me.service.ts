@@ -1,14 +1,14 @@
-import { UltraAPI } from "../api";
-import { FieldError, User } from "../graphql/generator/UltraGQLTypes";
+import { BannerAPI } from "../api";
+import { FieldError, User } from "../graphql/generator/BannerGQLTypes";
 import { Actions, store } from "../state";
 
 // TODO: implement secure storage for me user
 // Secure Storage Keys
-// const ME_NAME_KEY = "ultra-me_name";
+// const ME_NAME_KEY = "banner-me_name";
 
 export const getMe = async (): Promise<[boolean, FieldError[] | null]> => {
   try {
-    let res: User = await UltraAPI.User.getMe();
+    let res: User = await BannerAPI.User.getMe();
 
     // user not found
     if (!res) return [false, null];

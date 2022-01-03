@@ -1,9 +1,9 @@
-import { UltraAPI } from "../api";
+import { BannerAPI } from "../api";
 import {
   FieldError,
   LoginResponse,
   RegisterResponse,
-} from "../graphql/generator/UltraGQLTypes";
+} from "../graphql/generator/BannerGQLTypes";
 import { Actions, store } from "../state";
 import * as MeService from "./me.service";
 import * as TokenService from "./token.service";
@@ -17,7 +17,7 @@ export const register = async (
   repassword: string
 ): Promise<[boolean, FieldError[] | null]> => {
   // call Login API
-  let res: RegisterResponse = await UltraAPI.Auth.register(
+  let res: RegisterResponse = await BannerAPI.Auth.register(
     firstName,
     lastName,
     email,
@@ -48,7 +48,7 @@ export const login = async (
   password: string
 ): Promise<[boolean, FieldError[] | null]> => {
   // call Login API
-  let res: LoginResponse = await UltraAPI.Auth.login(email, password);
+  let res: LoginResponse = await BannerAPI.Auth.login(email, password);
 
   // TOOD: check for failure
   if (res.errors) return [false, res.errors];
@@ -73,7 +73,7 @@ export const login = async (
 
 export const logout = () => {
   // increment refresh token version in DB
-  UltraAPI.Auth.logout();
+  BannerAPI.Auth.logout();
 
   // clear redux store
   TokenService.clearTokens();
