@@ -76,7 +76,7 @@ const FeedMenuFilterItem = (props: FeedMenuItemProps) => (
     <Image
       resizeMethod={"resize"}
       resizeMode={"contain"}
-      style={feedMenuStyle.filterItemIcon}
+      style={feedMenuStyle.feedMenuItemIcon}
       source={props.icon}
     />
     <Text style={feedMenuStyle.filterItemText}>{props.title}</Text>
@@ -87,22 +87,27 @@ const renderFeedMenuItem: ListRenderItem<FeedMenuItemProps> = ({ item }) => {
   switch (item.type) {
     case "profile":
       return (
-        <TouchableOpacity style={feedMenuStyle.feedMenuItemProfile}>
+        <TouchableOpacity
+          style={[
+            feedMenuStyle.feedMenuItem,
+            feedMenuStyle.feedMenuItemIconProfile,
+          ]}
+        >
           <Image
             resizeMethod={"resize"}
             resizeMode={"contain"}
-            style={feedMenuStyle.profileIcon}
+            style={feedMenuStyle.feedMenuItemIcon}
             source={profileImg}
           />
         </TouchableOpacity>
       );
     case "search":
       return (
-        <TouchableOpacity style={feedMenuStyle.feedMenuItemSearch}>
+        <TouchableOpacity style={feedMenuStyle.feedMenuItem}>
           <Image
             resizeMethod={"resize"}
             resizeMode={"contain"}
-            style={feedMenuStyle.searchIcon}
+            style={feedMenuStyle.feedMenuItemIcon}
             source={searchIconImg}
           />
         </TouchableOpacity>
@@ -323,41 +328,36 @@ const servicesStyle = StyleSheet.create({
   },
 });
 
+const feedMenuHeight = 24;
 const feedMenuStyle = StyleSheet.create({
   container: {
     position: "absolute",
     top: 50,
     left: 0,
     right: 0,
-    height: 30,
+    height: feedMenuHeight,
   },
   menuList: {
-    height: 30,
+    height: feedMenuHeight,
   },
   feedMenuItem: {
-    height: 30,
-    marginLeft: 5,
+    height: feedMenuHeight,
+    marginRight: 15,
     flexDirection: "row",
+    alignItems: "center",
   },
-  feedMenuItemProfile: {
-    height: 30,
-    width: 30,
-    borderRadius: 15,
+  feedMenuItemIcon: {
+    height: feedMenuHeight,
+    width: feedMenuHeight,
+  },
+  feedMenuItemIconProfile: {
+    borderRadius: feedMenuHeight / 2,
     backgroundColor: "green",
-  },
-  feedMenuItemSearch: {
-    height: 30,
-    width: 30,
-    backgroundColor: "purple",
-  },
-  profileIcon: {},
-  searchIcon: {},
-  filterItemIcon: {
-    height: 30,
-    width: 30,
   },
   filterItemText: {
     color: "white",
+    fontWeight: "bold",
+    marginLeft: 5,
   },
 });
 
