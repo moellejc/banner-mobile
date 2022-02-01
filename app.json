@@ -6,7 +6,7 @@
     "slug": "banner-mobile",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/images/appicon/appicon-ultra-white-1024@1x.png",
+    "icon": "./assets/images/appicon/appicon-banner-white-1024@1x.png",
     "assetBundlePatterns": ["**/*"],
     "android": {
       "package": "com.banner.bannermobile"
