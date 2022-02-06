@@ -29,8 +29,10 @@ const { width: screenWidth, height: screenHeight } = Dimensions.get("screen");
 // );
 
 type PlaceProps = {};
-export const Place = ({}: PlaceProps) => {
-  const placeMenuDataRef = React.useRef<PlaceMenuData[] | null>(getCurrentPlaceOptions());
+export const PlaceOld = ({}: PlaceProps) => {
+  const placeMenuDataRef = React.useRef<PlaceMenuData[] | null>(
+    getCurrentPlaceOptions()
+  );
   const ref = React.useRef<FlatList<PlaceMenuData>>(null);
   const scrollX = React.useRef(new Animated.Value(0)).current;
   const onItemPress = React.useCallback((itemIndex: number) => {
@@ -49,22 +51,22 @@ export const Place = ({}: PlaceProps) => {
 
   return (
     <View>
-      { placeMenuDataRef.current ?
+      {placeMenuDataRef.current ? (
         <View>
           <Animated.FlatList
-          style={{ backgroundColor: "red" }}
-          ref={ref}
-          data={placeMenuDataRef.current!}
-          horizontal
-          showsHorizontalScrollIndicator={false}
-          pagingEnabled
-          bounces={false}
-          keyExtractor={(item) => item.key}
-          renderItem={extractPage}
-          onScroll={Animated.event(
-            [{ nativeEvent: { contentOffset: { x: scrollX } } }],
-            { useNativeDriver: false }
-          )}
+            style={{ backgroundColor: "red" }}
+            ref={ref}
+            data={placeMenuDataRef.current!}
+            horizontal
+            showsHorizontalScrollIndicator={false}
+            pagingEnabled
+            bounces={false}
+            keyExtractor={(item) => item.key}
+            renderItem={extractPage}
+            onScroll={Animated.event(
+              [{ nativeEvent: { contentOffset: { x: scrollX } } }],
+              { useNativeDriver: false }
+            )}
           />
           <PlaceMenu
             scrollX={scrollX}
@@ -72,7 +74,7 @@ export const Place = ({}: PlaceProps) => {
             onItemPress={onItemPress}
           />
         </View>
-      : null }
+      ) : null}
     </View>
   );
 };
