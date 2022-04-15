@@ -30,7 +30,7 @@ export default class App extends React.PureComponent {
      * Application Hierarchy
      * ---------------------
      * App
-     * * Navigation (Auth | App - Menu & Search)
+     * * Navigation (Auth | Banner - Menu & Search)
      * * * Feed
      * * * * Current Place
      * * * Profile
