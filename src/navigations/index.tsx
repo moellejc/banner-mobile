@@ -4,6 +4,7 @@ import AuthNavigator from "./AuthNavigator";
 import AppNavigator from "./AppNavigator";
 import { useDispatch } from "react-redux";
 import { store } from "../state";
+import { Services } from "../services";
 
 export default () => {
   const [loginChecked, setLoginChecked] = useState(false);
@@ -19,6 +20,10 @@ export default () => {
     // if user is logged in then render appropriate nav
     setIsLoggedIn(true);
     // setIsLoggedIn(store.getState().auth.isLoggedIn);
+    const startTracking = async () => {
+      await Services.TrackingService.trackCurrentLocation();
+    };
+    startTracking();
   }, []);
 
   const getNavigator = (): any | null => {

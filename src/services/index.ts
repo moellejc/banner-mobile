@@ -5,6 +5,8 @@ import * as LocationService from "./location.service";
 import * as PlaceService from "./location.service";
 import * as TrackingService from "./location.service";
 
+//C2626048
+
 // restore state for various services from secure storage
 export const restore = async () => {
   await TokenService.restore();
