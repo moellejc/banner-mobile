@@ -20,8 +20,11 @@ export default () => {
     // if user is logged in then render appropriate nav
     setIsLoggedIn(true);
     // setIsLoggedIn(store.getState().auth.isLoggedIn);
+
+    // begin tracking after user login
     const startTracking = async () => {
-      await Services.TrackingService.trackCurrentLocation();
+      console.log("Start tracking from navigator");
+      await Services.TrackingService.startTracking();
     };
     startTracking();
   }, []);
