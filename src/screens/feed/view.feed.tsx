@@ -29,13 +29,10 @@ export const FeedScreen: React.FC = () => {
     <View style={feedStyle.container}>
       {/* place */}
       <Place />
-
-      {/* feed menu */}
-      <FeedMenu />
     </View>
   );
 };
 
 const feedStyle = StyleSheet.create({
-  container: { flex: 1, backgroundColor: "black" },
+  container: { flex: 1, backgroundColor: "white" },
 });

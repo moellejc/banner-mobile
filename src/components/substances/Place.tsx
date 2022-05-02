@@ -26,7 +26,7 @@ export const Place = ({}: PlaceProps) => {
 
   return (
     <View style={placeStyle.container}>
-      <View style={placeStyle.backgroundContainer}>
+      {/* <View style={placeStyle.backgroundContainer}>
         <Image
           source={require("../../../assets/images/mock-images/Chipotle-01.jpeg")}
           resizeMode={"cover"}
@@ -34,16 +34,16 @@ export const Place = ({}: PlaceProps) => {
           style={placeStyle.backgroundImage}
         />
         <LinearGradient
-          colors={["black", "transparent"]}
+          colors={["white", "transparent"]}
           start={[0, 1]}
           end={[0, 0.25]}
           style={placeStyle.headerBackground}
         ></LinearGradient>
-      </View>
+      </View> */}
 
       {/* place header */}
       <View style={placeStyle.headerContainer}>
-        <View>
+        <View style={placeStyle.headerTitles}>
           <Text style={placeStyle.organizationTitle}>Chipotle, inc.</Text>
           <Text style={placeStyle.title}>West Chest Chipotle</Text>
         </View>
@@ -71,7 +71,7 @@ export const Place = ({}: PlaceProps) => {
       </View>
 
       {/* place services */}
-      <View style={servicesStyle.container}>
+      {/* <View style={servicesStyle.container}>
         <View style={servicesStyle.serviceItem}>
           <Image
             resizeMethod={"resize"}
@@ -107,21 +107,24 @@ export const Place = ({}: PlaceProps) => {
         <View style={servicesStyle.serviceItemText}>
           <Text style={servicesStyle.serviceItemFollowers}>1.2m followers</Text>
         </View>
-      </View>
+      </View> */}
     </View>
   );
 };
 
 const placeStyle = StyleSheet.create({
   container: {
-    height: 100,
+    width: windowWidth,
+    height: windowHeight,
+    backgroundColor: "orange",
   },
   backgroundContainer: {
     position: "absolute",
     top: 0,
     left: 0,
     width: windowWidth,
-    height: windowHeight * 0.8,
+    height: windowHeight * 0.4,
+    zIndex: 0,
   },
   backgroundImage: {
     width: windowWidth,
@@ -133,8 +136,12 @@ const placeStyle = StyleSheet.create({
     bottom: 150,
     left: 0,
     right: 0,
+    zIndex: 100,
+    backgroundColor: "green",
   },
-  headerTitles: {},
+  headerTitles: {
+    height: 50,
+  },
   headerBackground: {
     position: "absolute",
     top: 0,
@@ -149,13 +156,13 @@ const placeStyle = StyleSheet.create({
     marginBottom: 5,
   },
   title: {
-    color: "white",
+    color: "black",
     fontSize: 32,
     fontWeight: "bold",
     marginBottom: 5,
   },
   hours: {
-    color: "white",
+    color: "black",
     fontSize: 18,
   },
   actionMenu: {
@@ -164,6 +171,7 @@ const placeStyle = StyleSheet.create({
     right: 0,
     bottom: 0,
     width: 44,
+    backgroundColor: "red",
   },
   actionMenuItem: {
     width: 44,
@@ -207,7 +215,7 @@ const servicesStyle = StyleSheet.create({
     height: 18,
   },
   serviceItemFollowers: {
-    color: "white",
+    color: "red",
     fontSize: 14,
   },
 });
