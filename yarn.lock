@@ -4335,6 +4335,11 @@ expo-haptics@^9.0.0:
   resolved "https://registry.yarnpkg.com/expo-haptics/-/expo-haptics-9.0.0.tgz#a01605634ff9b8a4dc8023f5430278be874f525b"
   integrity sha512-jBYgclyBVuGiqFPxdYSpIE5OEpWodu1B8fsqDLVIOWjdACnKVGsaBpSF6W4Xq0wVRvoak7C4Oz7ISV08rtPMOw==
 
+expo-haptics@~11.1.0:
+  version "11.1.1"
+  resolved "https://registry.yarnpkg.com/expo-haptics/-/expo-haptics-11.1.1.tgz#fdaf253d35433e07415424e4792b1db5cc9b0961"
+  integrity sha512-Z1qRr9/lPInLhTtyjFyLqPC4edg1G/qlWCShFXNz5eJHOnotOv8qpIKDOvPYPrG3XsJc8UO8ds2Z3qmBUApEUA==
+
 expo-json-utils@~0.2.0:
   version "0.2.0"
   resolved "https://registry.yarnpkg.com/expo-json-utils/-/expo-json-utils-0.2.0.tgz#2cd52648060c7905f8fd330d4ac22a5278e40650"
