@@ -9,182 +9,65 @@ import {
   Dimensions,
   FlatList,
   TouchableOpacity,
-  Animated,
   PanResponder,
   ListRenderItem,
 } from "react-native";
+import Animated from "react-native-reanimated";
 import { LinearGradient } from "expo-linear-gradient";
+import { PlaceCover } from "./PlaceCover";
+import { PlaceContent } from "./PlaceContent";
+import { IPlace } from "./PlaceModel";
 
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
 
 const { width: screenWidth, height: screenHeight } = Dimensions.get("screen");
 
-type PlaceProps = {};
+const { Value } = Animated;
+
+const place: IPlace = {
+  name: "Remote Control",
+  artist: "Jan Blomqvist",
+  release: 2016,
+  // eslint-disable-next-line global-require
+  cover: require("./assets/Jan-Blomqvist.jpg"),
+  tracks: [
+    { name: "Stories Over" },
+    { name: "More", artist: "Jan Blomqvist, Elena Pitoulis" },
+    { name: "Empty Floor" },
+    { name: "Her Great Escape" },
+    { name: "Dark Noise" },
+    { name: "Drift", artist: "Jan Blomqvist, Aparde" },
+    { name: "Same Mistake" },
+    {
+      name: "Dancing People Are Never Wrong",
+      artist: "Jan Blomqvist, The Bianca Story",
+    },
+    { name: "Back in the Taxi" },
+    { name: "Ghosttrack" },
+    { name: "Just OK" },
+    { name: "The End" },
+  ],
+};
+
+interface PlaceProps {}
 export const Place = ({}: PlaceProps) => {
+  const y = new Value(0);
   React.useEffect(() => {}, []);
 
   return (
-    <View style={placeStyle.container}>
-      {/* <View style={placeStyle.backgroundContainer}>
-        <Image
-          source={require("../../../assets/images/mock-images/Chipotle-01.jpeg")}
-          resizeMode={"cover"}
-          resizeMethod={"resize"}
-          style={placeStyle.backgroundImage}
-        />
-        <LinearGradient
-          colors={["white", "transparent"]}
-          start={[0, 1]}
-          end={[0, 0.25]}
-          style={placeStyle.headerBackground}
-        ></LinearGradient>
-      </View> */}
-
-      {/* place header */}
-      <View style={placeStyle.headerContainer}>
-        <View style={placeStyle.headerTitles}>
-          <Text style={placeStyle.organizationTitle}>Chipotle, inc.</Text>
-          <Text style={placeStyle.title}>West Chest Chipotle</Text>
-        </View>
-        <View>
-          <Text style={placeStyle.hours}>Closed - Opens at 10:45am</Text>
-        </View>
-        <View style={placeStyle.actionMenu}>
-          <View style={placeStyle.actionMenuItem}>
-            <Image
-              resizeMethod={"resize"}
-              resizeMode={"contain"}
-              source={require("../../../assets/images/icon-save-white.png")}
-              style={placeStyle.actionMenuItemIcon}
-            />
-          </View>
-          <View style={placeStyle.actionMenuItem}>
-            <Image
-              resizeMethod={"resize"}
-              resizeMode={"contain"}
-              source={require("../../../assets/images/icon-share-white.png")}
-              style={placeStyle.actionMenuItemIcon}
-            />
-          </View>
-        </View>
-      </View>
-
-      {/* place services */}
-      {/* <View style={servicesStyle.container}>
-        <View style={servicesStyle.serviceItem}>
-          <Image
-            resizeMethod={"resize"}
-            resizeMode={"contain"}
-            source={require("../../../assets/images/icon-phone-black.png")}
-            style={servicesStyle.serviceItemIcon}
-          />
-        </View>
-        <View style={servicesStyle.serviceItem}>
-          <Image
-            resizeMethod={"resize"}
-            resizeMode={"contain"}
-            source={require("../../../assets/images/icon-dining-black.png")}
-            style={servicesStyle.serviceItemIcon}
-          />
-        </View>
-        <View style={servicesStyle.serviceItem}>
-          <Image
-            resizeMethod={"resize"}
-            resizeMode={"contain"}
-            source={require("../../../assets/images/icon-delivery-black.png")}
-            style={servicesStyle.serviceItemIcon}
-          />
-        </View>
-        <View style={servicesStyle.serviceItem}>
-          <Image
-            resizeMethod={"resize"}
-            resizeMode={"contain"}
-            source={require("../../../assets/images/icon-help-black.png")}
-            style={servicesStyle.serviceItemIcon}
-          />
-        </View>
-        <View style={servicesStyle.serviceItemText}>
-          <Text style={servicesStyle.serviceItemFollowers}>1.2m followers</Text>
-        </View>
-      </View> */}
+    <View style={style.container}>
+      <PlaceCover {...{ y, place }} />
+      <PlaceContent {...{ y, place }} />
     </View>
   );
 };
 
-const placeStyle = StyleSheet.create({
+const style = StyleSheet.create({
   container: {
     width: windowWidth,
     height: windowHeight,
-    backgroundColor: "orange",
-  },
-  backgroundContainer: {
-    position: "absolute",
-    top: 0,
-    left: 0,
-    width: windowWidth,
-    height: windowHeight * 0.4,
-    zIndex: 0,
-  },
-  backgroundImage: {
-    width: windowWidth,
-    height: "100%",
-  },
-  headerContainer: {
-    height: 100,
-    position: "absolute",
-    bottom: 150,
-    left: 0,
-    right: 0,
-    zIndex: 100,
-    backgroundColor: "green",
-  },
-  headerTitles: {
-    height: 50,
-  },
-  headerBackground: {
-    position: "absolute",
-    top: 0,
-    left: 0,
-    bottom: 0,
-    right: 0,
-  },
-  organizationTitle: {
-    textTransform: "uppercase",
-    color: "#9D9D9D",
-    fontSize: 18,
-    marginBottom: 5,
-  },
-  title: {
-    color: "black",
-    fontSize: 32,
-    fontWeight: "bold",
-    marginBottom: 5,
-  },
-  hours: {
-    color: "black",
-    fontSize: 18,
-  },
-  actionMenu: {
-    position: "absolute",
-    top: 0,
-    right: 0,
-    bottom: 0,
-    width: 44,
-    backgroundColor: "red",
-  },
-  actionMenuItem: {
-    width: 44,
-    height: 44,
-    backgroundColor: "rgba(216,216,216,0.16)",
-    borderRadius: 22,
-    justifyContent: "center",
-    alignItems: "center",
-    marginBottom: 7,
-  },
-  actionMenuItemIcon: {
-    width: 20,
-    height: 20,
+    backgroundColor: "white",
   },
 });
 
