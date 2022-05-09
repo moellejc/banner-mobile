@@ -13,7 +13,7 @@ import {
 } from "react-native";
 import Animated from "react-native-reanimated";
 import { LinearGradient } from "expo-linear-gradient";
-import { MIN_HEADER_HEIGHT, IPlace } from "./PlaceModel";
+import { MIN_HEADER_HEIGHT, MAX_HEADER_HEIGHT, IPlace } from "./PlaceModel";
 import { PlaceHeader } from "./PlaceHeader";
 import { useDispatch } from "react-redux";
 
@@ -35,15 +35,16 @@ export const PlaceContent = ({ place, y }: PlaceContentProps) => {
         y.setValue(event.nativeEvent.contentOffset.y);
       }}
       scrollEventThrottle={16}
-      style={style.container}
+      style={styles.container}
       showsVerticalScrollIndicator={false}
       stickyHeaderIndices={[1]}
     >
+      <View style={styles.cover}></View>
       <PlaceHeader {...{ y, place }} />
       <View>
         {place.tracks.map((track, key) => (
-          <View key={key + 1}>
-            <Text>{track.name}</Text>
+          <View style={styles.postContainer} key={key + 1}>
+            <Text style={styles.postText}>{track.name}</Text>
           </View>
         ))}
       </View>
@@ -51,9 +52,19 @@ export const PlaceContent = ({ place, y }: PlaceContentProps) => {
   );
 };
 
-const style = StyleSheet.create({
+const styles = StyleSheet.create({
   container: {
     flex: 1,
     paddingTop: MIN_HEADER_HEIGHT - 10 / 2,
+  },
+  cover: {
+    height: MAX_HEADER_HEIGHT,
+  },
+  postContainer: {
+    height: 50,
+  },
+  postText: {
+    fontSize: 24,
+    fontWeight: "bold",
   },
 });

@@ -63,21 +63,9 @@ const style = StyleSheet.create({
   container: {},
   headerContainer: {
     height: 100,
-    position: "absolute",
-    bottom: 150,
-    left: 0,
-    right: 0,
-    zIndex: 100,
   },
   headerTitles: {
     height: 50,
-  },
-  headerBackground: {
-    position: "absolute",
-    top: 0,
-    left: 0,
-    bottom: 0,
-    right: 0,
   },
   organizationTitle: {
     textTransform: "uppercase",
