@@ -19,54 +19,57 @@ const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
 
 const { width: screenWidth, height: screenHeight } = Dimensions.get("screen");
+const { interpolateNode, Extrapolate } = Animated;
 
 interface PlaceHeaderProps {
   place: IPlace;
   y: Animated.Value<number>;
 }
 export const PlaceHeader = ({ place, y }: PlaceHeaderProps) => {
+  const opacityInter = interpolateNode(y, {
+    inputRange: [-75, 0],
+    outputRange: [0, 1],
+    extrapolate: Extrapolate.CLAMP,
+  });
+
   return (
-    <View>
+    <Animated.View style={[styles.container, { opacity: opacityInter }]}>
       {/* place header */}
-      <View style={style.headerContainer}>
-        <View style={style.headerTitles}>
-          <Text style={style.organizationTitle}>Chipotle, inc.</Text>
-          <Text style={style.title}>West Chest Chipotle</Text>
+      <View style={styles.headerContainer}>
+        <View style={styles.headerTitles}>
+          <Text style={styles.organizationTitle}>Chipotle, inc.</Text>
+          <Text style={styles.title}>West Chest Chipotle</Text>
         </View>
         <View>
-          <Text style={style.hours}>Closed - Opens at 10:45am</Text>
+          <Text style={styles.hours}>Closed - Opens at 10:45am</Text>
         </View>
-        <View style={style.actionMenu}>
-          <View style={style.actionMenuItem}>
+        <View style={styles.actionMenu}>
+          <View style={styles.actionMenuItem}>
             <Image
               resizeMethod={"resize"}
               resizeMode={"contain"}
               source={require("../../../assets/images/icon-save-white.png")}
-              style={style.actionMenuItemIcon}
+              style={styles.actionMenuItemIcon}
             />
           </View>
-          <View style={style.actionMenuItem}>
+          <View style={styles.actionMenuItem}>
             <Image
               resizeMethod={"resize"}
               resizeMode={"contain"}
               source={require("../../../assets/images/icon-share-white.png")}
-              style={style.actionMenuItemIcon}
+              style={styles.actionMenuItemIcon}
             />
           </View>
         </View>
       </View>
-    </View>
+    </Animated.View>
   );
 };
 
-const style = StyleSheet.create({
+const styles = StyleSheet.create({
   container: {},
-  headerContainer: {
-    height: 100,
-  },
-  headerTitles: {
-    height: 50,
-  },
+  headerContainer: {},
+  headerTitles: {},
   organizationTitle: {
     textTransform: "uppercase",
     color: "#9D9D9D",

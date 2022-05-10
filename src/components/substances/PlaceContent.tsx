@@ -61,7 +61,7 @@ const styles = StyleSheet.create({
     height: MAX_HEADER_HEIGHT,
   },
   postContainer: {
-    height: 50,
+    height: 100,
   },
   postText: {
     fontSize: 24,

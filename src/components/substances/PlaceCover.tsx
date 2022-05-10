@@ -13,39 +13,61 @@ import {
 } from "react-native";
 import Animated from "react-native-reanimated";
 import { LinearGradient } from "expo-linear-gradient";
-import { IPlace } from "./PlaceModel";
+import { IPlace, MAX_HEADER_HEIGHT } from "./PlaceModel";
 
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
 
 const { width: screenWidth, height: screenHeight } = Dimensions.get("screen");
-
+const { interpolateNode, Extrapolate } = Animated;
 interface PlaceCoverProps {
   place: IPlace;
   y: Animated.Value<number>;
 }
 export const PlaceCover = ({ place, y }: PlaceCoverProps) => {
+  const translateInter = interpolateNode(y, {
+    inputRange: [0, MAX_HEADER_HEIGHT],
+    outputRange: [0, -MAX_HEADER_HEIGHT],
+    extrapolate: Extrapolate.CLAMP,
+  });
+  const scaleInter = interpolateNode(y, {
+    inputRange: [-100, 0],
+    outputRange: [2, 1],
+    extrapolate: Extrapolate.CLAMP,
+  });
+  const opacityInter = interpolateNode(y, {
+    inputRange: [-75, 0],
+    outputRange: [0, 1],
+    extrapolate: Extrapolate.CLAMP,
+  });
   return (
-    <View>
-      <View style={style.backgroundContainer}>
-        <Image
-          source={require("../../../assets/images/mock-images/Chipotle-01.jpeg")}
-          resizeMode={"cover"}
-          resizeMethod={"resize"}
-          style={style.backgroundImage}
-        />
+    <Animated.View
+      style={[
+        styles.backgroundContainer,
+        { transform: [{ scale: scaleInter }], marginTop: translateInter },
+      ]}
+    >
+      <Image
+        source={require("../../../assets/images/mock-images/Chipotle-01.jpeg")}
+        resizeMode={"cover"}
+        resizeMethod={"resize"}
+        style={styles.backgroundImage}
+      />
+      <Animated.View
+        style={[styles.headerBackground, { opacity: opacityInter }]}
+      >
         <LinearGradient
           colors={["white", "transparent"]}
           start={[0, 1]}
           end={[0, 0.25]}
-          style={style.headerBackground}
+          style={[styles.headerBackground]}
         ></LinearGradient>
-      </View>
-    </View>
+      </Animated.View>
+    </Animated.View>
   );
 };
 
-const style = StyleSheet.create({
+const styles = StyleSheet.create({
   backgroundContainer: {
     position: "absolute",
     top: 0,
