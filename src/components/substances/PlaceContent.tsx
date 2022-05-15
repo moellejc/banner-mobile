@@ -55,10 +55,9 @@ export const PlaceContent = ({ place, y }: PlaceContentProps) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingTop: MIN_HEADER_HEIGHT - 10 / 2,
   },
   cover: {
-    height: MAX_HEADER_HEIGHT,
+    height: MAX_HEADER_HEIGHT - 75,
   },
   postContainer: {
     height: 100,

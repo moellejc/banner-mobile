@@ -56,49 +56,125 @@ export const Place = ({}: PlaceProps) => {
   React.useEffect(() => {}, []);
 
   return (
-    <View style={style.container}>
-      <PlaceCover {...{ y, place }} />
-      <PlaceContent {...{ y, place }} />
-    </View>
+    <>
+      <View style={styles.container}>
+        <View style={styles.profileSmall}>
+          <Image
+            source={require("../../../assets/images/mock-images/test_profile_img_01.png")}
+            resizeMode={"cover"}
+            resizeMethod={"resize"}
+            style={styles.profileSmallIcon}
+          />
+        </View>
+        <View style={styles.placeParent}>
+          <View style={styles.upArrow}>
+            <Image
+              source={require("../../../assets/images/icon-chevron-up.png")}
+              resizeMode={"cover"}
+              resizeMethod={"resize"}
+              style={styles.upArrowIcon}
+            />
+          </View>
+          <View style={styles.placeParentContent}>
+            <Image
+              source={require("../../../assets/images/icon-city-white.png")}
+              resizeMode={"cover"}
+              resizeMethod={"resize"}
+              style={styles.placeParentIcon}
+            />
+            <Text style={styles.placeParentText}>West Chester</Text>
+          </View>
+        </View>
+        <View style={styles.discover}>
+          <Image
+            source={require("../../../assets/images/icon-explore.png")}
+            resizeMode={"cover"}
+            resizeMethod={"resize"}
+            style={styles.discoverIcon}
+          />
+        </View>
+      </View>
+      <View style={style.container}>
+        <PlaceCover {...{ y, place }} />
+        <PlaceContent {...{ y, place }} />
+      </View>
+    </>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    position: "absolute",
+    top: 0,
+    left: 0,
+    right: 0,
+    height: 115,
+    justifyContent: "center",
+    alignItems: "center",
+    zIndex: 100,
+  },
+  profileSmall: {
+    position: "absolute",
+    left: 10,
+    bottom: 10,
+    width: 30,
+    height: 30,
+  },
+  profileSmallIcon: {
+    borderRadius: 15,
+    width: 30,
+    height: 30,
+  },
+  placeParent: {
+    flexDirection: "column",
+    position: "absolute",
+    bottom: 15,
+  },
+  upArrow: {
+    flex: 1,
+    height: 20,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  upArrowIcon: {
+    width: 30,
+    height: 16,
+    marginBottom: 15,
+  },
+  placeParentContent: {
+    flex: 1,
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  placeParentIcon: {
+    width: 24,
+    height: 24,
+  },
+  placeParentText: {
+    fontWeight: "bold",
+    fontSize: 24,
+    color: "white",
+    marginLeft: 5,
+  },
+  discover: {
+    position: "absolute",
+    right: 10,
+    bottom: 10,
+    width: 30,
+    height: 30,
+  },
+  discoverIcon: {
+    borderRadius: 15,
+    width: 30,
+    height: 30,
+  },
+});
 
 const style = StyleSheet.create({
   container: {
     width: windowWidth,
     height: windowHeight,
     backgroundColor: "white",
-  },
-});
-
-const servicesStyle = StyleSheet.create({
-  container: {
-    height: 32,
-    position: "absolute",
-    bottom: 110,
-    left: 0,
-    right: 0,
-    flexDirection: "row",
-  },
-  serviceItem: {
-    width: 28,
-    height: 28,
-    borderRadius: 14,
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: "white",
-    marginRight: 5,
-  },
-  serviceItemText: {
-    height: 32,
-    justifyContent: "center",
-  },
-  serviceItemIcon: {
-    width: 18,
-    height: 18,
-  },
-  serviceItemFollowers: {
-    color: "red",
-    fontSize: 14,
   },
 });

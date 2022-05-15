@@ -73,7 +73,7 @@ const styles = StyleSheet.create({
     top: 0,
     left: 0,
     width: windowWidth,
-    height: windowHeight * 0.5,
+    height: MAX_HEADER_HEIGHT,
     zIndex: 0,
   },
   backgroundImage: {
