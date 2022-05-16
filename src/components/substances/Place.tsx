@@ -5,6 +5,7 @@ import { PlaceCover } from "./PlaceCover";
 import { PlaceContent } from "./PlaceContent";
 import { IPlace } from "./PlaceModel";
 import { BannerHeader } from "./BannerHeader";
+import { Search } from "./Search";
 
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
@@ -48,53 +49,12 @@ export const Place = ({}: PlaceProps) => {
         <PlaceCover {...{ y, place }} />
         <PlaceContent {...{ y, place }} />
       </View>
-      <View style={stylesSearch.container}>
-        <View style={stylesSearch.searchHeader}>
-          <Image
-            source={require("../../../assets/images/icon-search.png")}
-            resizeMode={"cover"}
-            resizeMethod={"resize"}
-            style={stylesSearch.searchHeaderIcon}
-          />
-          <Text style={stylesSearch.searchHeaderTitle}>Find Something</Text>
-        </View>
-      </View>
+      <Search />
     </>
   );
 };
 
-const stylesSearch = StyleSheet.create({
-  container: {
-    position: "absolute",
-    height: windowHeight,
-    backgroundColor: "black",
-    borderTopRightRadius: 20,
-    borderTopLeftRadius: 20,
-    top: windowHeight - 75,
-    left: 0,
-    right: 0,
-  },
-  searchHeader: {
-    flex: 1,
-    position: "absolute",
-    top: 0,
-    left: 0,
-    right: 0,
-    flexDirection: "row",
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  searchHeaderIcon: {
-    width: 24,
-    height: 24,
-  },
-  searchHeaderTitle: {
-    fontSize: 24,
-    fontWeight: "normal",
-    color: "white",
-    marginLeft: 10,
-  },
-});
+const stylesSearch = StyleSheet.create({});
 
 const styles = StyleSheet.create({
   container: {

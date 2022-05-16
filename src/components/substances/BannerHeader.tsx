@@ -2,7 +2,7 @@ import React from "react";
 import { Text, Image, View, TouchableOpacity, StyleSheet } from "react-native";
 import Animated from "react-native-reanimated";
 
-const { Value, interpolateNode, Extrapolate } = Animated;
+const { interpolateNode, Extrapolate } = Animated;
 
 interface BannerHeaderProps {
   y: Animated.Value<number>;
