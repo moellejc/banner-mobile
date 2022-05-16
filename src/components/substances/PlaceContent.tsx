@@ -13,7 +13,12 @@ import {
 } from "react-native";
 import Animated from "react-native-reanimated";
 import { LinearGradient } from "expo-linear-gradient";
-import { MIN_HEADER_HEIGHT, MAX_HEADER_HEIGHT, IPlace } from "./PlaceModel";
+import {
+  MIN_HEADER_HEIGHT,
+  MAX_HEADER_HEIGHT,
+  IPlace,
+  SCREEN_UNSAFE_MARGIN_TOP,
+} from "./PlaceModel";
 import { PlaceHeader } from "./PlaceHeader";
 import { useDispatch } from "react-redux";
 
@@ -55,9 +60,12 @@ export const PlaceContent = ({ place, y }: PlaceContentProps) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    marginTop: SCREEN_UNSAFE_MARGIN_TOP,
+    // backgroundColor: "orange",
   },
   cover: {
-    height: MAX_HEADER_HEIGHT - 75,
+    height: MAX_HEADER_HEIGHT - SCREEN_UNSAFE_MARGIN_TOP,
+    marginBottom: 10,
   },
   postContainer: {
     height: 100,

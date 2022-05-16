@@ -1,19 +1,12 @@
 import React from "react";
-import {
-  findNodeHandle,
-  StyleSheet,
-  Text,
-  Image,
-  View,
-  Dimensions,
-  FlatList,
-  TouchableOpacity,
-  PanResponder,
-  ListRenderItem,
-} from "react-native";
+import { StyleSheet, Image, Dimensions } from "react-native";
 import Animated from "react-native-reanimated";
-import { LinearGradient } from "expo-linear-gradient";
-import { IPlace, MAX_HEADER_HEIGHT } from "./PlaceModel";
+import {
+  IPlace,
+  MAX_HEADER_HEIGHT,
+  COVER_IMG_HEIGHT,
+  COVER_IMG_TOP_MARGIN,
+} from "./PlaceModel";
 
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
@@ -26,26 +19,23 @@ interface PlaceCoverProps {
 }
 export const PlaceCover = ({ place, y }: PlaceCoverProps) => {
   const translateInter = interpolateNode(y, {
-    inputRange: [0, MAX_HEADER_HEIGHT],
-    outputRange: [0, -MAX_HEADER_HEIGHT],
+    inputRange: [-100, MAX_HEADER_HEIGHT],
+    outputRange: [100, -MAX_HEADER_HEIGHT],
     extrapolate: Extrapolate.CLAMP,
   });
-  const scaleInter = interpolateNode(y, {
-    inputRange: [-100, 0],
-    outputRange: [2, 1],
-    extrapolate: Extrapolate.CLAMP,
-  });
-  const opacityInter = interpolateNode(y, {
-    inputRange: [-75, 0],
-    outputRange: [0, 1],
-    extrapolate: Extrapolate.CLAMP,
-  });
+  // const scaleInter = interpolateNode(y, {
+  //   inputRange: [-100, 0],
+  //   outputRange: [2, 1],
+  //   extrapolate: Extrapolate.CLAMP,
+  // });
+  // const opacityInter = interpolateNode(y, {
+  //   inputRange: [-75, 0],
+  //   outputRange: [0, 1],
+  //   extrapolate: Extrapolate.CLAMP,
+  // });
   return (
     <Animated.View
-      style={[
-        styles.backgroundContainer,
-        { transform: [{ scale: scaleInter }], marginTop: translateInter },
-      ]}
+      style={[styles.backgroundContainer, { marginTop: translateInter }]}
     >
       <Image
         source={require("../../../assets/images/mock-images/Chipotle-01.jpeg")}
@@ -53,16 +43,6 @@ export const PlaceCover = ({ place, y }: PlaceCoverProps) => {
         resizeMethod={"resize"}
         style={styles.backgroundImage}
       />
-      <Animated.View
-        style={[styles.headerBackground, { opacity: opacityInter }]}
-      >
-        <LinearGradient
-          colors={["white", "transparent"]}
-          start={[0, 1]}
-          end={[0, 0.25]}
-          style={[styles.headerBackground]}
-        ></LinearGradient>
-      </Animated.View>
     </Animated.View>
   );
 };
@@ -70,14 +50,16 @@ export const PlaceCover = ({ place, y }: PlaceCoverProps) => {
 const styles = StyleSheet.create({
   backgroundContainer: {
     position: "absolute",
-    top: 0,
+    top: COVER_IMG_TOP_MARGIN,
     left: 0,
-    width: windowWidth,
-    height: MAX_HEADER_HEIGHT,
+    right: 0,
+    height: COVER_IMG_HEIGHT,
     zIndex: 0,
   },
   backgroundImage: {
-    width: windowWidth,
+    width: windowWidth - 20,
+    marginBottom: 10,
+    borderRadius: 20,
     height: "100%",
   },
   headerBackground: {

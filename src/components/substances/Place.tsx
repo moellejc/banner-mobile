@@ -1,27 +1,13 @@
 import React from "react";
-// import { useMutation } from "@apollo/client";
-import {
-  findNodeHandle,
-  StyleSheet,
-  Text,
-  Image,
-  View,
-  Dimensions,
-  FlatList,
-  TouchableOpacity,
-  PanResponder,
-  ListRenderItem,
-} from "react-native";
+import { StyleSheet, View, Dimensions, Image, Text } from "react-native";
 import Animated from "react-native-reanimated";
-import { LinearGradient } from "expo-linear-gradient";
 import { PlaceCover } from "./PlaceCover";
 import { PlaceContent } from "./PlaceContent";
 import { IPlace } from "./PlaceModel";
+import { BannerHeader } from "./BannerHeader";
 
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
-
-const { width: screenWidth, height: screenHeight } = Dimensions.get("screen");
 
 const { Value } = Animated;
 
@@ -57,124 +43,64 @@ export const Place = ({}: PlaceProps) => {
 
   return (
     <>
+      <BannerHeader {...{ y }} />
       <View style={styles.container}>
-        <View style={styles.profileSmall}>
-          <Image
-            source={require("../../../assets/images/mock-images/test_profile_img_01.png")}
-            resizeMode={"cover"}
-            resizeMethod={"resize"}
-            style={styles.profileSmallIcon}
-          />
-        </View>
-        <View style={styles.placeParent}>
-          <View style={styles.upArrow}>
-            <Image
-              source={require("../../../assets/images/icon-chevron-up.png")}
-              resizeMode={"cover"}
-              resizeMethod={"resize"}
-              style={styles.upArrowIcon}
-            />
-          </View>
-          <View style={styles.placeParentContent}>
-            <Image
-              source={require("../../../assets/images/icon-city-white.png")}
-              resizeMode={"cover"}
-              resizeMethod={"resize"}
-              style={styles.placeParentIcon}
-            />
-            <Text style={styles.placeParentText}>West Chester</Text>
-          </View>
-        </View>
-        <View style={styles.discover}>
-          <Image
-            source={require("../../../assets/images/icon-explore.png")}
-            resizeMode={"cover"}
-            resizeMethod={"resize"}
-            style={styles.discoverIcon}
-          />
-        </View>
-      </View>
-      <View style={style.container}>
         <PlaceCover {...{ y, place }} />
         <PlaceContent {...{ y, place }} />
+      </View>
+      <View style={stylesSearch.container}>
+        <View style={stylesSearch.searchHeader}>
+          <Image
+            source={require("../../../assets/images/icon-search.png")}
+            resizeMode={"cover"}
+            resizeMethod={"resize"}
+            style={stylesSearch.searchHeaderIcon}
+          />
+          <Text style={stylesSearch.searchHeaderTitle}>Find Something</Text>
+        </View>
       </View>
     </>
   );
 };
 
-const styles = StyleSheet.create({
+const stylesSearch = StyleSheet.create({
   container: {
+    position: "absolute",
+    height: windowHeight,
+    backgroundColor: "black",
+    borderTopRightRadius: 20,
+    borderTopLeftRadius: 20,
+    top: windowHeight - 75,
+    left: 0,
+    right: 0,
+  },
+  searchHeader: {
+    flex: 1,
     position: "absolute",
     top: 0,
     left: 0,
     right: 0,
-    height: 115,
-    justifyContent: "center",
-    alignItems: "center",
-    zIndex: 100,
-  },
-  profileSmall: {
-    position: "absolute",
-    left: 10,
-    bottom: 10,
-    width: 30,
-    height: 30,
-  },
-  profileSmallIcon: {
-    borderRadius: 15,
-    width: 30,
-    height: 30,
-  },
-  placeParent: {
-    flexDirection: "column",
-    position: "absolute",
-    bottom: 15,
-  },
-  upArrow: {
-    flex: 1,
-    height: 20,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  upArrowIcon: {
-    width: 30,
-    height: 16,
-    marginBottom: 15,
-  },
-  placeParentContent: {
-    flex: 1,
     flexDirection: "row",
     justifyContent: "center",
     alignItems: "center",
   },
-  placeParentIcon: {
+  searchHeaderIcon: {
     width: 24,
     height: 24,
   },
-  placeParentText: {
-    fontWeight: "bold",
+  searchHeaderTitle: {
     fontSize: 24,
+    fontWeight: "normal",
     color: "white",
-    marginLeft: 5,
-  },
-  discover: {
-    position: "absolute",
-    right: 10,
-    bottom: 10,
-    width: 30,
-    height: 30,
-  },
-  discoverIcon: {
-    borderRadius: 15,
-    width: 30,
-    height: 30,
+    marginLeft: 10,
   },
 });
 
-const style = StyleSheet.create({
+const styles = StyleSheet.create({
   container: {
-    width: windowWidth,
     height: windowHeight,
     backgroundColor: "white",
+    marginLeft: 10,
+    marginRight: 10,
   },
 });
