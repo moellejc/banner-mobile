@@ -33,12 +33,16 @@ export function placesReducer(state = initialPlacesState, action: any) {
       };
     case PlacesActions.TRANSITION_HEADER_COLLAPSE:
       return {
-        ...state,
+        currentPlace: {
+          ...state.currentPlace,
+        },
         headerState: HeaderStates.Collapsed,
       };
     case PlacesActions.TRANSITION_HEADER_EXPAND:
       return {
-        ...state.currentPlace,
+        currentPlace: {
+          ...state.currentPlace,
+        },
         headerState: HeaderStates.Expanded,
       };
     default:
