@@ -1,23 +1,137 @@
-import React from "react";
-import { Text, Image, View, TouchableOpacity, StyleSheet } from "react-native";
-import Animated from "react-native-reanimated";
+import React, { useRef, useState } from "react";
+import {
+  Text,
+  Image,
+  View,
+  TouchableOpacity,
+  StyleSheet,
+  Animated,
+} from "react-native";
+import { connect } from "react-redux";
+import { MAX_HEADER_HEIGHT } from "./PlaceModel";
+import { HeaderStates } from "../../types";
+import { RootState } from "../../state";
 
-const { interpolateNode, Extrapolate } = Animated;
+// const { interpolateNode, Extrapolate } = Animated;
+const BOTTOM_PLACE_PARENT_HEAD = 15;
+const BOTTOM_HEAD_SPACER = 25;
+const ITER_PADDING = 50;
 
 interface BannerHeaderProps {
-  y: Animated.Value<number>;
+  collapseStatus: HeaderStates;
 }
-export const BannerHeader = ({ y }: BannerHeaderProps) => {
-  const opacityInter = interpolateNode(y, {
-    inputRange: [0, 50],
-    outputRange: [1, 0],
-    extrapolate: Extrapolate.CLAMP,
+const BannerHeader = ({ collapseStatus }: BannerHeaderProps) => {
+  const ref = useRef();
+
+  const parentOpacity = useRef(new Animated.Value(1)).current;
+  const parentBottom = useRef(new Animated.Value(0)).current;
+  const childOpacity = useRef(new Animated.Value(0)).current;
+  const childBottom = useRef(new Animated.Value(0)).current;
+  const COLL_EXP_DURATION = 300;
+
+  const collapseHeaderAni = Animated.parallel([
+    Animated.timing(parentOpacity, {
+      toValue: 0,
+      duration: COLL_EXP_DURATION,
+      useNativeDriver: false,
+    }),
+    Animated.timing(parentBottom, {
+      toValue: BOTTOM_PLACE_PARENT_HEAD + BOTTOM_HEAD_SPACER,
+      duration: COLL_EXP_DURATION,
+      useNativeDriver: false,
+    }),
+    Animated.timing(childOpacity, {
+      toValue: 1,
+      duration: COLL_EXP_DURATION,
+      useNativeDriver: false,
+    }),
+    Animated.timing(childBottom, {
+      toValue: BOTTOM_PLACE_PARENT_HEAD,
+      duration: COLL_EXP_DURATION,
+      useNativeDriver: false,
+    }),
+  ]);
+
+  const expandHeaderAni = Animated.parallel([
+    Animated.timing(parentOpacity, {
+      toValue: 1,
+      duration: COLL_EXP_DURATION,
+      useNativeDriver: false,
+    }),
+    Animated.timing(parentBottom, {
+      toValue: BOTTOM_PLACE_PARENT_HEAD,
+      duration: COLL_EXP_DURATION,
+      useNativeDriver: false,
+    }),
+    Animated.timing(childOpacity, {
+      toValue: 0,
+      duration: COLL_EXP_DURATION,
+      useNativeDriver: false,
+    }),
+    Animated.timing(childBottom, {
+      toValue: BOTTOM_PLACE_PARENT_HEAD - BOTTOM_HEAD_SPACER,
+      duration: COLL_EXP_DURATION,
+      useNativeDriver: false,
+    }),
+  ]);
+
+  // const opacityInOutInter = interpolateNode(y, {
+  //   inputRange: [
+  //     0,
+  //     MAX_HEADER_HEIGHT - ITER_PADDING,
+  //     MAX_HEADER_HEIGHT + ITER_PADDING,
+  //   ],
+  //   outputRange: [1, 1, 0],
+  //   extrapolate: Extrapolate.CLAMP,
+  // });
+  // const opacityInOutNextInter = interpolateNode(y, {
+  //   inputRange: [
+  //     0,
+  //     MAX_HEADER_HEIGHT - ITER_PADDING,
+  //     MAX_HEADER_HEIGHT + ITER_PADDING,
+  //   ],
+  //   outputRange: [0, 0, 1],
+  //   extrapolate: Extrapolate.CLAMP,
+  // });
+  // //BOTTOM_PLACE_PARENT
+  // const moveInOutInter = interpolateNode(y, {
+  //   inputRange: [
+  //     MAX_HEADER_HEIGHT - ITER_PADDING,
+  //     MAX_HEADER_HEIGHT + ITER_PADDING,
+  //   ],
+  //   outputRange: [
+  //     BOTTOM_PLACE_PARENT_HEAD,
+  //     BOTTOM_PLACE_PARENT_HEAD + BOTTOM_HEAD_SPACER,
+  //   ],
+  //   extrapolate: Extrapolate.CLAMP,
+  // });
+  // const moveInOutNextInter = interpolateNode(y, {
+  //   inputRange: [
+  //     MAX_HEADER_HEIGHT - ITER_PADDING,
+  //     MAX_HEADER_HEIGHT + ITER_PADDING,
+  //   ],
+  //   outputRange: [
+  //     BOTTOM_PLACE_PARENT_HEAD - BOTTOM_HEAD_SPACER,
+  //     BOTTOM_PLACE_PARENT_HEAD,
+  //   ],
+  //   extrapolate: Extrapolate.CLAMP,
+  // });
+
+  const handleParentPress = () => {
+    // ref.current.scrollTo(0);
+  };
+
+  const handleHeaderCollapseStatus = (status: HeaderStates) => {
+    if (status == HeaderStates.Collapsed) collapseHeaderAni.start();
+    if (status == HeaderStates.Expanded) expandHeaderAni.start();
+  };
+
+  React.useEffect(() => {
+    handleHeaderCollapseStatus(collapseStatus);
   });
 
-  React.useEffect(() => {}, []);
-
   return (
-    <Animated.View style={[styles.container, { opacity: opacityInter }]}>
+    <View style={[styles.container]}>
       <TouchableOpacity style={styles.profileSmall}>
         <Image
           source={require("../../../assets/images/mock-images/test_profile_img_01.png")}
@@ -26,25 +140,58 @@ export const BannerHeader = ({ y }: BannerHeaderProps) => {
           style={styles.profileSmallIcon}
         />
       </TouchableOpacity>
-      <TouchableOpacity style={styles.placeParent}>
-        <View style={styles.upArrow}>
-          <Image
-            source={require("../../../assets/images/icon-chevron-up-black.png")}
-            resizeMode={"cover"}
-            resizeMethod={"resize"}
-            style={styles.upArrowIcon}
-          />
-        </View>
-        <View style={styles.placeParentContent}>
-          <Image
-            source={require("../../../assets/images/icon-city-black.png")}
-            resizeMode={"cover"}
-            resizeMethod={"resize"}
-            style={styles.placeParentIcon}
-          />
-          <Text style={styles.placeParentText}>West Chester</Text>
-        </View>
-      </TouchableOpacity>
+      <Animated.View
+        style={[
+          styles.placeParent,
+          { opacity: parentOpacity, bottom: parentBottom },
+        ]}
+      >
+        <TouchableOpacity>
+          <View style={styles.upArrow}>
+            <Image
+              source={require("../../../assets/images/icon-chevron-up-black.png")}
+              resizeMode={"cover"}
+              resizeMethod={"resize"}
+              style={styles.upArrowIcon}
+            />
+          </View>
+          <View style={styles.placeParentContent}>
+            <Image
+              source={require("../../../assets/images/icon-city-black.png")}
+              resizeMode={"cover"}
+              resizeMethod={"resize"}
+              style={styles.placeParentIcon}
+            />
+            <Text style={styles.placeParentText}>West Chester</Text>
+          </View>
+        </TouchableOpacity>
+      </Animated.View>
+      <Animated.View
+        style={[
+          styles.placeParentNext,
+          { opacity: childOpacity, bottom: childBottom },
+        ]}
+      >
+        <TouchableOpacity>
+          <View style={styles.upArrow}>
+            <Image
+              source={require("../../../assets/images/icon-chevron-up-black.png")}
+              resizeMode={"cover"}
+              resizeMethod={"resize"}
+              style={styles.upArrowIcon}
+            />
+          </View>
+          <View style={styles.placeParentContent}>
+            <Image
+              source={require("../../../assets/images/icon-city-black.png")}
+              resizeMode={"cover"}
+              resizeMethod={"resize"}
+              style={styles.placeParentIcon}
+            />
+            <Text style={styles.placeParentText}>Chipotle</Text>
+          </View>
+        </TouchableOpacity>
+      </Animated.View>
       <TouchableOpacity style={styles.discover}>
         <Image
           source={require("../../../assets/images/icon-explore-black.png")}
@@ -53,9 +200,15 @@ export const BannerHeader = ({ y }: BannerHeaderProps) => {
           style={styles.discoverIcon}
         />
       </TouchableOpacity>
-    </Animated.View>
+    </View>
   );
 };
+
+const mapStateToProps = (state: RootState) => {
+  return { collapseStatus: state.places.headerState };
+};
+
+export default connect(mapStateToProps)(BannerHeader);
 
 const styles = StyleSheet.create({
   container: {
@@ -67,6 +220,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     zIndex: 100,
+    backgroundColor: "white",
   },
   profileSmall: {
     position: "absolute",
@@ -83,7 +237,12 @@ const styles = StyleSheet.create({
   placeParent: {
     flexDirection: "column",
     position: "absolute",
-    bottom: 15,
+    bottom: BOTTOM_PLACE_PARENT_HEAD - BOTTOM_HEAD_SPACER,
+  },
+  placeParentNext: {
+    flexDirection: "column",
+    position: "absolute",
+    bottom: -25,
   },
   upArrow: {
     flex: 1,

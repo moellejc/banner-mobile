@@ -1,26 +1,17 @@
-import React, { useEffect } from "react";
-import {
-  findNodeHandle,
-  StyleSheet,
-  Text,
-  Image,
-  View,
-  Dimensions,
-  FlatList,
-  TouchableOpacity,
-  PanResponder,
-  ListRenderItem,
-} from "react-native";
+import React, { useEffect, useRef } from "react";
+import { StyleSheet, Text, View, Dimensions } from "react-native";
 import Animated from "react-native-reanimated";
-import { LinearGradient } from "expo-linear-gradient";
 import {
   MIN_HEADER_HEIGHT,
   MAX_HEADER_HEIGHT,
   IPlace,
   SCREEN_UNSAFE_MARGIN_TOP,
+  COVER_IMG_HEIGHT,
 } from "./PlaceModel";
 import { PlaceHeader } from "./PlaceHeader";
 import { useDispatch } from "react-redux";
+import { Actions, store } from "../../state";
+import { current } from "@reduxjs/toolkit";
 
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
@@ -32,17 +23,46 @@ interface PlaceContentProps {
   y: Animated.Value<number>;
 }
 export const PlaceContent = ({ place, y }: PlaceContentProps) => {
+  const currentY = useRef(0);
+
+  const handleScroll = (nextY: number) => {
+    // Scrolling to the point where place header is past the navbar
+    // moving header from expanded to collapsed
+
+    if (
+      currentY.current < MAX_HEADER_HEIGHT - 20 &&
+      nextY >= MAX_HEADER_HEIGHT - 20
+    ) {
+      store.dispatch({
+        type: Actions.PlacesActions.TRANSITION_HEADER_COLLAPSE,
+      });
+    }
+
+    if (
+      currentY.current > MAX_HEADER_HEIGHT - 20 &&
+      nextY <= MAX_HEADER_HEIGHT - 20
+    ) {
+      store.dispatch({
+        type: Actions.PlacesActions.TRANSITION_HEADER_EXPAND,
+      });
+    }
+
+    // set animation value
+    y.setValue(nextY);
+    currentY.current = nextY;
+  };
+
   useEffect(() => {}, []);
 
   return (
     <Animated.ScrollView
       onScroll={(event) => {
-        y.setValue(event.nativeEvent.contentOffset.y);
+        handleScroll(event.nativeEvent.contentOffset.y);
       }}
       scrollEventThrottle={16}
       style={styles.container}
       showsVerticalScrollIndicator={false}
-      stickyHeaderIndices={[1]}
+      stickyHeaderIndices={[]}
     >
       <View style={styles.cover}></View>
       <PlaceHeader {...{ y, place }} />

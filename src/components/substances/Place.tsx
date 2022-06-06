@@ -4,8 +4,9 @@ import Animated from "react-native-reanimated";
 import { PlaceCover } from "./PlaceCover";
 import { PlaceContent } from "./PlaceContent";
 import { IPlace } from "./PlaceModel";
-import { BannerHeader } from "./BannerHeader";
+import BannerHeader from "./BannerHeader";
 import { Search } from "./Search";
+import { HeaderStates } from "../../types";
 
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
@@ -44,7 +45,7 @@ export const Place = ({}: PlaceProps) => {
 
   return (
     <>
-      <BannerHeader {...{ y }} />
+      <BannerHeader {...{ collapseStatus: HeaderStates.Expanded }} />
       <View style={styles.container}>
         <PlaceCover {...{ y, place }} />
         <PlaceContent {...{ y, place }} />

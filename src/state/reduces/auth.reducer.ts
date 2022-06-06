@@ -1,4 +1,4 @@
-import { AuthActions } from "../constants";
+import { AuthActions } from "../actions";
 
 export interface IAuthState {
   token: string;

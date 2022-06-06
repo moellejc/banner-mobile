@@ -4,7 +4,7 @@ import {
   UserTypes,
 } from "../../graphql/generator/BannerGQLTypes";
 import { Coordinates } from "../../types/Coordinates";
-import { MeActions } from "../constants";
+import { MeActions } from "../actions";
 
 export interface IMeState {
   loggedIn: boolean;

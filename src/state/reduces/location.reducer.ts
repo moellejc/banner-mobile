@@ -1,6 +1,6 @@
 import * as Location from "expo-location";
 import { number } from "yup/lib/locale";
-import { LocationActions } from "../constants";
+import { LocationActions } from "../actions";
 
 export interface ILocationState {
   current: Location.LocationObject;

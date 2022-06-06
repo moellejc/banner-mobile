@@ -1,5 +1,0 @@
-export const CurrentPlaceActions = {
-  INFO: "PLACE/INFO",
-  UPDATE_FEED: "PLACE/UPDATE_FEED",
-  UPDATE_PEOPLE: "PLACE/UPDATE_PEOPLE",
-};

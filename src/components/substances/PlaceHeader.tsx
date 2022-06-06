@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   findNodeHandle,
   StyleSheet,
@@ -27,8 +27,8 @@ interface PlaceHeaderProps {
 }
 export const PlaceHeader = ({ place, y }: PlaceHeaderProps) => {
   const opacityInter = interpolateNode(y, {
-    inputRange: [COVER_IMG_HEIGHT + 25, COVER_IMG_HEIGHT + 100],
-    outputRange: [1, 1],
+    inputRange: [0, MAX_HEADER_HEIGHT - 20, MAX_HEADER_HEIGHT],
+    outputRange: [1, 1, 0],
     extrapolate: Extrapolate.CLAMP,
   });
   const opacityReplaceInter = interpolateNode(y, {
@@ -40,17 +40,15 @@ export const PlaceHeader = ({ place, y }: PlaceHeaderProps) => {
   return (
     <View style={styles.container}>
       {/* place header */}
-      <Animated.View
-        style={[styles.headerContainer, { opacity: opacityInter }]}
-      >
+      <Animated.View style={[styles.headerContainer]}>
         <View style={styles.headerTitles}>
-          <Text style={styles.organizationTitle}>Chipotle, inc.</Text>
-          <Text style={styles.title}>West Chest Chipotle</Text>
+          <Text style={styles.title}>Chipotle</Text>
+          <Text style={styles.organizationTitle}>West Chester, OH</Text>
         </View>
-        <View>
+        <Animated.View style={{ opacity: opacityInter }}>
           <Text style={styles.hours}>Closed - Opens at 10:45am</Text>
-        </View>
-        <View style={styles.actionMenu}>
+        </Animated.View>
+        <Animated.View style={[styles.actionMenu, { opacity: opacityInter }]}>
           <TouchableOpacity style={styles.actionMenuItem}>
             <Image
               resizeMethod={"resize"}
@@ -67,7 +65,7 @@ export const PlaceHeader = ({ place, y }: PlaceHeaderProps) => {
               style={styles.actionMenuItemIcon}
             />
           </TouchableOpacity>
-        </View>
+        </Animated.View>
       </Animated.View>
       {/* <Animated.View
         style={[
@@ -105,6 +103,7 @@ const styles = StyleSheet.create({
   hours: {
     color: "black",
     fontSize: 18,
+    marginTop: 5,
   },
   actionMenu: {
     position: "absolute",
