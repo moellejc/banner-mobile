@@ -8,7 +8,7 @@ import {
   ViewStyle,
   ImageStyle,
 } from "react-native";
-import { WHITE } from "../../constants/styles/Colors";
+import { WHITE } from "../../../constants/styles/Colors";
 
 const { width: screenWidth, height: screenHeight } = Dimensions.get("screen");
 

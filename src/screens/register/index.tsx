@@ -5,7 +5,7 @@ import AppTheme, { textInputTheme } from "../../constants/styles/Theme";
 import { ApolloError, gql, useMutation } from "@apollo/client";
 import { useNavigation } from "@react-navigation/native";
 import { AntDesign } from "@expo/vector-icons";
-import BannerButton from "../../components/atoms/BannerButton";
+import BannerButton from "../../components/general/buttons/bannerButton";
 import {
   RegisterResponse,
   FieldError,

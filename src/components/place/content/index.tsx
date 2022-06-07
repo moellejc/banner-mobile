@@ -7,10 +7,10 @@ import {
   IPlace,
   SCREEN_UNSAFE_MARGIN_TOP,
   COVER_IMG_HEIGHT,
-} from "./PlaceModel";
-import { PlaceHeader } from "./PlaceHeader";
+} from "../_place/model";
+import { PlaceHeader } from "../header";
 import { useDispatch } from "react-redux";
-import { Actions, store } from "../../state";
+import { Actions, store } from "../../../state";
 import { current } from "@reduxjs/toolkit";
 
 const windowWidth = Dimensions.get("window").width;

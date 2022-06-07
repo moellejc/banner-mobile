@@ -1,12 +1,12 @@
 import React from "react";
 import { StyleSheet, View, Dimensions, Image, Text } from "react-native";
 import Animated from "react-native-reanimated";
-import { PlaceCover } from "./PlaceCover";
-import { PlaceContent } from "./PlaceContent";
-import { IPlace } from "./PlaceModel";
-import BannerHeader from "./BannerHeader";
-import { Search } from "./Search";
-import { HeaderStates } from "../../types";
+import { PlaceCover } from "../cover";
+import { PlaceContent } from "../content";
+import { IPlace } from "./model";
+import BannerHeader from "../../header/bar";
+import { Search } from "../../search/drawer";
+import { HeaderStates } from "../../../types";
 
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
@@ -39,7 +39,7 @@ const place: IPlace = {
 };
 
 interface PlaceProps {}
-export const Place = ({}: PlaceProps) => {
+const Place = ({}: PlaceProps) => {
   const y = new Value(0);
   React.useEffect(() => {}, []);
 
@@ -54,6 +54,8 @@ export const Place = ({}: PlaceProps) => {
     </>
   );
 };
+
+export default Place;
 
 const stylesSearch = StyleSheet.create({});
 

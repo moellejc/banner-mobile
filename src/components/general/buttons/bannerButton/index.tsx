@@ -1,8 +1,8 @@
 import React from "react";
 import { StyleSheet } from "react-native";
-import GradientBorderButton from "./GradientBorderButton";
-import AppTheme from "../../constants/styles/Theme";
-import { DARK_PURPLE } from "../../constants/styles/Colors";
+import GradientBorderButton from "../gradientBorderButton";
+import AppTheme from "../../../../constants/styles/Theme";
+import { DARK_PURPLE } from "../../../../constants/styles/Colors";
 import { StringLocale } from "yup/lib/locale";
 
 interface BannerButtonProps {

@@ -6,7 +6,7 @@ import {
   MAX_HEADER_HEIGHT,
   COVER_IMG_HEIGHT,
   COVER_IMG_TOP_MARGIN,
-} from "./PlaceModel";
+} from "../_place/model";
 
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;

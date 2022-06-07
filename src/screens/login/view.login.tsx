@@ -4,7 +4,7 @@ import { TextInput, Button, Text } from "react-native-paper";
 import AppTheme, { textInputTheme } from "../../constants/styles/Theme";
 import { useNavigation } from "@react-navigation/native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
-import BannerButton from "../../components/atoms/BannerButton";
+import BannerButton from "../../components/general/buttons/bannerButton";
 import { useLogin } from "./use.login";
 import { useDispatch } from "react-redux";
 import { FieldError } from "../../graphql/generator/BannerGQLTypes";

@@ -13,7 +13,7 @@ import {
 } from "react-native";
 import Animated from "react-native-reanimated";
 import { LinearGradient } from "expo-linear-gradient";
-import { IPlace, MAX_HEADER_HEIGHT, COVER_IMG_HEIGHT } from "./PlaceModel";
+import { IPlace, MAX_HEADER_HEIGHT, COVER_IMG_HEIGHT } from "../_place/model";
 
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;

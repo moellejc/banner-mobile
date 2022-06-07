@@ -8,9 +8,8 @@ import {
   Animated,
 } from "react-native";
 import { connect } from "react-redux";
-import { MAX_HEADER_HEIGHT } from "./PlaceModel";
-import { HeaderStates } from "../../types";
-import { RootState } from "../../state";
+import { HeaderStates } from "../../../types";
+import { RootState } from "../../../state";
 
 // const { interpolateNode, Extrapolate } = Animated;
 const BOTTOM_PLACE_PARENT_HEAD = 15;

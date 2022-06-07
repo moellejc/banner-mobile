@@ -1,11 +1,16 @@
 import { BannerAPI } from "../api";
-import { PlaceMenuData } from "../components/molecules/PlaceMenu";
 import { store } from "../state";
 import { Place } from "../types/Place";
 import * as Location from "expo-location";
 
+export type PlaceMenuData = {
+  key: string;
+  title: string;
+  page: string;
+};
+
 export const getCurrentPlace = (): Place => {
-  let currentPlace: Place = store.getState().currentPlace.place;
+  let currentPlace: Place = store.getState().places.currentPlace;
 
   return currentPlace;
 };

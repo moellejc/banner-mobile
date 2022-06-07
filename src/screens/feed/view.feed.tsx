@@ -14,8 +14,7 @@ import {
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { useDispatch } from "react-redux";
-import { FeedMenu } from "../../components/substances/FeedMenu";
-import { Place } from "../../components/substances/Place";
+import Place from "../../components/place";
 
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;

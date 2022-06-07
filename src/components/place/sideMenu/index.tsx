@@ -9,7 +9,7 @@ import {
   ViewStyle,
   ImageStyle,
 } from "react-native";
-import { UserIcon, UserIconSizes } from "./UserIcon";
+import { UserIcon, UserIconSizes } from "../../user/icon";
 
 type PlaceSideMenuProps = {
   style?: ViewStyle;
