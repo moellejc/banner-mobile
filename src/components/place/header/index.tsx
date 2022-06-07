@@ -53,7 +53,7 @@ export const PlaceHeader = ({ place, y }: PlaceHeaderProps) => {
             <Image
               resizeMethod={"resize"}
               resizeMode={"contain"}
-              source={require("../../../assets/images/icon-save.png")}
+              source={require("../../../../assets/images/icon-save.png")}
               style={styles.actionMenuItemIcon}
             />
           </TouchableOpacity>
@@ -61,7 +61,7 @@ export const PlaceHeader = ({ place, y }: PlaceHeaderProps) => {
             <Image
               resizeMethod={"resize"}
               resizeMode={"contain"}
-              source={require("../../../assets/images/icon-share.png")}
+              source={require("../../../../assets/images/icon-share.png")}
               style={styles.actionMenuItemIcon}
             />
           </TouchableOpacity>

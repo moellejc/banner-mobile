@@ -18,7 +18,7 @@ const place: IPlace = {
   artist: "Jan Blomqvist",
   release: 2016,
   // eslint-disable-next-line global-require
-  cover: require("../../../assets/images/mock-images/Chipotle-01.jpeg"),
+  cover: require("../../../../assets/images/mock-images/Chipotle-01.jpeg"),
   tracks: [
     { name: "Stories Over" },
     { name: "More", artist: "Jan Blomqvist, Elena Pitoulis" },

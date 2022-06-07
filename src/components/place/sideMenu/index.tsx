@@ -30,7 +30,7 @@ export const PlaceSideMenu = (props: PlaceSideMenuProps) => {
         <Pressable>
           <Image
             style={styles.menuItemImage}
-            source={require("../../../assets/images/icon-feed-white.png")}
+            source={require("../../../../assets/images/icon-feed-white.png")}
           />
           <Text style={styles.menuItemText}>Feed</Text>
         </Pressable>
@@ -39,7 +39,7 @@ export const PlaceSideMenu = (props: PlaceSideMenuProps) => {
         <Pressable>
           <Image
             style={styles.menuItemImage}
-            source={require("../../../assets/images/icon-shopping-bag.png")}
+            source={require("../../../../assets/images/icon-shopping-bag.png")}
           />
           <Text style={styles.menuItemText}>Order</Text>
         </Pressable>
@@ -48,14 +48,14 @@ export const PlaceSideMenu = (props: PlaceSideMenuProps) => {
         <Pressable>
           <Image
             style={styles.menuItemImage}
-            source={require("../../../assets/images/icon-shopping-bag.png")}
+            source={require("../../../../assets/images/icon-shopping-bag.png")}
           />
           <Text style={styles.menuItemText}>Pickup</Text>
         </Pressable>
       </View>
       <Image
         style={styles.background}
-        source={require("../../../assets/images/place-side-menu-background.png")}
+        source={require("../../../../assets/images/place-side-menu-background.png")}
       />
     </View>
   );

@@ -80,7 +80,7 @@ export const Search = () => {
       <PanGestureHandler onGestureEvent={eventHandler}>
         <Animated.View style={styles.searchHeader}>
           <Image
-            source={require("../../../assets/images/icon-search.png")}
+            source={require("../../../../assets/images/icon-search.png")}
             resizeMode={"cover"}
             resizeMethod={"resize"}
             style={styles.searchHeaderIcon}

@@ -38,7 +38,7 @@ export const PlaceCover = ({ place, y }: PlaceCoverProps) => {
       style={[styles.backgroundContainer, { marginTop: translateInter }]}
     >
       <Image
-        source={require("../../../assets/images/mock-images/Chipotle-01.jpeg")}
+        source={require("../../../../assets/images/mock-images/Chipotle-01.jpeg")}
         resizeMode={"cover"}
         resizeMethod={"resize"}
         style={styles.backgroundImage}

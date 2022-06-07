@@ -57,19 +57,19 @@ export const UserIcon = (props: UserIconProps) => {
       {props.verified ? (
         <Image
           style={styles.verifiedBackground}
-          source={require("../../../assets/images/ultra-user-photo-verified-ring.png")}
+          source={require("../../../../assets/images/ultra-user-photo-verified-ring.png")}
         />
       ) : (
         <Image
           style={styles.verifiedBackground}
-          source={require("../../../assets/images/ultra-user-photo-ring.png")}
+          source={require("../../../../assets/images/ultra-user-photo-ring.png")}
         />
       )}
       <View style={sizeStyleRef.current.photo}></View>
       {props.verified && props.size == UserIconSizes.MEDIUM ? (
         <Image
           style={styles.verfiedCheck}
-          source={require("../../../assets/images/ico-confirmed.png")}
+          source={require("../../../../assets/images/ico-confirmed.png")}
         />
       ) : null}
     </View>

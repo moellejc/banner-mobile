@@ -133,7 +133,7 @@ const BannerHeader = ({ collapseStatus }: BannerHeaderProps) => {
     <View style={[styles.container]}>
       <TouchableOpacity style={styles.profileSmall}>
         <Image
-          source={require("../../../assets/images/mock-images/test_profile_img_01.png")}
+          source={require("../../../../assets/images/mock-images/test_profile_img_01.png")}
           resizeMode={"cover"}
           resizeMethod={"resize"}
           style={styles.profileSmallIcon}
@@ -148,7 +148,7 @@ const BannerHeader = ({ collapseStatus }: BannerHeaderProps) => {
         <TouchableOpacity>
           <View style={styles.upArrow}>
             <Image
-              source={require("../../../assets/images/icon-chevron-up-black.png")}
+              source={require("../../../../assets/images/icon-chevron-up-black.png")}
               resizeMode={"cover"}
               resizeMethod={"resize"}
               style={styles.upArrowIcon}
@@ -156,7 +156,7 @@ const BannerHeader = ({ collapseStatus }: BannerHeaderProps) => {
           </View>
           <View style={styles.placeParentContent}>
             <Image
-              source={require("../../../assets/images/icon-city-black.png")}
+              source={require("../../../../assets/images/icon-city-black.png")}
               resizeMode={"cover"}
               resizeMethod={"resize"}
               style={styles.placeParentIcon}
@@ -174,7 +174,7 @@ const BannerHeader = ({ collapseStatus }: BannerHeaderProps) => {
         <TouchableOpacity>
           <View style={styles.upArrow}>
             <Image
-              source={require("../../../assets/images/icon-chevron-up-black.png")}
+              source={require("../../../../assets/images/icon-chevron-up-black.png")}
               resizeMode={"cover"}
               resizeMethod={"resize"}
               style={styles.upArrowIcon}
@@ -182,7 +182,7 @@ const BannerHeader = ({ collapseStatus }: BannerHeaderProps) => {
           </View>
           <View style={styles.placeParentContent}>
             <Image
-              source={require("../../../assets/images/icon-city-black.png")}
+              source={require("../../../../assets/images/icon-city-black.png")}
               resizeMode={"cover"}
               resizeMethod={"resize"}
               style={styles.placeParentIcon}
@@ -193,7 +193,7 @@ const BannerHeader = ({ collapseStatus }: BannerHeaderProps) => {
       </Animated.View>
       <TouchableOpacity style={styles.discover}>
         <Image
-          source={require("../../../assets/images/icon-explore-black.png")}
+          source={require("../../../../assets/images/icon-explore-black.png")}
           resizeMode={"cover"}
           resizeMethod={"resize"}
           style={styles.discoverIcon}
