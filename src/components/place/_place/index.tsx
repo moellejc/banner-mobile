@@ -1,12 +1,24 @@
 import React from "react";
-import { StyleSheet, View, Dimensions, Image, Text } from "react-native";
-import Animated from "react-native-reanimated";
+import {
+  StyleSheet,
+  View,
+  Dimensions,
+  ScrollView,
+  Image,
+  Text,
+} from "react-native";
+import Animated, {
+  useAnimatedGestureHandler,
+  useSharedValue,
+  useAnimatedStyle,
+  withTiming,
+  Easing,
+} from "react-native-reanimated";
+import { PanGestureHandler } from "react-native-gesture-handler";
 import { PlaceCover } from "../cover";
 import { PlaceContent } from "../content";
+import PlaceHierarchy from "../hierarchy";
 import { IPlace } from "./model";
-import BannerHeader from "../../header/bar";
-import { Search } from "../../search/drawer";
-import { HeaderStates } from "../../../types";
 
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
@@ -41,17 +53,35 @@ const place: IPlace = {
 interface PlaceProps {}
 const Place = ({}: PlaceProps) => {
   const y = new Value(0);
+
+  const eventHandler = useAnimatedGestureHandler({
+    onStart: (event, ctx) => {
+      console.log("start content scroll");
+    },
+    onActive: (event, ctx) => {
+      console.log(`scroll: ${event.translationY}`);
+    },
+    onEnd: (event, ctx) => {
+      console.log("end content scroll");
+    },
+  });
+
   React.useEffect(() => {}, []);
 
   return (
-    <>
-      <BannerHeader {...{ collapseStatus: HeaderStates.Expanded }} />
-      <View style={styles.container}>
+    <ScrollView
+      scrollEventThrottle={16}
+      style={styles.container}
+      showsVerticalScrollIndicator={false}
+      snapToInterval={windowHeight}
+      contentOffset={{ x: 0, y: windowHeight }}
+    >
+      <PlaceHierarchy />
+      <View style={styles.contentContainer}>
         <PlaceCover {...{ y, place }} />
         <PlaceContent {...{ y, place }} />
       </View>
-      <Search />
-    </>
+    </ScrollView>
   );
 };
 
@@ -61,6 +91,10 @@ const stylesSearch = StyleSheet.create({});
 
 const styles = StyleSheet.create({
   container: {
+    height: windowHeight,
+    width: windowWidth,
+  },
+  contentContainer: {
     height: windowHeight,
     backgroundColor: "white",
     marginLeft: 10,

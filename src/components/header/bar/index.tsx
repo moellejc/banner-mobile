@@ -8,7 +8,7 @@ import {
   Animated,
 } from "react-native";
 import { connect } from "react-redux";
-import { HeaderStates } from "../../../types";
+import { CollapseStates } from "../../../types";
 import { RootState } from "../../../state";
 
 // const { interpolateNode, Extrapolate } = Animated;
@@ -17,7 +17,7 @@ const BOTTOM_HEAD_SPACER = 25;
 const ITER_PADDING = 50;
 
 interface BannerHeaderProps {
-  collapseStatus: HeaderStates;
+  collapseStatus: CollapseStates;
 }
 const BannerHeader = ({ collapseStatus }: BannerHeaderProps) => {
   const ref = useRef();
@@ -74,55 +74,13 @@ const BannerHeader = ({ collapseStatus }: BannerHeaderProps) => {
     }),
   ]);
 
-  // const opacityInOutInter = interpolateNode(y, {
-  //   inputRange: [
-  //     0,
-  //     MAX_HEADER_HEIGHT - ITER_PADDING,
-  //     MAX_HEADER_HEIGHT + ITER_PADDING,
-  //   ],
-  //   outputRange: [1, 1, 0],
-  //   extrapolate: Extrapolate.CLAMP,
-  // });
-  // const opacityInOutNextInter = interpolateNode(y, {
-  //   inputRange: [
-  //     0,
-  //     MAX_HEADER_HEIGHT - ITER_PADDING,
-  //     MAX_HEADER_HEIGHT + ITER_PADDING,
-  //   ],
-  //   outputRange: [0, 0, 1],
-  //   extrapolate: Extrapolate.CLAMP,
-  // });
-  // //BOTTOM_PLACE_PARENT
-  // const moveInOutInter = interpolateNode(y, {
-  //   inputRange: [
-  //     MAX_HEADER_HEIGHT - ITER_PADDING,
-  //     MAX_HEADER_HEIGHT + ITER_PADDING,
-  //   ],
-  //   outputRange: [
-  //     BOTTOM_PLACE_PARENT_HEAD,
-  //     BOTTOM_PLACE_PARENT_HEAD + BOTTOM_HEAD_SPACER,
-  //   ],
-  //   extrapolate: Extrapolate.CLAMP,
-  // });
-  // const moveInOutNextInter = interpolateNode(y, {
-  //   inputRange: [
-  //     MAX_HEADER_HEIGHT - ITER_PADDING,
-  //     MAX_HEADER_HEIGHT + ITER_PADDING,
-  //   ],
-  //   outputRange: [
-  //     BOTTOM_PLACE_PARENT_HEAD - BOTTOM_HEAD_SPACER,
-  //     BOTTOM_PLACE_PARENT_HEAD,
-  //   ],
-  //   extrapolate: Extrapolate.CLAMP,
-  // });
-
   const handleParentPress = () => {
     // ref.current.scrollTo(0);
   };
 
-  const handleHeaderCollapseStatus = (status: HeaderStates) => {
-    if (status == HeaderStates.Collapsed) collapseHeaderAni.start();
-    if (status == HeaderStates.Expanded) expandHeaderAni.start();
+  const handleHeaderCollapseStatus = (status: CollapseStates) => {
+    if (status == CollapseStates.Collapsed) collapseHeaderAni.start();
+    if (status == CollapseStates.Expanded) expandHeaderAni.start();
   };
 
   React.useEffect(() => {

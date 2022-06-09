@@ -1,6 +1,12 @@
 import React, { useEffect, useRef } from "react";
 import { StyleSheet, Text, View, Dimensions } from "react-native";
-import Animated from "react-native-reanimated";
+import Animated, {
+  useAnimatedGestureHandler,
+  useSharedValue,
+  useAnimatedStyle,
+  withTiming,
+  Easing,
+} from "react-native-reanimated";
 import {
   MIN_HEADER_HEIGHT,
   MAX_HEADER_HEIGHT,
@@ -11,7 +17,10 @@ import {
 import { PlaceHeader } from "../header";
 import { useDispatch } from "react-redux";
 import { Actions, store } from "../../../state";
-import { current } from "@reduxjs/toolkit";
+import {
+  GestureHandlerRootView,
+  PanGestureHandler,
+} from "react-native-gesture-handler";
 
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
@@ -63,6 +72,8 @@ export const PlaceContent = ({ place, y }: PlaceContentProps) => {
       style={styles.container}
       showsVerticalScrollIndicator={false}
       stickyHeaderIndices={[]}
+      alwaysBounceVertical={false}
+      bounces={false}
     >
       <View style={styles.cover}></View>
       <PlaceHeader {...{ y, place }} />

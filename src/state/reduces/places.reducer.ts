@@ -1,9 +1,9 @@
-import { Place, HeaderStates } from "../../types";
+import { Place, CollapseStates } from "../../types";
 import { PlacesActions } from "../actions";
 
 export interface IPlacesState {
   currentPlace: Place;
-  headerState: HeaderStates;
+  headerState: CollapseStates;
 }
 
 const initialPlacesState: IPlacesState = {
@@ -14,7 +14,7 @@ const initialPlacesState: IPlacesState = {
     location: null,
     menu_options: ["Feed", "check-in", "order"],
   },
-  headerState: HeaderStates.Expanded,
+  headerState: CollapseStates.Expanded,
 };
 
 export function placesReducer(state = initialPlacesState, action: any) {
@@ -36,14 +36,14 @@ export function placesReducer(state = initialPlacesState, action: any) {
         currentPlace: {
           ...state.currentPlace,
         },
-        headerState: HeaderStates.Collapsed,
+        headerState: CollapseStates.Collapsed,
       };
     case PlacesActions.TRANSITION_HEADER_EXPAND:
       return {
         currentPlace: {
           ...state.currentPlace,
         },
-        headerState: HeaderStates.Expanded,
+        headerState: CollapseStates.Expanded,
       };
     default:
       return state;

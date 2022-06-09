@@ -19,20 +19,11 @@ interface PlaceCoverProps {
 }
 export const PlaceCover = ({ place, y }: PlaceCoverProps) => {
   const translateInter = interpolateNode(y, {
-    inputRange: [-100, MAX_HEADER_HEIGHT],
-    outputRange: [100, -MAX_HEADER_HEIGHT],
+    inputRange: [-1000, MAX_HEADER_HEIGHT],
+    outputRange: [1000, -MAX_HEADER_HEIGHT],
     extrapolate: Extrapolate.CLAMP,
   });
-  // const scaleInter = interpolateNode(y, {
-  //   inputRange: [-100, 0],
-  //   outputRange: [2, 1],
-  //   extrapolate: Extrapolate.CLAMP,
-  // });
-  // const opacityInter = interpolateNode(y, {
-  //   inputRange: [-75, 0],
-  //   outputRange: [0, 1],
-  //   extrapolate: Extrapolate.CLAMP,
-  // });
+
   return (
     <Animated.View
       style={[styles.backgroundContainer, { marginTop: translateInter }]}
