@@ -25,9 +25,7 @@ export const PlaceCover = ({ place, y }: PlaceCoverProps) => {
   });
 
   return (
-    <Animated.View
-      style={[styles.backgroundContainer, { marginTop: translateInter }]}
-    >
+    <Animated.View style={[styles.backgroundContainer]}>
       <Image
         source={require("../../../../assets/images/mock-images/Chipotle-01.jpeg")}
         resizeMode={"cover"}
@@ -40,12 +38,12 @@ export const PlaceCover = ({ place, y }: PlaceCoverProps) => {
 
 const styles = StyleSheet.create({
   backgroundContainer: {
-    position: "absolute",
-    top: COVER_IMG_TOP_MARGIN,
-    left: 0,
-    right: 0,
+    // position: "absolute",
+    // top: COVER_IMG_TOP_MARGIN,
+    // left: 0,
+    // right: 0,
+    // zIndex: 0,
     height: COVER_IMG_HEIGHT,
-    zIndex: 0,
   },
   backgroundImage: {
     width: windowWidth - 20,
