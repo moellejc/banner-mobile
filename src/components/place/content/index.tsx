@@ -12,6 +12,12 @@ import Animated, {
   interpolateNode,
   useValue,
   debug,
+  withTiming,
+  Easing,
+  useAnimatedGestureHandler,
+  SharedValue,
+  useAnimatedStyle,
+  interpolate,
 } from "react-native-reanimated";
 import {
   MIN_HEADER_HEIGHT,
@@ -22,16 +28,10 @@ import {
 } from "../_place/model";
 import { PlaceHeader } from "../header";
 import { PlaceCover } from "../cover";
-import { useDispatch } from "react-redux";
-import { Actions, store } from "../../../state";
-import { current } from "@reduxjs/toolkit";
-import {
-  PanGestureHandler,
-  State,
-  ScrollView,
-  GestureEvent,
-  PanGestureHandlerEventPayload,
-} from "react-native-gesture-handler";
+import { connect } from "react-redux";
+import { RootState, Actions, store } from "../../../state";
+import { PanGestureHandler, ScrollView } from "react-native-gesture-handler";
+import { CollapseStates } from "../../../types";
 
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
@@ -41,39 +41,61 @@ const { width: screenWidth, height: screenHeight } = Dimensions.get("screen");
 interface PlaceContentProps {
   place: IPlace;
   y: Animated.Value<number>;
-  panDownY: Animated.Value<number>;
+  panDownY: SharedValue<number>;
+  hierarchyState: CollapseStates;
 }
-export const PlaceContent = ({ place, y, panDownY }: PlaceContentProps) => {
+const PlaceContent = ({
+  place,
+  y,
+  panDownY,
+  hierarchyState,
+}: PlaceContentProps) => {
   const currentY = useRef(0);
   const ref = useRef();
   const scrollRef = useRef();
   const [scrollEnabled, setScrollEnanled] = useState(true);
-  const translateInter = interpolateNode(panDownY, {
-    inputRange: [0, windowHeight],
-    outputRange: [0, windowHeight],
-    extrapolate: Extrapolate.CLAMP,
+  const translateContent = useAnimatedStyle(() => {
+    const translateInter = interpolate(
+      panDownY.value,
+      [0, windowHeight],
+      [0, windowHeight],
+      Extrapolate.CLAMP
+    );
+    return {
+      top: translateInter,
+    };
   });
 
-  const _onScrollDown = (
-    event: GestureEvent<PanGestureHandlerEventPayload>
-  ) => {
-    if (!scrollEnabled) return;
-    const { translationY } = event.nativeEvent;
-    // handle PanGesture event here
-    console.log(`Pan Gesture translation: ${translationY}`);
-    panDownY.setValue(translationY);
-  };
+  const panEventHandler = useAnimatedGestureHandler({
+    onStart: (event, ctx) => {
+      // panDownY.setValue(event.translationY);
+      console.log("start pan");
+    },
+    onActive: (event, ctx) => {
+      panDownY.value = event.translationY;
+      console.log(`active pan: ${event.translationY}`);
+    },
+    onEnd: (event, ctx) => {
+      console.log(`end pan: ${event.translationY}`);
+      // expand is pan great than N% else collapse
+      if (event.translationY > windowHeight * 0.25) {
+        store.dispatch({
+          type: Actions.PlacesActions.TRANSITION_HIERARCHY_EXPAND,
+        });
+        return;
+      }
+      handleHierarchyCollapseExpand();
+    },
+  });
 
   const _onScroll = ({
     nativeEvent,
   }: NativeSyntheticEvent<NativeScrollEvent>) => {
     if (nativeEvent.contentOffset.y <= 0 && !scrollEnabled) {
       setScrollEnanled(true);
-      console.log("scrollview scroll ENABLED");
     }
     if (nativeEvent.contentOffset.y > 0 && scrollEnabled) {
       setScrollEnanled(false);
-      console.log("scrollview scroll DISABLED");
     }
   };
 
@@ -104,13 +126,22 @@ export const PlaceContent = ({ place, y, panDownY }: PlaceContentProps) => {
     currentY.current = nextY;
   };
 
-  useEffect(() => {}, []);
+  const handleHierarchyCollapseExpand = () => {
+    const endY = hierarchyState == CollapseStates.Expanded ? windowHeight : 0;
+    console.log(`Handle Hierarchy COLL EXP endY: ${endY}`);
+    panDownY.value = withTiming(endY, {
+      duration: 300,
+      easing: Easing.bezier(0.25, 0.1, 0.25, 1),
+    });
+  };
+
+  useEffect(() => {
+    console.log(`Hier State: ${hierarchyState}`);
+    handleHierarchyCollapseExpand();
+  });
 
   return (
-    <Animated.View style={[styles.scrollContainer, { top: translateInter }]}>
-      <Animated.Code>
-        {() => debug("Content TOP: ", translateInter)}
-      </Animated.Code>
+    <Animated.View style={[styles.scrollContainer, translateContent]}>
       <ScrollView
         onScroll={_onScroll}
         // onScroll={(event) => {
@@ -128,9 +159,9 @@ export const PlaceContent = ({ place, y, panDownY }: PlaceContentProps) => {
           ref={ref.current}
           activeOffsetY={5}
           failOffsetY={-5}
-          onGestureEvent={_onScrollDown}
+          onGestureEvent={panEventHandler}
         >
-          <View>
+          <Animated.View>
             <PlaceCover {...{ y, place }} />
             <PlaceHeader {...{ y, place }} />
             <View>
@@ -140,12 +171,18 @@ export const PlaceContent = ({ place, y, panDownY }: PlaceContentProps) => {
                 </View>
               ))}
             </View>
-          </View>
+          </Animated.View>
         </PanGestureHandler>
       </ScrollView>
     </Animated.View>
   );
 };
+
+const mapStateToProps = (state: RootState) => {
+  return { hierarchyState: state.places.hierarchyState };
+};
+
+export default connect(mapStateToProps)(PlaceContent);
 
 const styles = StyleSheet.create({
   scrollContainer: {

@@ -15,6 +15,8 @@ import Animated, {
   withTiming,
   Easing,
   debug,
+  SharedValue,
+  interpolate,
 } from "react-native-reanimated";
 
 const windowHeight = Dimensions.get("window").height;
@@ -23,21 +25,25 @@ const START_SEARCH_TOP = windowHeight - 100;
 const { interpolateNode, Extrapolate } = Animated;
 
 interface PlaceHierarchyProps {
-  panDownY: Animated.Value<number>;
+  panDownY: SharedValue<number>;
 }
 const PlaceHierarchy = ({ panDownY }: PlaceHierarchyProps) => {
-  const translateInter = interpolateNode(panDownY, {
-    inputRange: [0, windowHeight],
-    outputRange: [windowHeight, 0],
-    extrapolate: Extrapolate.CLAMP,
+  const translateContent = useAnimatedStyle(() => {
+    const translateInter = interpolate(
+      panDownY.value,
+      [0, windowHeight],
+      [windowHeight, 0],
+      Extrapolate.CLAMP
+    );
+    return {
+      bottom: translateInter,
+    };
   });
 
   React.useEffect(() => {});
 
   return (
-    <Animated.View style={[styles.container, { bottom: translateInter }]}>
-      <Animated.Code>{() => debug("Hier TOP: ", translateInter)}</Animated.Code>
-    </Animated.View>
+    <Animated.View style={[styles.container, translateContent]}></Animated.View>
   );
 };
 

@@ -9,7 +9,7 @@ import {
 } from "react-native";
 import { connect } from "react-redux";
 import { CollapseStates } from "../../../types";
-import { RootState } from "../../../state";
+import { RootState, Actions, store } from "../../../state";
 
 // const { interpolateNode, Extrapolate } = Animated;
 const BOTTOM_PLACE_PARENT_HEAD = 15;
@@ -75,7 +75,13 @@ const BannerHeader = ({ collapseStatus }: BannerHeaderProps) => {
   ]);
 
   const handleParentPress = () => {
-    // ref.current.scrollTo(0);
+    store.dispatch({
+      type: Actions.PlacesActions.TRANSITION_HIERARCHY_EXPAND,
+    });
+  };
+
+  const handleChildPress = () => {
+    // scroll to top
   };
 
   const handleHeaderCollapseStatus = (status: CollapseStates) => {
@@ -103,7 +109,7 @@ const BannerHeader = ({ collapseStatus }: BannerHeaderProps) => {
           { opacity: parentOpacity, bottom: parentBottom },
         ]}
       >
-        <TouchableOpacity>
+        <TouchableOpacity onPress={handleParentPress}>
           <View style={styles.upArrow}>
             <Image
               source={require("../../../../assets/images/icon-chevron-up-black.png")}

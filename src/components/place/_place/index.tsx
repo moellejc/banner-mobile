@@ -1,9 +1,10 @@
 import React from "react";
 import { StyleSheet, View, Dimensions } from "react-native";
-import Animated from "react-native-reanimated";
-import { PlaceContent } from "../content";
+import Animated, { useSharedValue } from "react-native-reanimated";
+import PlaceContent from "../content";
 import PlaceHierarchy from "../hierarchy";
 import { IPlace } from "./model";
+import { CollapseStates } from "../../../types/";
 
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
@@ -38,7 +39,8 @@ const place: IPlace = {
 interface PlaceProps {}
 const Place = ({}: PlaceProps) => {
   const y = new Value(0);
-  const panDownY = new Value(0);
+  const panDownY = useSharedValue(0);
+  // const showingHierarchy = useSharedValue(false);
 
   React.useEffect(() => {}, []);
 
@@ -46,7 +48,9 @@ const Place = ({}: PlaceProps) => {
     <>
       <View style={styles.contentContainer}>
         <PlaceHierarchy {...{ panDownY }} />
-        <PlaceContent {...{ y, panDownY, place }} />
+        <PlaceContent
+          {...{ y, panDownY, place, hierarchyState: CollapseStates.Collapsed }}
+        />
       </View>
     </>
   );
