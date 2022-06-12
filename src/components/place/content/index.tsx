@@ -128,7 +128,6 @@ const PlaceContent = ({
 
   const handleHierarchyCollapseExpand = () => {
     const endY = hierarchyState == CollapseStates.Expanded ? windowHeight : 0;
-    console.log(`Handle Hierarchy COLL EXP endY: ${endY}`);
     panDownY.value = withTiming(endY, {
       duration: 300,
       easing: Easing.bezier(0.25, 0.1, 0.25, 1),
@@ -136,7 +135,6 @@ const PlaceContent = ({
   };
 
   useEffect(() => {
-    console.log(`Hier State: ${hierarchyState}`);
     handleHierarchyCollapseExpand();
   });
 

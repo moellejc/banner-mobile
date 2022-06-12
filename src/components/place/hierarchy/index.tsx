@@ -40,10 +40,26 @@ const PlaceHierarchy = ({ panDownY }: PlaceHierarchyProps) => {
     };
   });
 
+  const handleBackPress = () => {};
+
   React.useEffect(() => {});
 
   return (
-    <Animated.View style={[styles.container, translateContent]}></Animated.View>
+    <Animated.View style={[styles.container, translateContent]}>
+      <TouchableOpacity onPress={handleBackPress}>
+        <View style={styles.back}>
+          <Text style={styles.backText}>Back</Text>
+          <View style={styles.downArrow}>
+            <Image
+              source={require("../../../../assets/images/icon-chevron-up-black.png")}
+              resizeMode={"cover"}
+              resizeMethod={"resize"}
+              style={styles.downArrowIcon}
+            />
+          </View>
+        </View>
+      </TouchableOpacity>
+    </Animated.View>
   );
 };
 
@@ -57,5 +73,30 @@ const styles = StyleSheet.create({
     width: windowWidth,
     backgroundColor: "black",
     zIndex: 100,
+  },
+  back: {
+    position: "absolute",
+    flexDirection: "column",
+    bottom: 100,
+    width: 100,
+    height: 50,
+    backgroundColor: "red",
+  },
+  backText: {
+    fontWeight: "bold",
+    fontSize: 24,
+    color: "white",
+    marginBottom: 5,
+  },
+  downArrow: {
+    flex: 1,
+    height: 20,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  downArrowIcon: {
+    width: 30,
+    height: 16,
+    marginBottom: 15,
   },
 });
