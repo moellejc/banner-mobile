@@ -1,16 +1,29 @@
 import React from "react";
-import { View, Image, StyleSheet } from "react-native";
+import {
+  View,
+  Image,
+  StyleSheet,
+  Animated,
+  TouchableWithoutFeedback,
+} from "react-native";
 import { FeedScreen } from "../screens/feed";
 import { MessagesScreen } from "../screens/messages";
 import { CameraScreen } from "../screens/camera";
 import { DiscoverScreen } from "../screens/discover";
 import { AddScreen } from "../screens/add";
-import { createStackNavigator } from "@react-navigation/stack";
-// import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { ProfileScreen } from "../screens/profile";
+import { SearchScreen } from "../screens/search";
+import {
+  createStackNavigator,
+  StackCardInterpolationProps,
+  StackNavigationOptions,
+} from "@react-navigation/stack";
+import { createSharedElementStackNavigator } from "react-navigation-shared-element";
+import Ionicons from "@expo/vector-icons/Ionicons";
 import { LinearGradient } from "expo-linear-gradient";
 import AppTheme from "../constants/styles/Theme";
 
-const Stack = createStackNavigator();
+const Stack = createSharedElementStackNavigator();
 // const Tab = createBottomTabNavigator();
 
 const screenOptions = {
@@ -22,12 +35,56 @@ const screenOptions = {
   headerTintColor: "white",
 };
 
+const forSlide = ({
+  current,
+  next,
+  inverted,
+  layouts: { screen },
+}: StackCardInterpolationProps) => {
+  const progress = Animated.add(
+    current.progress.interpolate({
+      inputRange: [0, 1],
+      outputRange: [0, 1],
+      extrapolate: "clamp",
+    }),
+    next
+      ? next.progress.interpolate({
+          inputRange: [0, 1],
+          outputRange: [0, 1],
+          extrapolate: "clamp",
+        })
+      : 0
+  );
+
+  return {
+    cardStyle: {
+      transform: [
+        {
+          translateX: Animated.multiply(
+            progress.interpolate({
+              inputRange: [0, 1, 2],
+              outputRange: [
+                screen.width, // Focused, but offscreen in the beginning
+                0, // Fully focused
+                screen.width * -1, // Fully unfocused
+              ],
+              extrapolate: "clamp",
+            }),
+            inverted
+          ),
+        },
+      ],
+    },
+  };
+};
+
 function AppNavigator() {
   return (
     <Stack.Navigator
       screenOptions={{
         cardStyle: { backgroundColor: "white" },
-        headerShown: false,
+        headerShown: true,
+        gestureEnabled: true,
       }}
     >
       <Stack.Screen
@@ -35,8 +92,83 @@ function AppNavigator() {
         component={FeedScreen}
         options={screenOptions}
       />
+      <Stack.Screen
+        name="Profile"
+        component={ProfileScreen}
+        options={({ navigation }): StackNavigationOptions => {
+          return {
+            headerTitle: "",
+            headerStyle: {
+              backgroundColor: "transparent",
+              shadowColor: "transparent",
+            },
+            headerTintColor: "white",
+            headerRight: () => (
+              <TouchableWithoutFeedback
+                style={
+                  {
+                    /* Put your style here */
+                  }
+                }
+                onPress={() => navigation.goBack()}
+              >
+                <Ionicons
+                  name="chevron-forward-outline"
+                  size={32}
+                  color="#000"
+                />
+              </TouchableWithoutFeedback>
+            ),
+            gestureDirection: "horizontal-inverted",
+            cardStyleInterpolator: forSlide,
+          };
+        }}
+        sharedElements={(route, otherRoute, showing) => {
+          const { item } = route.params;
+          return [`ProfilePhoto`];
+        }}
+      />
+      <Stack.Screen
+        name="Search"
+        component={SearchScreen}
+        options={({ navigation }): StackNavigationOptions => {
+          return {
+            headerTitle: "",
+            headerStyle: {
+              backgroundColor: "transparent",
+              shadowColor: "transparent",
+            },
+            headerTintColor: "white",
+            headerLeft: () => (
+              <TouchableWithoutFeedback
+                style={
+                  {
+                    /* Put your style here */
+                  }
+                }
+                onPress={() => navigation.goBack()}
+              >
+                <Ionicons name="chevron-back-outline" size={32} color="#000" />
+              </TouchableWithoutFeedback>
+            ),
+            gestureDirection: "horizontal",
+            cardStyleInterpolator: forSlide,
+          };
+        }}
+        sharedElements={(route, otherRoute, showing) => {
+          const { item } = route.params;
+          return [`SearchIcon`];
+        }}
+      />
     </Stack.Navigator>
   );
+
+  // {{
+  //   ...screenOptions,
+  //   gestureDirection: "horizontal",
+  //   cardStyleInterpolator: forSlide,
+  // }}
+
   // return (
   //   <Tab.Navigator
   //     screenOptions={{

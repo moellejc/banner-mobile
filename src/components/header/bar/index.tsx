@@ -10,6 +10,8 @@ import {
 import { connect } from "react-redux";
 import { CollapseStates } from "../../../types";
 import { RootState, Actions, store } from "../../../state";
+import { useNavigation } from "@react-navigation/native";
+import { SharedElement } from "react-navigation-shared-element";
 
 // const { interpolateNode, Extrapolate } = Animated;
 const BOTTOM_PLACE_PARENT_HEAD = 15;
@@ -21,6 +23,7 @@ interface BannerHeaderProps {
 }
 const BannerHeader = ({ collapseStatus }: BannerHeaderProps) => {
   const ref = useRef();
+  const navigation = useNavigation();
 
   const parentOpacity = useRef(new Animated.Value(1)).current;
   const parentBottom = useRef(new Animated.Value(0)).current;
@@ -95,13 +98,20 @@ const BannerHeader = ({ collapseStatus }: BannerHeaderProps) => {
 
   return (
     <View style={[styles.container]}>
-      <TouchableOpacity style={styles.profileSmall}>
-        <Image
-          source={require("../../../../assets/images/mock-images/test_profile_img_01.png")}
-          resizeMode={"cover"}
-          resizeMethod={"resize"}
-          style={styles.profileSmallIcon}
-        />
+      <TouchableOpacity
+        style={styles.profileSmall}
+        onPress={() => {
+          navigation.navigate("Profile");
+        }}
+      >
+        <SharedElement id={`ProfilePhoto`}>
+          <Image
+            source={require("../../../../assets/images/mock-images/test_profile_img_01.png")}
+            resizeMode={"cover"}
+            resizeMethod={"resize"}
+            style={styles.profileSmallIcon}
+          />
+        </SharedElement>
       </TouchableOpacity>
       <Animated.View
         style={[
@@ -155,13 +165,20 @@ const BannerHeader = ({ collapseStatus }: BannerHeaderProps) => {
           </View>
         </TouchableOpacity>
       </Animated.View>
-      <TouchableOpacity style={styles.discover}>
-        <Image
-          source={require("../../../../assets/images/icon-explore-black.png")}
-          resizeMode={"cover"}
-          resizeMethod={"resize"}
-          style={styles.discoverIcon}
-        />
+      <TouchableOpacity
+        style={styles.discover}
+        onPress={() => {
+          navigation.navigate("Search");
+        }}
+      >
+        <SharedElement id={`SearchIcon`}>
+          <Image
+            source={require("../../../../assets/images/icon-explore-black.png")}
+            resizeMode={"cover"}
+            resizeMethod={"resize"}
+            style={styles.discoverIcon}
+          />
+        </SharedElement>
       </TouchableOpacity>
     </View>
   );
