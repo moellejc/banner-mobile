@@ -15,7 +15,10 @@ import Animated, {
 } from "react-native-reanimated";
 import { connect } from "react-redux";
 import { CollapseStates } from "../../../types";
-import { BANNER_SCROLL_POSITIONS } from "../../place/_place/model";
+import {
+  BANNER_SCROLL_POSITIONS,
+  BANNER_PLACE_POSITIONS,
+} from "../../place/_place/model";
 import { RootState, Actions, store } from "../../../state";
 import { useNavigation } from "@react-navigation/native";
 import { SharedElement } from "react-navigation-shared-element";
@@ -33,38 +36,59 @@ const windowHeight = Dimensions.get("window").height;
 interface BannerHeaderProps {
   collapseStatus: CollapseStates;
   bannerScrollX: SharedValue<number>;
+  bannerPlaceY: SharedValue<number>;
   scrollToSearch: () => void;
   scrollToProfile: () => void;
   scrollToSettings: () => void;
   scrollToPlace: () => void;
+  scrollToPlaceHierarchy: () => void;
 }
 
-const inputRange = [
+const bannerScrollInputRange = [
   BANNER_SCROLL_POSITIONS.SETTINGS,
   BANNER_SCROLL_POSITIONS.PROFILE,
   BANNER_SCROLL_POSITIONS.PLACE,
   BANNER_SCROLL_POSITIONS.SEARCH,
 ];
 
+const placeScrollInputRange = [
+  BANNER_PLACE_POSITIONS.HIERARCHY,
+  BANNER_PLACE_POSITIONS.CONTENT,
+];
+
 const BannerHeader = ({
   collapseStatus,
   bannerScrollX,
+  bannerPlaceY,
   scrollToSearch,
   scrollToProfile,
   scrollToSettings,
   scrollToPlace,
+  scrollToPlaceHierarchy,
 }: BannerHeaderProps) => {
   const navigation = useNavigation();
+
+  const aniBannerBar = useAnimatedStyle(() => {
+    const translateInter = interpolate(
+      bannerPlaceY.value,
+      placeScrollInputRange,
+      [windowHeight, 0],
+      Extrapolate.CLAMP
+    );
+    return {
+      top: translateInter,
+    };
+  });
 
   const aniUserIcon = useAnimatedStyle(() => {
     const iconCenter = windowWidth / 2 - ICON_SIZE_MAX / 2;
     const translateInter = interpolate(
       bannerScrollX.value,
-      inputRange,
+      bannerScrollInputRange,
       [windowWidth, iconCenter, 10, -windowWidth],
       Extrapolate.CLAMP
     );
-    const dimsInter = interpolate(bannerScrollX.value, inputRange, [
+    const dimsInter = interpolate(bannerScrollX.value, bannerScrollInputRange, [
       ICON_SIZE_MIN,
       ICON_SIZE_MAX,
       ICON_SIZE_MIN,
@@ -72,7 +96,7 @@ const BannerHeader = ({
     ]);
     const opacityInter = interpolate(
       bannerScrollX.value,
-      inputRange,
+      bannerScrollInputRange,
       [0, 1, 1, 1]
     );
     return {
@@ -87,7 +111,7 @@ const BannerHeader = ({
     const iconCenter = windowWidth / 2 - ICON_SIZE_MIN / 2;
     const translateInter = interpolate(
       bannerScrollX.value,
-      inputRange,
+      bannerScrollInputRange,
       [iconCenter, 10, -windowWidth, -windowWidth],
       Extrapolate.CLAMP
     );
@@ -97,10 +121,9 @@ const BannerHeader = ({
   });
 
   const aniSearchIcon = useAnimatedStyle(() => {
-    const iconCenter = windowWidth / 2 - ICON_SIZE_MAX / 2;
     const translateInter = interpolate(
       bannerScrollX.value,
-      inputRange,
+      bannerScrollInputRange,
       [-windowWidth, -windowWidth, 10, windowWidth - ICON_SIZE_MIN * 2 - 10],
       Extrapolate.CLAMP
     );
@@ -109,16 +132,46 @@ const BannerHeader = ({
     };
   });
 
+  const aniParentArrow = useAnimatedStyle(() => {
+    const trim = windowWidth / 2;
+    const opacityInter = interpolate(
+      bannerScrollX.value,
+      [
+        BANNER_SCROLL_POSITIONS.SETTINGS,
+        BANNER_SCROLL_POSITIONS.PROFILE + trim,
+        BANNER_SCROLL_POSITIONS.PLACE,
+        BANNER_SCROLL_POSITIONS.SEARCH - trim,
+      ],
+      [0, 0, 1, 0],
+      Extrapolate.CLAMP
+    );
+    const marginInter = interpolate(
+      bannerScrollX.value,
+      [
+        BANNER_SCROLL_POSITIONS.SETTINGS,
+        BANNER_SCROLL_POSITIONS.PROFILE + trim,
+        BANNER_SCROLL_POSITIONS.PLACE,
+        BANNER_SCROLL_POSITIONS.SEARCH - trim,
+      ],
+      [75, 75, 0, -75],
+      Extrapolate.CLAMP
+    );
+    return {
+      opacity: opacityInter,
+      marginLeft: marginInter,
+    };
+  });
+
   const aniForwardIcon = useAnimatedStyle(() => {
     const translateInter = interpolate(
       bannerScrollX.value,
-      inputRange,
+      bannerScrollInputRange,
       [10, 10, 10, 10],
       Extrapolate.CLAMP
     );
     const opacityInter = interpolate(
       bannerScrollX.value,
-      inputRange,
+      bannerScrollInputRange,
       [1, 1, 0, 0],
       Extrapolate.CLAMP
     );
@@ -131,13 +184,13 @@ const BannerHeader = ({
   const aniBackIcon = useAnimatedStyle(() => {
     const translateInter = interpolate(
       bannerScrollX.value,
-      inputRange,
+      bannerScrollInputRange,
       [10, 10, 10, 10],
       Extrapolate.CLAMP
     );
     const opacityInter = interpolate(
       bannerScrollX.value,
-      inputRange,
+      bannerScrollInputRange,
       [0, 0, 0, 1],
       Extrapolate.CLAMP
     );
@@ -171,9 +224,9 @@ const BannerHeader = ({
   };
 
   const handleParentPress = () => {
-    store.dispatch({
-      type: Actions.PlacesActions.TRANSITION_HIERARCHY_EXPAND,
-    });
+    // store.dispatch({
+    //   type: Actions.PlacesActions.TRANSITION_HIERARCHY_EXPAND,
+    // });
   };
 
   const handleChildPress = () => {
@@ -190,7 +243,7 @@ const BannerHeader = ({
   });
 
   return (
-    <View style={[styles.container]}>
+    <Animated.View style={[styles.container, aniBannerBar]}>
       <Animated.View style={[styles.forward, aniForwardIcon]}>
         <TouchableOpacity onPress={handleForwardPress}>
           <Ionicons
@@ -213,14 +266,14 @@ const BannerHeader = ({
         </TouchableOpacity>
       </Animated.View>
 
-      <Animated.View style={[styles.settings, aniSettingsIcon]}>
+      <Animated.View style={[styles.iconLeft, aniSettingsIcon]}>
         <TouchableOpacity
           onPress={() => {
             scrollToSettings();
           }}
         >
           <Ionicons
-            style={styles.settingsIcon}
+            style={styles.iconImage}
             name="settings-outline"
             size={30}
             color="#000"
@@ -242,9 +295,13 @@ const BannerHeader = ({
           />
         </TouchableOpacity>
       </Animated.View>
-      {/*       
-      <Animated.View style={[styles.placeParent]}>
-        <TouchableOpacity onPress={handleParentPress}>
+
+      <Animated.View style={[styles.placeParent, aniParentArrow]}>
+        <TouchableOpacity
+          onPress={() => {
+            scrollToPlaceHierarchy();
+          }}
+        >
           <View style={styles.upArrow}>
             <Image
               source={require("../../../../assets/images/icon-chevron-up-black.png")}
@@ -264,6 +321,7 @@ const BannerHeader = ({
           </View>
         </TouchableOpacity>
       </Animated.View>
+      {/*
       <Animated.View style={[styles.placeParentNext]}>
         <TouchableOpacity>
           <View style={styles.upArrow}>
@@ -285,21 +343,21 @@ const BannerHeader = ({
           </View>
         </TouchableOpacity>
       </Animated.View> */}
-      <Animated.View style={[styles.discover, aniSearchIcon]}>
+      <Animated.View style={[styles.iconRight, aniSearchIcon]}>
         <TouchableOpacity
           onPress={() => {
             scrollToSearch();
           }}
         >
-          <Image
-            source={require("../../../../assets/images/icon-explore-black.png")}
-            resizeMode={"cover"}
-            resizeMethod={"resize"}
-            style={styles.discoverIcon}
+          <Ionicons
+            style={styles.iconImage}
+            name="search-outline"
+            size={30}
+            color="#000"
           />
         </TouchableOpacity>
       </Animated.View>
-    </View>
+    </Animated.View>
   );
 };
 
@@ -333,21 +391,30 @@ const styles = StyleSheet.create({
     width: "100%",
     height: "100%",
   },
-  settings: {
+  iconLeft: {
     position: "absolute",
     left: 10,
     bottom: 10,
     width: 30,
     height: 30,
   },
-  settingsIcon: {
+  iconRight: {
+    position: "absolute",
+    right: 10,
+    bottom: 10,
+    width: 30,
+    height: 30,
+  },
+  iconImage: {
     width: "100%",
     height: "100%",
   },
   placeParent: {
     flexDirection: "column",
     position: "absolute",
-    bottom: BOTTOM_PLACE_PARENT_HEAD - BOTTOM_HEAD_SPACER,
+    bottom: BOTTOM_PLACE_PARENT_HEAD,
+    left: 40,
+    right: 40,
   },
   placeParentNext: {
     flexDirection: "column",
@@ -380,18 +447,6 @@ const styles = StyleSheet.create({
     fontSize: 24,
     color: "black",
     marginLeft: 5,
-  },
-  discover: {
-    position: "absolute",
-    right: 10,
-    bottom: 10,
-    width: 30,
-    height: 30,
-  },
-  discoverIcon: {
-    borderRadius: 15,
-    width: "100%",
-    height: "100%",
   },
   forward: {
     position: "absolute",

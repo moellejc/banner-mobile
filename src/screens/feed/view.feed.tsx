@@ -33,6 +33,7 @@ export const FeedScreen: React.FC = () => {
   const bannerScrollX = useSharedValue(BANNER_SCROLL_POSITIONS.PLACE);
   const bannerPlaceY = useSharedValue(BANNER_PLACE_POSITIONS.CONTENT);
   const bannerScrollRef = useRef<ScrollView>(null);
+  const bannerPlaceScrollRef = useRef<ScrollView>(null);
 
   const scrollToSearch = () => {
     bannerScrollRef.current?.scrollTo({
@@ -62,6 +63,20 @@ export const FeedScreen: React.FC = () => {
       animated: true,
     });
   };
+  const scrollToPlaceHierarchy = () => {
+    bannerPlaceScrollRef.current?.scrollTo({
+      x: 0,
+      y: BANNER_PLACE_POSITIONS.HIERARCHY,
+      animated: true,
+    });
+  };
+  const scrollToPlaceContent = () => {
+    bannerPlaceScrollRef.current?.scrollTo({
+      x: 0,
+      y: BANNER_PLACE_POSITIONS.CONTENT,
+      animated: true,
+    });
+  };
 
   return (
     <>
@@ -81,12 +96,13 @@ export const FeedScreen: React.FC = () => {
         style={styles.scrollContainer}
       >
         <View style={[styles.screen, { backgroundColor: "green" }]}>
-          <Text style={styles.screenText}>Screen 1</Text>
+          <Text style={styles.screenText}>Settings</Text>
         </View>
         <View style={[styles.screen, { backgroundColor: "blue" }]}>
-          <Text style={styles.screenText}>Screen 2</Text>
+          <Text style={styles.screenText}>Profile</Text>
         </View>
         <ScrollView
+          ref={bannerPlaceScrollRef}
           showsVerticalScrollIndicator={false}
           showsHorizontalScrollIndicator={false}
           snapToInterval={windowHeight}
@@ -120,10 +136,12 @@ export const FeedScreen: React.FC = () => {
         {...{
           collapseStatus: CollapseStates.Expanded,
           bannerScrollX,
+          bannerPlaceY,
           scrollToSearch,
           scrollToProfile,
           scrollToSettings,
           scrollToPlace,
+          scrollToPlaceHierarchy,
         }}
       />
     </>
