@@ -83,7 +83,7 @@ function AppNavigator() {
     <Stack.Navigator
       screenOptions={{
         cardStyle: { backgroundColor: "white" },
-        headerShown: true,
+        headerShown: false,
         gestureEnabled: true,
       }}
     >

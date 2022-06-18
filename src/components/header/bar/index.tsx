@@ -1,14 +1,28 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, forwardRef } from "react";
 import {
   Text,
   Image,
   View,
   TouchableOpacity,
   StyleSheet,
-  Animated,
+  Dimensions,
+  ScrollView,
 } from "react-native";
+import Animated, {
+  Extrapolate,
+  interpolateNode,
+  useValue,
+  debug,
+  withTiming,
+  Easing,
+  useAnimatedGestureHandler,
+  SharedValue,
+  useAnimatedStyle,
+  interpolate,
+} from "react-native-reanimated";
 import { connect } from "react-redux";
 import { CollapseStates } from "../../../types";
+import { BANNER_SCROLL_POSITIONS } from "../../place/_place/model";
 import { RootState, Actions, store } from "../../../state";
 import { useNavigation } from "@react-navigation/native";
 import { SharedElement } from "react-navigation-shared-element";
@@ -17,65 +31,70 @@ import { SharedElement } from "react-navigation-shared-element";
 const BOTTOM_PLACE_PARENT_HEAD = 15;
 const BOTTOM_HEAD_SPACER = 25;
 const ITER_PADDING = 50;
+const ICON_SIZE_MIN = 30;
+const ICON_SIZE_MAX = 64;
 
+const windowWidth = Dimensions.get("window").width;
+const windowHeight = Dimensions.get("window").height;
 interface BannerHeaderProps {
   collapseStatus: CollapseStates;
+  bannerScrollX: SharedValue<number>;
+  scrollToSearch: () => void;
+  scrollToProfile: () => void;
+  scrollToSettings: () => void;
+  scrollToPlace: () => void;
 }
-const BannerHeader = ({ collapseStatus }: BannerHeaderProps) => {
-  const ref = useRef();
+
+const inputRange = [
+  BANNER_SCROLL_POSITIONS.SETTINGS,
+  BANNER_SCROLL_POSITIONS.PROFILE,
+  BANNER_SCROLL_POSITIONS.PLACE,
+  BANNER_SCROLL_POSITIONS.SEARCH,
+];
+
+const BannerHeader = ({
+  collapseStatus,
+  bannerScrollX,
+  scrollToSearch,
+  scrollToProfile,
+  scrollToSettings,
+  scrollToPlace,
+}: BannerHeaderProps) => {
   const navigation = useNavigation();
 
-  const parentOpacity = useRef(new Animated.Value(1)).current;
-  const parentBottom = useRef(new Animated.Value(0)).current;
-  const childOpacity = useRef(new Animated.Value(0)).current;
-  const childBottom = useRef(new Animated.Value(0)).current;
-  const COLL_EXP_DURATION = 300;
+  const aniUserIcon = useAnimatedStyle(() => {
+    const iconCenter = windowWidth / 2 - ICON_SIZE_MAX / 2;
+    const translateInter = interpolate(
+      bannerScrollX.value,
+      inputRange,
+      [windowWidth, iconCenter, 10, -windowWidth],
+      Extrapolate.CLAMP
+    );
+    const dimsInter = interpolate(bannerScrollX.value, inputRange, [
+      ICON_SIZE_MIN,
+      ICON_SIZE_MAX,
+      ICON_SIZE_MIN,
+      ICON_SIZE_MIN,
+    ]);
+    return {
+      left: translateInter,
+      width: dimsInter,
+      height: dimsInter,
+    };
+  });
 
-  const collapseHeaderAni = Animated.parallel([
-    Animated.timing(parentOpacity, {
-      toValue: 0,
-      duration: COLL_EXP_DURATION,
-      useNativeDriver: false,
-    }),
-    Animated.timing(parentBottom, {
-      toValue: BOTTOM_PLACE_PARENT_HEAD + BOTTOM_HEAD_SPACER,
-      duration: COLL_EXP_DURATION,
-      useNativeDriver: false,
-    }),
-    Animated.timing(childOpacity, {
-      toValue: 1,
-      duration: COLL_EXP_DURATION,
-      useNativeDriver: false,
-    }),
-    Animated.timing(childBottom, {
-      toValue: BOTTOM_PLACE_PARENT_HEAD,
-      duration: COLL_EXP_DURATION,
-      useNativeDriver: false,
-    }),
-  ]);
-
-  const expandHeaderAni = Animated.parallel([
-    Animated.timing(parentOpacity, {
-      toValue: 1,
-      duration: COLL_EXP_DURATION,
-      useNativeDriver: false,
-    }),
-    Animated.timing(parentBottom, {
-      toValue: BOTTOM_PLACE_PARENT_HEAD,
-      duration: COLL_EXP_DURATION,
-      useNativeDriver: false,
-    }),
-    Animated.timing(childOpacity, {
-      toValue: 0,
-      duration: COLL_EXP_DURATION,
-      useNativeDriver: false,
-    }),
-    Animated.timing(childBottom, {
-      toValue: BOTTOM_PLACE_PARENT_HEAD - BOTTOM_HEAD_SPACER,
-      duration: COLL_EXP_DURATION,
-      useNativeDriver: false,
-    }),
-  ]);
+  const aniSearchIcon = useAnimatedStyle(() => {
+    const iconCenter = windowWidth / 2 - ICON_SIZE_MAX / 2;
+    const translateInter = interpolate(
+      bannerScrollX.value,
+      inputRange,
+      [-windowWidth, -windowWidth, 10, windowWidth - ICON_SIZE_MIN - 10],
+      Extrapolate.CLAMP
+    );
+    return {
+      right: translateInter,
+    };
+  });
 
   const handleParentPress = () => {
     store.dispatch({
@@ -88,8 +107,8 @@ const BannerHeader = ({ collapseStatus }: BannerHeaderProps) => {
   };
 
   const handleHeaderCollapseStatus = (status: CollapseStates) => {
-    if (status == CollapseStates.Collapsed) collapseHeaderAni.start();
-    if (status == CollapseStates.Expanded) expandHeaderAni.start();
+    // if (status == CollapseStates.Collapsed) collapseHeaderAni.start();
+    // if (status == CollapseStates.Expanded) expandHeaderAni.start();
   };
 
   React.useEffect(() => {
@@ -98,27 +117,22 @@ const BannerHeader = ({ collapseStatus }: BannerHeaderProps) => {
 
   return (
     <View style={[styles.container]}>
-      <TouchableOpacity
-        style={styles.profileSmall}
-        onPress={() => {
-          navigation.navigate("Profile");
-        }}
-      >
-        <SharedElement id={`ProfilePhoto`}>
+      <Animated.View style={[styles.profileSmall, aniUserIcon]}>
+        <TouchableOpacity
+          onPress={() => {
+            scrollToProfile();
+          }}
+        >
           <Image
             source={require("../../../../assets/images/mock-images/test_profile_img_01.png")}
             resizeMode={"cover"}
             resizeMethod={"resize"}
             style={styles.profileSmallIcon}
           />
-        </SharedElement>
-      </TouchableOpacity>
-      <Animated.View
-        style={[
-          styles.placeParent,
-          { opacity: parentOpacity, bottom: parentBottom },
-        ]}
-      >
+        </TouchableOpacity>
+      </Animated.View>
+      {/*       
+      <Animated.View style={[styles.placeParent]}>
         <TouchableOpacity onPress={handleParentPress}>
           <View style={styles.upArrow}>
             <Image
@@ -139,12 +153,7 @@ const BannerHeader = ({ collapseStatus }: BannerHeaderProps) => {
           </View>
         </TouchableOpacity>
       </Animated.View>
-      <Animated.View
-        style={[
-          styles.placeParentNext,
-          { opacity: childOpacity, bottom: childBottom },
-        ]}
-      >
+      <Animated.View style={[styles.placeParentNext]}>
         <TouchableOpacity>
           <View style={styles.upArrow}>
             <Image
@@ -164,22 +173,21 @@ const BannerHeader = ({ collapseStatus }: BannerHeaderProps) => {
             <Text style={styles.placeParentText}>Chipotle</Text>
           </View>
         </TouchableOpacity>
-      </Animated.View>
-      <TouchableOpacity
-        style={styles.discover}
-        onPress={() => {
-          navigation.navigate("Search");
-        }}
-      >
-        <SharedElement id={`SearchIcon`}>
+      </Animated.View> */}
+      <Animated.View style={[styles.discover, aniSearchIcon]}>
+        <TouchableOpacity
+          onPress={() => {
+            scrollToSearch();
+          }}
+        >
           <Image
             source={require("../../../../assets/images/icon-explore-black.png")}
             resizeMode={"cover"}
             resizeMethod={"resize"}
             style={styles.discoverIcon}
           />
-        </SharedElement>
-      </TouchableOpacity>
+        </TouchableOpacity>
+      </Animated.View>
     </View>
   );
 };
@@ -211,8 +219,8 @@ const styles = StyleSheet.create({
   },
   profileSmallIcon: {
     borderRadius: 15,
-    width: 30,
-    height: 30,
+    width: "100%",
+    height: "100%",
   },
   placeParent: {
     flexDirection: "column",
@@ -260,7 +268,7 @@ const styles = StyleSheet.create({
   },
   discoverIcon: {
     borderRadius: 15,
-    width: 30,
-    height: 30,
+    width: "100%",
+    height: "100%",
   },
 });
