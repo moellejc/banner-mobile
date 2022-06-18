@@ -1,4 +1,4 @@
-import React, { useRef, useState, forwardRef } from "react";
+import React from "react";
 import {
   Text,
   Image,
@@ -6,16 +6,9 @@ import {
   TouchableOpacity,
   StyleSheet,
   Dimensions,
-  ScrollView,
 } from "react-native";
 import Animated, {
   Extrapolate,
-  interpolateNode,
-  useValue,
-  debug,
-  withTiming,
-  Easing,
-  useAnimatedGestureHandler,
   SharedValue,
   useAnimatedStyle,
   interpolate,
@@ -26,6 +19,7 @@ import { BANNER_SCROLL_POSITIONS } from "../../place/_place/model";
 import { RootState, Actions, store } from "../../../state";
 import { useNavigation } from "@react-navigation/native";
 import { SharedElement } from "react-navigation-shared-element";
+import Ionicons from "@expo/vector-icons/Ionicons";
 
 // const { interpolateNode, Extrapolate } = Animated;
 const BOTTOM_PLACE_PARENT_HEAD = 15;
@@ -76,10 +70,16 @@ const BannerHeader = ({
       ICON_SIZE_MIN,
       ICON_SIZE_MIN,
     ]);
+    const opacityInter = interpolate(
+      bannerScrollX.value,
+      inputRange,
+      [0, 1, 1, 1]
+    );
     return {
       left: translateInter,
       width: dimsInter,
       height: dimsInter,
+      opacity: opacityInter,
     };
   });
 
@@ -88,13 +88,74 @@ const BannerHeader = ({
     const translateInter = interpolate(
       bannerScrollX.value,
       inputRange,
-      [-windowWidth, -windowWidth, 10, windowWidth - ICON_SIZE_MIN - 10],
+      [-windowWidth, -windowWidth, 10, windowWidth - ICON_SIZE_MIN * 2 - 10],
       Extrapolate.CLAMP
     );
     return {
       right: translateInter,
     };
   });
+
+  const aniForwardIcon = useAnimatedStyle(() => {
+    const translateInter = interpolate(
+      bannerScrollX.value,
+      inputRange,
+      [10, 10, 10, 10],
+      Extrapolate.CLAMP
+    );
+    const opacityInter = interpolate(
+      bannerScrollX.value,
+      inputRange,
+      [1, 1, 0, 0],
+      Extrapolate.CLAMP
+    );
+    return {
+      right: translateInter,
+      opacity: opacityInter,
+    };
+  });
+
+  const aniBackIcon = useAnimatedStyle(() => {
+    const translateInter = interpolate(
+      bannerScrollX.value,
+      inputRange,
+      [10, 10, 10, 10],
+      Extrapolate.CLAMP
+    );
+    const opacityInter = interpolate(
+      bannerScrollX.value,
+      inputRange,
+      [0, 0, 0, 1],
+      Extrapolate.CLAMP
+    );
+    return {
+      left: translateInter,
+      opacity: opacityInter,
+    };
+  });
+
+  const handleForwardPress = () => {
+    switch (bannerScrollX.value) {
+      case BANNER_SCROLL_POSITIONS.PROFILE:
+        scrollToPlace();
+        break;
+      case BANNER_SCROLL_POSITIONS.SETTINGS:
+        scrollToProfile();
+        break;
+      default:
+        break;
+    }
+  };
+
+  const handleBackPress = () => {
+    switch (bannerScrollX.value) {
+      case BANNER_SCROLL_POSITIONS.SEARCH:
+        scrollToPlace();
+        break;
+      default:
+        break;
+    }
+  };
 
   const handleParentPress = () => {
     store.dispatch({
@@ -117,6 +178,27 @@ const BannerHeader = ({
 
   return (
     <View style={[styles.container]}>
+      <Animated.View style={[styles.forward, aniForwardIcon]}>
+        <TouchableOpacity onPress={handleForwardPress}>
+          <Ionicons
+            style={styles.forwardIcon}
+            name="chevron-forward-outline"
+            size={30}
+            color="#000"
+          />
+        </TouchableOpacity>
+      </Animated.View>
+
+      <Animated.View style={[styles.back, aniBackIcon]}>
+        <TouchableOpacity onPress={handleBackPress}>
+          <Ionicons
+            style={styles.backIcon}
+            name="chevron-back-outline"
+            size={30}
+            color="#000"
+          />
+        </TouchableOpacity>
+      </Animated.View>
       <Animated.View style={[styles.profileSmall, aniUserIcon]}>
         <TouchableOpacity
           onPress={() => {
@@ -271,4 +353,21 @@ const styles = StyleSheet.create({
     width: "100%",
     height: "100%",
   },
+  forward: {
+    position: "absolute",
+    right: 10,
+    bottom: 10,
+    width: 30,
+    height: 30,
+  },
+  forwardIcon: { width: "100%", height: "100%" },
+
+  back: {
+    position: "absolute",
+    left: 10,
+    bottom: 10,
+    width: 30,
+    height: 30,
+  },
+  backIcon: { width: "100%", height: "100%" },
 });
