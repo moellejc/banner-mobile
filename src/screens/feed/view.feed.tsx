@@ -14,7 +14,10 @@ import {
 import { useNavigation } from "@react-navigation/native";
 import { useDispatch } from "react-redux";
 import Place from "../../components/place";
-import { BANNER_SCROLL_POSITIONS } from "../../components/place/_place/model";
+import {
+  BANNER_SCROLL_POSITIONS,
+  BANNER_PLACE_POSITIONS,
+} from "../../components/place/_place/model";
 import BannerHeader from "../../components/header/bar";
 import { CollapseStates } from "../../types";
 import SearchDrawer from "../../components/search/drawer";
@@ -28,6 +31,7 @@ export const FeedScreen: React.FC = () => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
   const bannerScrollX = useSharedValue(BANNER_SCROLL_POSITIONS.PLACE);
+  const bannerPlaceY = useSharedValue(BANNER_PLACE_POSITIONS.CONTENT);
   const bannerScrollRef = useRef<ScrollView>(null);
 
   const scrollToSearch = () => {
@@ -65,6 +69,7 @@ export const FeedScreen: React.FC = () => {
         ref={bannerScrollRef}
         horizontal={true}
         showsVerticalScrollIndicator={false}
+        showsHorizontalScrollIndicator={false}
         snapToInterval={windowWidth}
         decelerationRate={"fast"}
         contentOffset={{ x: BANNER_SCROLL_POSITIONS.PLACE, y: 0 }}
@@ -81,9 +86,27 @@ export const FeedScreen: React.FC = () => {
         <View style={[styles.screen, { backgroundColor: "blue" }]}>
           <Text style={styles.screenText}>Screen 2</Text>
         </View>
-        <View style={[styles.screen, { backgroundColor: "purple" }]}>
-          <Text style={styles.screenText}>Screen 3</Text>
-        </View>
+        <ScrollView
+          showsVerticalScrollIndicator={false}
+          showsHorizontalScrollIndicator={false}
+          snapToInterval={windowHeight}
+          decelerationRate={"fast"}
+          contentOffset={{ x: 0, y: BANNER_PLACE_POSITIONS.CONTENT }}
+          scrollEventThrottle={16}
+          onScroll={(event) => {
+            bannerPlaceY.value = event.nativeEvent.contentOffset.y;
+          }}
+          bounces={false}
+          style={styles.scrollContainerPlace}
+        >
+          <View style={[styles.screen, { backgroundColor: "black" }]}>
+            <Text style={styles.screenText}>Place Hierarchy</Text>
+          </View>
+          <View style={[styles.screen, { backgroundColor: "purple" }]}>
+            <Text style={styles.screenText}>Place Content</Text>
+          </View>
+        </ScrollView>
+
         <View style={[styles.screen, { backgroundColor: "red" }]}>
           <Text style={styles.screenText}>Screen 4</Text>
         </View>
@@ -111,6 +134,9 @@ const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: "white" },
   scrollContainer: {
     flexDirection: "row",
+  },
+  scrollContainerPlace: {
+    flexDirection: "column",
   },
   screen: {
     width: windowWidth,

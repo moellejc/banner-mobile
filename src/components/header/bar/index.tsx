@@ -83,6 +83,19 @@ const BannerHeader = ({
     };
   });
 
+  const aniSettingsIcon = useAnimatedStyle(() => {
+    const iconCenter = windowWidth / 2 - ICON_SIZE_MIN / 2;
+    const translateInter = interpolate(
+      bannerScrollX.value,
+      inputRange,
+      [iconCenter, 10, -windowWidth, -windowWidth],
+      Extrapolate.CLAMP
+    );
+    return {
+      left: translateInter,
+    };
+  });
+
   const aniSearchIcon = useAnimatedStyle(() => {
     const iconCenter = windowWidth / 2 - ICON_SIZE_MAX / 2;
     const translateInter = interpolate(
@@ -199,6 +212,22 @@ const BannerHeader = ({
           />
         </TouchableOpacity>
       </Animated.View>
+
+      <Animated.View style={[styles.settings, aniSettingsIcon]}>
+        <TouchableOpacity
+          onPress={() => {
+            scrollToSettings();
+          }}
+        >
+          <Ionicons
+            style={styles.settingsIcon}
+            name="settings-outline"
+            size={30}
+            color="#000"
+          />
+        </TouchableOpacity>
+      </Animated.View>
+
       <Animated.View style={[styles.profileSmall, aniUserIcon]}>
         <TouchableOpacity
           onPress={() => {
@@ -301,6 +330,17 @@ const styles = StyleSheet.create({
   },
   profileSmallIcon: {
     borderRadius: 15,
+    width: "100%",
+    height: "100%",
+  },
+  settings: {
+    position: "absolute",
+    left: 10,
+    bottom: 10,
+    width: 30,
+    height: 30,
+  },
+  settingsIcon: {
     width: "100%",
     height: "100%",
   },
