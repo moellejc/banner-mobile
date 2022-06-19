@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useMemo, useCallback } from "react";
 import {
   findNodeHandle,
   StyleSheet,
@@ -22,6 +22,7 @@ import BannerHeader from "../../components/header/bar";
 import { CollapseStates } from "../../types";
 import SearchDrawer from "../../components/search/drawer";
 import Animated, { useSharedValue } from "react-native-reanimated";
+import BottomSheet from "@gorhom/bottom-sheet";
 
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
@@ -35,9 +36,23 @@ export const FeedScreen: React.FC = () => {
   const bannerScrollRef = useRef<ScrollView>(null);
   const bannerPlaceScrollRef = useRef<ScrollView>(null);
 
-  const scrollToSearch = () => {
+  //
+  // BOTTOM SHEET
+  //
+  // ref
+  const bottomSheetRef = useRef<BottomSheet>(null);
+
+  // variables
+  const snapPoints = useMemo(() => [115, "100%"], []);
+
+  // callbacks
+  const handleSheetChanges = useCallback((index: number) => {
+    // console.log("handleSheetChanges", index);
+  }, []);
+
+  const scrollToChat = () => {
     bannerScrollRef.current?.scrollTo({
-      x: BANNER_SCROLL_POSITIONS.SEARCH,
+      x: BANNER_SCROLL_POSITIONS.CHAT,
       y: 0,
       animated: true,
     });
@@ -124,7 +139,7 @@ export const FeedScreen: React.FC = () => {
         </ScrollView>
 
         <View style={[styles.screen, { backgroundColor: "red" }]}>
-          <Text style={styles.screenText}>Screen 4</Text>
+          <Text style={styles.screenText}>Chat</Text>
         </View>
       </ScrollView>
       {/* <View style={feedStyle.container}>
@@ -132,12 +147,28 @@ export const FeedScreen: React.FC = () => {
       </View> 
       <SearchDrawer />
       */}
+      <BottomSheet
+        ref={bottomSheetRef}
+        index={1}
+        snapPoints={snapPoints}
+        onChange={handleSheetChanges}
+      >
+        <View
+          style={{
+            flex: 1,
+            alignItems: "center",
+            backgroundColor: "black",
+          }}
+        >
+          <Text>Awesome 🎉</Text>
+        </View>
+      </BottomSheet>
       <BannerHeader
         {...{
           collapseStatus: CollapseStates.Expanded,
           bannerScrollX,
           bannerPlaceY,
-          scrollToSearch,
+          scrollToChat,
           scrollToProfile,
           scrollToSettings,
           scrollToPlace,

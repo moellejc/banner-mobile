@@ -14,7 +14,7 @@ export enum BANNER_SCROLL_POSITIONS {
   SETTINGS = 0,
   PROFILE = width,
   PLACE = width * 2,
-  SEARCH = width * 3,
+  CHAT = width * 3,
 }
 export enum BANNER_PLACE_POSITIONS {
   HIERARCHY = 0,

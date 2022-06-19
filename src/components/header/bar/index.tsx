@@ -37,7 +37,7 @@ interface BannerHeaderProps {
   collapseStatus: CollapseStates;
   bannerScrollX: SharedValue<number>;
   bannerPlaceY: SharedValue<number>;
-  scrollToSearch: () => void;
+  scrollToChat: () => void;
   scrollToProfile: () => void;
   scrollToSettings: () => void;
   scrollToPlace: () => void;
@@ -48,7 +48,7 @@ const bannerScrollInputRange = [
   BANNER_SCROLL_POSITIONS.SETTINGS,
   BANNER_SCROLL_POSITIONS.PROFILE,
   BANNER_SCROLL_POSITIONS.PLACE,
-  BANNER_SCROLL_POSITIONS.SEARCH,
+  BANNER_SCROLL_POSITIONS.CHAT,
 ];
 
 const placeScrollInputRange = [
@@ -60,7 +60,7 @@ const BannerHeader = ({
   collapseStatus,
   bannerScrollX,
   bannerPlaceY,
-  scrollToSearch,
+  scrollToChat,
   scrollToProfile,
   scrollToSettings,
   scrollToPlace,
@@ -120,7 +120,7 @@ const BannerHeader = ({
     };
   });
 
-  const aniSearchIcon = useAnimatedStyle(() => {
+  const aniChatIcon = useAnimatedStyle(() => {
     const translateInter = interpolate(
       bannerScrollX.value,
       bannerScrollInputRange,
@@ -140,7 +140,7 @@ const BannerHeader = ({
         BANNER_SCROLL_POSITIONS.SETTINGS,
         BANNER_SCROLL_POSITIONS.PROFILE + trim,
         BANNER_SCROLL_POSITIONS.PLACE,
-        BANNER_SCROLL_POSITIONS.SEARCH - trim,
+        BANNER_SCROLL_POSITIONS.CHAT - trim,
       ],
       [0, 0, 1, 0],
       Extrapolate.CLAMP
@@ -151,7 +151,7 @@ const BannerHeader = ({
         BANNER_SCROLL_POSITIONS.SETTINGS,
         BANNER_SCROLL_POSITIONS.PROFILE + trim,
         BANNER_SCROLL_POSITIONS.PLACE,
-        BANNER_SCROLL_POSITIONS.SEARCH - trim,
+        BANNER_SCROLL_POSITIONS.CHAT - trim,
       ],
       [75, 75, 0, -75],
       Extrapolate.CLAMP
@@ -215,7 +215,7 @@ const BannerHeader = ({
 
   const handleBackPress = () => {
     switch (bannerScrollX.value) {
-      case BANNER_SCROLL_POSITIONS.SEARCH:
+      case BANNER_SCROLL_POSITIONS.CHAT:
         scrollToPlace();
         break;
       default:
@@ -343,15 +343,15 @@ const BannerHeader = ({
           </View>
         </TouchableOpacity>
       </Animated.View> */}
-      <Animated.View style={[styles.iconRight, aniSearchIcon]}>
+      <Animated.View style={[styles.iconRight, aniChatIcon]}>
         <TouchableOpacity
           onPress={() => {
-            scrollToSearch();
+            scrollToChat();
           }}
         >
           <Ionicons
             style={styles.iconImage}
-            name="search-outline"
+            name="chatbubble-outline"
             size={30}
             color="#000"
           />
