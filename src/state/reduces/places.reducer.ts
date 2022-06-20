@@ -1,10 +1,12 @@
-import { Place, CollapseStates } from "../../types";
+import { Place, CollapseStates, PlaceScreens } from "../../types";
 import { PlacesActions } from "../actions";
 
 export interface IPlacesState {
   currentPlace: Place;
   headerState: CollapseStates;
   hierarchyState: CollapseStates;
+  goToPlaceScreen: PlaceScreens | null;
+  placeScreen: PlaceScreens;
 }
 
 const initialPlacesState: IPlacesState = {
@@ -17,6 +19,8 @@ const initialPlacesState: IPlacesState = {
   },
   headerState: CollapseStates.Expanded,
   hierarchyState: CollapseStates.Collapsed,
+  goToPlaceScreen: null,
+  placeScreen: PlaceScreens.Content,
 };
 
 export function placesReducer(state = initialPlacesState, action: any) {
@@ -64,6 +68,22 @@ export function placesReducer(state = initialPlacesState, action: any) {
           ...state.currentPlace,
         },
         hierarchyState: CollapseStates.Expanded,
+      };
+    case PlacesActions.NAV_TOGO_PLACE_SCREEN_START:
+      return {
+        ...state,
+        currentPlace: {
+          ...state.currentPlace,
+        },
+        goToPlaceScreen: action.payload.goToPlaceScreen,
+      };
+    case PlacesActions.NAV_TOGO_PLACE_SCREEN_END:
+      return {
+        ...state,
+        currentPlace: {
+          ...state.currentPlace,
+        },
+        goToPlaceScreen: null,
       };
     default:
       return state;

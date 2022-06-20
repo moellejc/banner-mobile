@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useRef, useEffect } from "react";
 import { CollapseStates } from "../../../types/Misc";
 import {
   Text,
@@ -24,28 +24,14 @@ const windowWidth = Dimensions.get("window").width;
 const START_SEARCH_TOP = windowHeight - 100;
 const { interpolateNode, Extrapolate } = Animated;
 
-interface PlaceHierarchyProps {
-  panDownY: SharedValue<number>;
-}
-const PlaceHierarchy = ({ panDownY }: PlaceHierarchyProps) => {
-  const translateContent = useAnimatedStyle(() => {
-    const translateInter = interpolate(
-      panDownY.value,
-      [0, windowHeight],
-      [windowHeight, 0],
-      Extrapolate.CLAMP
-    );
-    return {
-      bottom: translateInter,
-    };
-  });
-
+interface PlaceHierarchyProps {}
+const PlaceHierarchy = () => {
   const handleBackPress = () => {};
 
-  React.useEffect(() => {});
+  useEffect(() => {});
 
   return (
-    <Animated.View style={[styles.container, translateContent]}>
+    <Animated.View style={[styles.container]}>
       <TouchableOpacity onPress={handleBackPress}>
         <View style={styles.back}>
           <Text style={styles.backText}>Back</Text>

@@ -1,1 +1,0 @@
-export { DiscoverScreen } from "./view.discover";

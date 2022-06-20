@@ -1,34 +1,29 @@
 import React, { useEffect, useRef, useMemo, useCallback } from "react";
-import {
-  findNodeHandle,
-  StyleSheet,
-  Text,
-  Image,
-  View,
-  Dimensions,
-  ScrollView,
-  TouchableOpacity,
-  PanResponder,
-  ListRenderItem,
-} from "react-native";
+import { StyleSheet, Text, View, Dimensions, ScrollView } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { useDispatch } from "react-redux";
 import Place from "../../components/place";
+import Profile from "../../components/profile";
+import Settings from "../../components/settings";
+import Chat from "../../components/chat";
 import {
   BANNER_SCROLL_POSITIONS,
   BANNER_PLACE_POSITIONS,
 } from "../../components/place/_place/model";
 import BannerHeader from "../../components/header/bar";
-import { CollapseStates } from "../../types";
+import { CollapseStates, HubScreens } from "../../types";
 import SearchDrawer from "../../components/search/drawer";
 import Animated, { useSharedValue } from "react-native-reanimated";
 import BottomSheet from "@gorhom/bottom-sheet";
+import { connect } from "react-redux";
+import { RootState, Actions, store } from "../../state";
+import { HubActions } from "../../state/actions";
 
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
 
 type FeedScreenProps = {};
-export const FeedScreen: React.FC = () => {
+const FeedScreen: React.FC = () => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
   const bannerScrollX = useSharedValue(BANNER_SCROLL_POSITIONS.PLACE);
@@ -43,12 +38,42 @@ export const FeedScreen: React.FC = () => {
   const bottomSheetRef = useRef<BottomSheet>(null);
 
   // variables
-  const snapPoints = useMemo(() => [115, "100%"], []);
+  const snapPoints = useMemo(() => [115, "90%"], []);
 
   // callbacks
   const handleSheetChanges = useCallback((index: number) => {
     // console.log("handleSheetChanges", index);
   }, []);
+
+  const handleScrollTo = () => {
+    switch (store.getState().hub.toGoScreen) {
+      case HubScreens.Place:
+        scrollToPlace();
+        break;
+      case HubScreens.Profile:
+        scrollToProfile();
+        break;
+      case HubScreens.Settings:
+        scrollToSettings();
+        break;
+      case HubScreens.Chat:
+        scrollToChat();
+        break;
+      default:
+        break;
+    }
+
+    // update state for current screen and go to screen
+    dispatch({
+      type: HubActions.UPDATE_DISPLAYED_SCREEN,
+      payload: store.getState().hub.toGoScreen,
+    });
+    dispatch({ type: HubActions.NAV_TOGO_SCREEN_END });
+  };
+
+  useEffect(() => {
+    handleScrollTo();
+  });
 
   const scrollToChat = () => {
     bannerScrollRef.current?.scrollTo({
@@ -110,43 +135,19 @@ export const FeedScreen: React.FC = () => {
         bounces={false}
         style={styles.scrollContainer}
       >
-        <View style={[styles.screen, { backgroundColor: "green" }]}>
-          <Text style={styles.screenText}>Settings</Text>
+        <View style={[styles.screen]}>
+          <Settings />
         </View>
-        <View style={[styles.screen, { backgroundColor: "blue" }]}>
-          <Text style={styles.screenText}>Profile</Text>
+        <View style={[styles.screen]}>
+          <Profile />
         </View>
-        <ScrollView
-          ref={bannerPlaceScrollRef}
-          showsVerticalScrollIndicator={false}
-          showsHorizontalScrollIndicator={false}
-          snapToInterval={windowHeight}
-          decelerationRate={"fast"}
-          contentOffset={{ x: 0, y: BANNER_PLACE_POSITIONS.CONTENT }}
-          scrollEventThrottle={16}
-          onScroll={(event) => {
-            bannerPlaceY.value = event.nativeEvent.contentOffset.y;
-          }}
-          bounces={false}
-          style={styles.scrollContainerPlace}
-        >
-          <View style={[styles.screen, { backgroundColor: "black" }]}>
-            <Text style={styles.screenText}>Place Hierarchy</Text>
-          </View>
-          <View style={[styles.screen, { backgroundColor: "purple" }]}>
-            <Text style={styles.screenText}>Place Content</Text>
-          </View>
-        </ScrollView>
-
-        <View style={[styles.screen, { backgroundColor: "red" }]}>
-          <Text style={styles.screenText}>Chat</Text>
+        <View style={[styles.screen]}>
+          <Place {...{ bannerPlaceY }} />
+        </View>
+        <View style={[styles.screen]}>
+          <Chat />
         </View>
       </ScrollView>
-      {/* <View style={feedStyle.container}>
-        <Place />
-      </View> 
-      <SearchDrawer />
-      */}
       <BottomSheet
         ref={bottomSheetRef}
         index={1}
@@ -179,24 +180,34 @@ export const FeedScreen: React.FC = () => {
   );
 };
 
+const mapStateToProps = (state: RootState) => {
+  return {
+    goToScreen: state.hub.toGoScreen,
+  };
+};
+
+export default connect(mapStateToProps)(FeedScreen);
+
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: "white" },
   scrollContainer: {
     flexDirection: "row",
   },
-  scrollContainerPlace: {
-    flexDirection: "column",
-  },
   screen: {
     width: windowWidth,
     height: windowHeight,
     flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
   },
   screenText: {
     color: "white",
     fontWeight: "bold",
     fontSize: 24,
+  },
+  screenTemp: {
+    width: windowWidth,
+    height: windowHeight,
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
   },
 });

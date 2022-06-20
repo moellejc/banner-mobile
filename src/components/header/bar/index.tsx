@@ -14,15 +14,16 @@ import Animated, {
   interpolate,
 } from "react-native-reanimated";
 import { connect } from "react-redux";
-import { CollapseStates } from "../../../types";
+import { CollapseStates, HubScreens } from "../../../types";
 import {
   BANNER_SCROLL_POSITIONS,
   BANNER_PLACE_POSITIONS,
 } from "../../place/_place/model";
-import { RootState, Actions, store } from "../../../state";
 import { useNavigation } from "@react-navigation/native";
-import { SharedElement } from "react-navigation-shared-element";
 import Ionicons from "@expo/vector-icons/Ionicons";
+import { RootState, Actions, store } from "../../../state";
+import { useDispatch } from "react-redux";
+import { HubActions } from "../../../state/actions";
 
 // const { interpolateNode, Extrapolate } = Animated;
 const BOTTOM_PLACE_PARENT_HEAD = 15;
@@ -67,6 +68,7 @@ const BannerHeader = ({
   scrollToPlaceHierarchy,
 }: BannerHeaderProps) => {
   const navigation = useNavigation();
+  const dispatch = useDispatch();
 
   const aniBannerBar = useAnimatedStyle(() => {
     const translateInter = interpolate(
@@ -203,10 +205,18 @@ const BannerHeader = ({
   const handleForwardPress = () => {
     switch (bannerScrollX.value) {
       case BANNER_SCROLL_POSITIONS.PROFILE:
-        scrollToPlace();
+        dispatch({
+          type: HubActions.NAV_TOGO_SCREEN_START,
+          payload: HubScreens.Place,
+        });
+        // scrollToPlace();
         break;
       case BANNER_SCROLL_POSITIONS.SETTINGS:
-        scrollToProfile();
+        dispatch({
+          type: HubActions.NAV_TOGO_SCREEN_START,
+          payload: HubScreens.Profile,
+        });
+        // scrollToProfile();
         break;
       default:
         break;
@@ -216,7 +226,11 @@ const BannerHeader = ({
   const handleBackPress = () => {
     switch (bannerScrollX.value) {
       case BANNER_SCROLL_POSITIONS.CHAT:
-        scrollToPlace();
+        dispatch({
+          type: HubActions.NAV_TOGO_SCREEN_START,
+          payload: HubScreens.Place,
+        });
+        // scrollToPlace();
         break;
       default:
         break;
@@ -269,7 +283,10 @@ const BannerHeader = ({
       <Animated.View style={[styles.iconLeft, aniSettingsIcon]}>
         <TouchableOpacity
           onPress={() => {
-            scrollToSettings();
+            dispatch({
+              type: HubActions.NAV_TOGO_SCREEN_START,
+              payload: HubScreens.Settings,
+            });
           }}
         >
           <Ionicons
@@ -284,7 +301,11 @@ const BannerHeader = ({
       <Animated.View style={[styles.profileSmall, aniUserIcon]}>
         <TouchableOpacity
           onPress={() => {
-            scrollToProfile();
+            dispatch({
+              type: HubActions.NAV_TOGO_SCREEN_START,
+              payload: HubScreens.Profile,
+            });
+            // scrollToProfile();
           }}
         >
           <Image
@@ -299,7 +320,11 @@ const BannerHeader = ({
       <Animated.View style={[styles.placeParent, aniParentArrow]}>
         <TouchableOpacity
           onPress={() => {
-            scrollToPlaceHierarchy();
+            dispatch({
+              type: HubActions.NAV_TOGO_SCREEN_START,
+              payload: HubScreens.Place,
+            });
+            // scrollToPlaceHierarchy();
           }}
         >
           <View style={styles.upArrow}>
