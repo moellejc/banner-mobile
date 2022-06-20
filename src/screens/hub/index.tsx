@@ -22,8 +22,8 @@ import { HubActions } from "../../state/actions";
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
 
-type FeedScreenProps = {};
-const FeedScreen: React.FC = () => {
+type HubScreenProps = {};
+const HubScreen: React.FC = () => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
   const bannerScrollX = useSharedValue(BANNER_SCROLL_POSITIONS.PLACE);
@@ -186,7 +186,7 @@ const mapStateToProps = (state: RootState) => {
   };
 };
 
-export default connect(mapStateToProps)(FeedScreen);
+export default connect(mapStateToProps)(HubScreen);
 
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: "white" },

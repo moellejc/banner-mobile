@@ -6,12 +6,12 @@ import {
   Animated,
   TouchableWithoutFeedback,
 } from "react-native";
-import { FeedScreen } from "../screens/feed";
-import { MessagesScreen } from "../screens/messages";
+import HubScreen from "../screens/hub";
+// import { MessagesScreen } from "../screens/messages";
 import { CameraScreen } from "../screens/camera";
-import { DiscoverScreen } from "../screens/discover";
+// import { DiscoverScreen } from "../screens/discover";
 import { AddScreen } from "../screens/add";
-import { ProfileScreen } from "../screens/profile";
+// import { ProfileScreen } from "../screens/profile";
 import { SearchScreen } from "../screens/search";
 import {
   createStackNavigator,
@@ -87,12 +87,8 @@ function AppNavigator() {
         gestureEnabled: true,
       }}
     >
-      <Stack.Screen
-        name="Feed"
-        component={FeedScreen}
-        options={screenOptions}
-      />
-      <Stack.Screen
+      <Stack.Screen name="Hub" component={HubScreen} options={screenOptions} />
+      {/* <Stack.Screen
         name="Profile"
         component={ProfileScreen}
         options={({ navigation }): StackNavigationOptions => {
@@ -105,11 +101,7 @@ function AppNavigator() {
             headerTintColor: "white",
             headerRight: () => (
               <TouchableWithoutFeedback
-                style={
-                  {
-                    /* Put your style here */
-                  }
-                }
+                style={{}}
                 onPress={() => navigation.goBack()}
               >
                 <Ionicons
@@ -141,11 +133,7 @@ function AppNavigator() {
             headerTintColor: "white",
             headerLeft: () => (
               <TouchableWithoutFeedback
-                style={
-                  {
-                    /* Put your style here */
-                  }
-                }
+                style={{}}
                 onPress={() => navigation.goBack()}
               >
                 <Ionicons name="chevron-back-outline" size={32} color="#000" />
@@ -159,7 +147,7 @@ function AppNavigator() {
           const { item } = route.params;
           return [`SearchIcon`];
         }}
-      />
+      /> */}
     </Stack.Navigator>
   );
 
