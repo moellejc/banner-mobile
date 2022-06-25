@@ -3,7 +3,7 @@ import { StyleSheet, Text, View, Dimensions, ScrollView } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { useDispatch } from "react-redux";
 import Place from "../../components/place";
-import Profile from "../../components/profile";
+import Profile from "../profile";
 import Settings from "../../components/settings";
 import Chat from "../../components/chat";
 import {

@@ -7,12 +7,10 @@ import {
   TouchableWithoutFeedback,
 } from "react-native";
 import HubScreen from "../screens/hub";
-// import { MessagesScreen } from "../screens/messages";
 import { CameraScreen } from "../screens/camera";
-// import { DiscoverScreen } from "../screens/discover";
-import { AddScreen } from "../screens/add";
-// import { ProfileScreen } from "../screens/profile";
-import { SearchScreen } from "../screens/search";
+import AddScreen from "../screens/add";
+import ProfileScreen from "../screens/profile";
+import SearchScreen from "../screens/search";
 import {
   createStackNavigator,
   StackCardInterpolationProps,
