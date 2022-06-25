@@ -19,6 +19,7 @@ export function hubReducer(state = initialHubState, action: any) {
         hubScreen: action.payload.hubScreen,
       };
     case HubActions.NAV_TOGO_SCREEN_START:
+      console.log(`Hub Start Action: ${action}`);
       return {
         ...state,
         toGoScreen: action.payload.goToScreen,

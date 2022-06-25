@@ -70,6 +70,7 @@ export function placesReducer(state = initialPlacesState, action: any) {
         hierarchyState: CollapseStates.Expanded,
       };
     case PlacesActions.NAV_TOGO_PLACE_SCREEN_START:
+      console.log(action);
       return {
         ...state,
         currentPlace: {

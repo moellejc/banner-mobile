@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useMemo, useCallback } from "react";
-import { StyleSheet, Text, View, Dimensions, ScrollView } from "react-native";
+import { Text, View, Dimensions, ScrollView } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { useDispatch } from "react-redux";
 import Place from "../../components/place";
@@ -18,6 +18,7 @@ import BottomSheet from "@gorhom/bottom-sheet";
 import { connect } from "react-redux";
 import { RootState, Actions, store } from "../../state";
 import { HubActions } from "../../state/actions";
+import { styles } from "./styles";
 
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
@@ -46,6 +47,8 @@ const HubScreen: React.FC = () => {
   }, []);
 
   const handleScrollTo = () => {
+    if (!store.getState().hub.toGoScreen) return;
+
     switch (store.getState().hub.toGoScreen) {
       case HubScreens.Place:
         scrollToPlace();
@@ -64,11 +67,11 @@ const HubScreen: React.FC = () => {
     }
 
     // update state for current screen and go to screen
-    dispatch({
-      type: HubActions.UPDATE_DISPLAYED_SCREEN,
-      payload: store.getState().hub.toGoScreen,
-    });
-    dispatch({ type: HubActions.NAV_TOGO_SCREEN_END });
+    // dispatch({
+    //   type: HubActions.UPDATE_DISPLAYED_SCREEN,
+    //   payload: store.getState().hub.toGoScreen,
+    // });
+    // dispatch({ type: HubActions.NAV_TOGO_SCREEN_END });
   };
 
   useEffect(() => {
@@ -148,7 +151,7 @@ const HubScreen: React.FC = () => {
           <Chat />
         </View>
       </ScrollView>
-      <BottomSheet
+      {/* <BottomSheet
         ref={bottomSheetRef}
         index={1}
         snapPoints={snapPoints}
@@ -163,7 +166,7 @@ const HubScreen: React.FC = () => {
         >
           <Text>Awesome 🎉</Text>
         </View>
-      </BottomSheet>
+      </BottomSheet> */}
       <BannerHeader
         {...{
           collapseStatus: CollapseStates.Expanded,
@@ -187,27 +190,3 @@ const mapStateToProps = (state: RootState) => {
 };
 
 export default connect(mapStateToProps)(HubScreen);
-
-const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: "white" },
-  scrollContainer: {
-    flexDirection: "row",
-  },
-  screen: {
-    width: windowWidth,
-    height: windowHeight,
-    flex: 1,
-  },
-  screenText: {
-    color: "white",
-    fontWeight: "bold",
-    fontSize: 24,
-  },
-  screenTemp: {
-    width: windowWidth,
-    height: windowHeight,
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-});

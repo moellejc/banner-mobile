@@ -10,6 +10,7 @@ import { RootState, Actions, store } from "../../../state";
 import { useDispatch } from "react-redux";
 import { PlacesActions } from "../../../state/actions";
 import { PlaceScreens } from "../../../types/Misc";
+import { styles } from "./styles";
 
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
@@ -116,26 +117,3 @@ const mapStateToProps = (state: RootState) => {
 };
 
 export default connect(mapStateToProps)(Place);
-
-const stylesSearch = StyleSheet.create({});
-
-const styles = StyleSheet.create({
-  container: {
-    height: windowHeight,
-    width: windowWidth,
-  },
-  scrollContainerPlace: {
-    flexDirection: "column",
-  },
-  contentContainer: {
-    position: "absolute",
-    top: 0,
-    height: windowHeight,
-    backgroundColor: "white",
-  },
-  screen: {
-    width: windowWidth,
-    height: windowHeight,
-    flex: 1,
-  },
-});

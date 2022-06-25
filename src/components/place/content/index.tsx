@@ -32,12 +32,10 @@ import { connect } from "react-redux";
 import { RootState, Actions, store } from "../../../state";
 import { PanGestureHandler, ScrollView } from "react-native-gesture-handler";
 import { CollapseStates } from "../../../types";
+import { styles } from "./styles";
 
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
-
-const { width: screenWidth, height: screenHeight } = Dimensions.get("screen");
-
 interface PlaceContentProps {
   place: IPlace;
   y: Animated.Value<number>;
@@ -181,29 +179,3 @@ const mapStateToProps = (state: RootState) => {
 };
 
 export default connect(mapStateToProps)(PlaceContent);
-
-const styles = StyleSheet.create({
-  scrollContainer: {
-    position: "absolute",
-    width: windowWidth - 20,
-    height: windowHeight,
-    left: 10,
-    top: 10,
-  },
-  placeContainer: {
-    flex: 1,
-    marginTop: SCREEN_UNSAFE_MARGIN_TOP,
-    // backgroundColor: "orange",
-  },
-  cover: {
-    height: MAX_HEADER_HEIGHT - SCREEN_UNSAFE_MARGIN_TOP,
-    marginBottom: 10,
-  },
-  postContainer: {
-    height: 100,
-  },
-  postText: {
-    fontSize: 24,
-    fontWeight: "bold",
-  },
-});
