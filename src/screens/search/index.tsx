@@ -1,6 +1,7 @@
 import React from "react";
 import { View, Text, Image, StyleSheet } from "react-native";
 import { SharedElement } from "react-navigation-shared-element";
+import { styles } from "./styles";
 
 type SearchProps = {};
 const SearchScreen: React.FC = () => {
@@ -20,13 +21,3 @@ const SearchScreen: React.FC = () => {
 };
 
 export default SearchScreen;
-
-const styles = StyleSheet.create({
-  searchIcon: {
-    position: "absolute",
-    left: 20,
-    top: 50,
-    width: 30,
-    height: 30,
-  },
-});

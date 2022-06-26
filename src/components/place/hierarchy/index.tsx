@@ -18,10 +18,10 @@ import Animated, {
   SharedValue,
   interpolate,
 } from "react-native-reanimated";
+import { styles } from "./styles";
 
-const windowHeight = Dimensions.get("window").height;
-const windowWidth = Dimensions.get("window").width;
-const START_SEARCH_TOP = windowHeight - 100;
+const { width: WINDOW_WIDTH, height: WINDOW_HEIGHT } = Dimensions.get("window");
+const START_SEARCH_TOP = WINDOW_HEIGHT - 100;
 const { interpolateNode, Extrapolate } = Animated;
 
 interface PlaceHierarchyProps {}
@@ -50,39 +50,3 @@ const PlaceHierarchy = () => {
 };
 
 export default PlaceHierarchy;
-
-const styles = StyleSheet.create({
-  container: {
-    position: "absolute",
-    bottom: windowHeight - 10,
-    height: windowHeight,
-    width: windowWidth,
-    backgroundColor: "black",
-    zIndex: 100,
-  },
-  back: {
-    position: "absolute",
-    flexDirection: "column",
-    bottom: 100,
-    width: 100,
-    height: 50,
-    backgroundColor: "red",
-  },
-  backText: {
-    fontWeight: "bold",
-    fontSize: 24,
-    color: "white",
-    marginBottom: 5,
-  },
-  downArrow: {
-    flex: 1,
-    height: 20,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  downArrowIcon: {
-    width: 30,
-    height: 16,
-    marginBottom: 15,
-  },
-});

@@ -1,6 +1,6 @@
 import React from "react";
 import { ApolloProvider } from "@apollo/client";
-import AppNav from "./navigations";
+import { Router } from "./navigations";
 import { Provider as PaperProvider } from "react-native-paper";
 import { client } from "./lib/apollo";
 import { SafeAreaProvider } from "react-native-safe-area-context";
@@ -30,7 +30,7 @@ export default class App extends React.PureComponent {
      * Application Hierarchy
      * ---------------------
      * App
-     * * Navigation (Auth | Banner - Menu & Search)
+     * * Nav Router (Auth | Banner - Menu & Search)
      * * * Feed
      * * * * Current Place
      * * * Profile
@@ -44,7 +44,7 @@ export default class App extends React.PureComponent {
         <PaperProvider theme={AppTheme}>
           <SafeAreaProvider>
             <Provider store={store}>
-              <AppNav />
+              <Router />
             </Provider>
           </SafeAreaProvider>
         </PaperProvider>

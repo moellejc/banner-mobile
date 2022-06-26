@@ -14,8 +14,9 @@ import { useSelector, useDispatch } from "react-redux";
 // import { authConstants } from "../../constants/state_old";
 // import { meConstants } from "../../constants/state_old";
 import { Actions } from "../../state";
+import { styles } from "./styles";
 
-const screenWidth = Dimensions.get("window").width - 60;
+const { width: WINDOW_WIDTH, height: WINDOW_HEIGHT } = Dimensions.get("window");
 
 const REGISTER_MUTATION = gql`
   mutation RegisterMutation(
@@ -159,7 +160,7 @@ const RegisterScreen: React.FC = () => {
         <BannerButton
           text="Sign Up"
           height={50}
-          width={screenWidth}
+          width={WINDOW_WIDTH - 60}
           borderRadius={25}
           onPress={() => console.log("REGISTER pressed")}
         />
@@ -167,37 +168,5 @@ const RegisterScreen: React.FC = () => {
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  pageContainer: {
-    flex: 1,
-    margin: 30,
-    flexDirection: "column",
-  },
-  row: {
-    flexDirection: "column",
-    alignItems: "center",
-    alignContent: "center",
-  },
-  headline: {
-    color: "white",
-    fontSize: 25,
-    fontWeight: "bold",
-  },
-  icon: {
-    width: 36,
-    height: 44,
-  },
-  logo: {
-    width: 204,
-    height: 26,
-  },
-  buttonLogin: {},
-  buttonRegister: {},
-  input: {
-    marginBottom: 10,
-    width: screenWidth,
-  },
-});
 
 export default RegisterScreen;

@@ -7,9 +7,9 @@ import {
   COVER_IMG_HEIGHT,
   COVER_IMG_TOP_MARGIN,
 } from "../_place/model";
+import { styles } from "./styles";
 
-const windowWidth = Dimensions.get("window").width;
-const windowHeight = Dimensions.get("window").height;
+const { width: WINDOW_WIDTH, height: WINDOW_HEIGHT } = Dimensions.get("window");
 
 const { width: screenWidth, height: screenHeight } = Dimensions.get("screen");
 const { interpolateNode, Extrapolate } = Animated;
@@ -35,27 +35,3 @@ export const PlaceCover = ({ place, y }: PlaceCoverProps) => {
     </Animated.View>
   );
 };
-
-const styles = StyleSheet.create({
-  backgroundContainer: {
-    // position: "absolute",
-    // top: COVER_IMG_TOP_MARGIN,
-    // left: 0,
-    // right: 0,
-    // zIndex: 0,
-    height: COVER_IMG_HEIGHT,
-  },
-  backgroundImage: {
-    width: windowWidth - 20,
-    marginBottom: 10,
-    borderRadius: 20,
-    height: "100%",
-  },
-  headerBackground: {
-    position: "absolute",
-    top: 0,
-    left: 0,
-    bottom: 0,
-    right: 0,
-  },
-});

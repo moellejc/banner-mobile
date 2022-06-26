@@ -4,7 +4,7 @@ import { useNavigation } from "@react-navigation/native";
 import { useDispatch } from "react-redux";
 import Place from "../../components/place";
 import Profile from "../profile";
-import Settings from "../../components/settings";
+import Settings from "../settings";
 import Chat from "../../components/chat";
 import {
   BANNER_SCROLL_POSITIONS,
@@ -20,8 +20,7 @@ import { RootState, Actions, store } from "../../state";
 import { HubActions } from "../../state/actions";
 import { styles } from "./styles";
 
-const windowWidth = Dimensions.get("window").width;
-const windowHeight = Dimensions.get("window").height;
+const { width: WINDOW_WIDTH, height: WINDOW_HEIGHT } = Dimensions.get("window");
 
 type HubScreenProps = {};
 const HubScreen: React.FC = () => {
@@ -128,7 +127,7 @@ const HubScreen: React.FC = () => {
         horizontal={true}
         showsVerticalScrollIndicator={false}
         showsHorizontalScrollIndicator={false}
-        snapToInterval={windowWidth}
+        snapToInterval={WINDOW_WIDTH}
         decelerationRate={"fast"}
         contentOffset={{ x: BANNER_SCROLL_POSITIONS.PLACE, y: 0 }}
         scrollEventThrottle={16}
