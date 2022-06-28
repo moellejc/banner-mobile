@@ -165,7 +165,7 @@ const HubScreen: React.FC = () => {
         >
           <Text>Awesome 🎉</Text>
         </View>
-      </BottomSheet> */}
+      </BottomSheet> 
       <BannerHeader
         {...{
           collapseStatus: CollapseStates.Expanded,
@@ -178,6 +178,7 @@ const HubScreen: React.FC = () => {
           scrollToPlaceHierarchy,
         }}
       />
+      */}
     </>
   );
 };

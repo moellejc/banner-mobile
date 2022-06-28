@@ -10,7 +10,7 @@ import {
   SectionList,
   StatusBar,
 } from "react-native";
-import { UserIcon, UserIconSizes } from "../../user/icon";
+import { UserIcon, UserIconSizes } from "../../../user/icon";
 
 const WINDOW_WIDTH = Dimensions.get("window").width;
 const WINDOW_HEIGHT = Dimensions.get("window").height;

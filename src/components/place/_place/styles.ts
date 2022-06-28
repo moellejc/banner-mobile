@@ -6,6 +6,7 @@ export const styles = StyleSheet.create({
   container: {
     height: WINDOW_HEIGHT,
     width: WINDOW_WIDTH,
+    backgroundColor: "green",
   },
   scrollContainerPlace: {
     flexDirection: "column",

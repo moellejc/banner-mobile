@@ -5,5 +5,7 @@ export type Place = {
   title: string;
   address: string;
   location: Coordinates | null;
-  menu_options: string[];
+  services: string[];
+  sectionOrder: string[];
+  peopleHere: string[];
 };

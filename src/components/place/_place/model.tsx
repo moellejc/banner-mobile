@@ -26,10 +26,19 @@ export interface IPlacePost {
   artist?: string;
 }
 
+export interface IPlaceSection {
+  id: string;
+  title: string;
+}
+
 export interface IPlace {
+  id: string;
   name: string;
-  artist: string;
-  release: number;
-  cover: number;
-  tracks: IPlacePost[];
+  category: string;
+  hours: string;
+  favorites: number;
+  totalPeopleHere: string;
+  backgroundImageURL: string;
+  services: string[];
+  sections: IPlaceSection[];
 }
