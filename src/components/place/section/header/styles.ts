@@ -28,13 +28,23 @@ export const styles = StyleSheet.create({
     ...StyleSheet.absoluteFillObject,
   },
   titleContainer: {
-    flexDirection: "column",
+    display: "flex",
+    flexDirection: "row",
     marginTop: 75,
   },
   titleTxt: {
     fontWeight: "bold",
     fontSize: 32,
     color: "black",
+  },
+  mapIcon: {
+    marginLeft: 10,
+  },
+  testBox: {
+    backgroundColor: "black",
+    width: 100,
+    height: 32,
+    marginLeft: "auto",
   },
   categoryTxt: {
     fontWeight: "bold",

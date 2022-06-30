@@ -1,8 +1,9 @@
 import React, { useEffect, useRef, ReactElement } from "react";
-import { View, Text, Image } from "react-native";
+import { View, Text, Image, TouchableOpacity } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import { styles } from "./styles";
-import { FontAwesome } from "@expo/vector-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
+import { faMapLocationDot } from "@fortawesome/free-solid-svg-icons";
 
 interface PlaceHeaderSectionProps {}
 
@@ -33,10 +34,10 @@ const PlaceHeaderSection = () => {
         ></LinearGradient>
         <View style={styles.titleContainer}>
           <Text style={styles.titleTxt}>Topgolf</Text>
-          <FontAwesome
-            name={"map"}
-            style={{ color: "black", width: 24, height: 24 }}
-          />
+          <TouchableOpacity style={styles.mapIcon}>
+            <FontAwesomeIcon color="black" size={32} icon={faMapLocationDot} />
+          </TouchableOpacity>
+          <View style={styles.testBox}></View>
         </View>
 
         <Text style={styles.categoryTxt}>Entertainment</Text>
