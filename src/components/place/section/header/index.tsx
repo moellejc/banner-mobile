@@ -4,6 +4,7 @@ import { LinearGradient } from "expo-linear-gradient";
 import { styles } from "./styles";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { faMapLocationDot } from "@fortawesome/free-solid-svg-icons";
+import { Button } from "native-base";
 
 interface PlaceHeaderSectionProps {}
 
@@ -37,7 +38,9 @@ const PlaceHeaderSection = () => {
           <TouchableOpacity style={styles.mapIcon}>
             <FontAwesomeIcon color="black" size={32} icon={faMapLocationDot} />
           </TouchableOpacity>
-          <View style={styles.testBox}></View>
+          <Button size="sm" variant="outline">
+            PRIMARY
+          </Button>
         </View>
 
         <Text style={styles.categoryTxt}>Entertainment</Text>

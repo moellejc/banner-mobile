@@ -1,7 +1,7 @@
 import React from "react";
 import { ApolloProvider } from "@apollo/client";
 import { Router } from "./navigations";
-import { Provider as PaperProvider } from "react-native-paper";
+import { NativeBaseProvider } from "native-base";
 import { client } from "./lib/apollo";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import AppTheme from "./constants/styles/Theme";
@@ -41,13 +41,13 @@ export default class App extends React.PureComponent {
 
     return (
       <ApolloProvider client={client}>
-        <PaperProvider theme={AppTheme}>
+        <NativeBaseProvider>
           <SafeAreaProvider>
             <Provider store={store}>
               <Router />
             </Provider>
           </SafeAreaProvider>
-        </PaperProvider>
+        </NativeBaseProvider>
       </ApolloProvider>
     );
   }
