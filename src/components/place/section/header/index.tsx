@@ -3,8 +3,12 @@ import { View, Text, Image, TouchableOpacity } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import { styles } from "./styles";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
-import { faMapLocationDot } from "@fortawesome/free-solid-svg-icons";
-import { Button } from "native-base";
+import {
+  faMapLocationDot,
+  faBookmark,
+  faShare,
+} from "@fortawesome/free-solid-svg-icons";
+import { IconButton, Icon } from "native-base";
 
 interface PlaceHeaderSectionProps {}
 
@@ -25,7 +29,7 @@ const PlaceHeaderSection = () => {
           source={require("../../../../../assets/images/mock-images/topgolf_atlanta.jpg")}
         />
       </View>
-      <View style={styles.headerInfoContainer}>
+      <View style={styles.headerContentContainer}>
         <LinearGradient
           colors={["rgba(255,255,255,0.0)", "white"]}
           start={{ x: 0, y: 0 }}
@@ -33,18 +37,42 @@ const PlaceHeaderSection = () => {
           locations={[0, 1]}
           style={styles.headerInfoGradient}
         ></LinearGradient>
-        <View style={styles.titleContainer}>
-          <Text style={styles.titleTxt}>Topgolf</Text>
-          <TouchableOpacity style={styles.mapIcon}>
-            <FontAwesomeIcon color="black" size={32} icon={faMapLocationDot} />
-          </TouchableOpacity>
-          <Button size="sm" variant="outline">
-            PRIMARY
-          </Button>
+        <View style={styles.headerContentColumnsContainer}>
+          <View style={styles.headerInfoContainer}>
+            <View style={styles.titleContainer}>
+              <Text style={styles.titleTxt}>Topgolf</Text>
+              <TouchableOpacity style={styles.mapIcon}>
+                <FontAwesomeIcon
+                  color="black"
+                  size={32}
+                  icon={faMapLocationDot}
+                />
+              </TouchableOpacity>
+            </View>
+            <View style={styles.categoryContainer}>
+              <Text style={styles.categoryTxt}>Entertainment</Text>
+            </View>
+            <View style={styles.hoursContainer}>
+              <Text style={styles.hoursTxt}>Closed - Opens at 10am</Text>
+            </View>
+          </View>
+          <View style={styles.actionsContainer}>
+            <View style={styles.saveActionBtnContainer}>
+              <TouchableOpacity>
+                <View style={styles.actionBtn}>
+                  <FontAwesomeIcon color="black" size={20} icon={faBookmark} />
+                </View>
+              </TouchableOpacity>
+            </View>
+            <View style={styles.shareActionBtnContainer}>
+              <TouchableOpacity>
+                <View style={styles.actionBtn}>
+                  <FontAwesomeIcon color="black" size={20} icon={faShare} />
+                </View>
+              </TouchableOpacity>
+            </View>
+          </View>
         </View>
-
-        <Text style={styles.categoryTxt}>Entertainment</Text>
-        <Text style={styles.hoursTxt}>Closed - Opens at 10am</Text>
       </View>
     </View>
   );
