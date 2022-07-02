@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, ReactElement } from "react";
 import { View } from "react-native";
 import { IPlace } from "../_place/model";
-import PlaceConversationsSection from "./conversations";
+import PlacePostsSection from "./posts";
 import PlaceHeaderSection from "./header";
 import PlaceServicesSection from "./services";
 import { styles } from "./styles";
@@ -17,8 +17,8 @@ const sectionCategoryHandler = (category: string): ReactElement => {
       return <PlaceHeaderSection />;
     case "services":
       return <PlaceServicesSection />;
-    case "conversations":
-      return <PlaceConversationsSection />;
+    case "posts":
+      return <PlacePostsSection />;
     default:
       break;
   }

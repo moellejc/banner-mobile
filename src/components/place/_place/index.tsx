@@ -41,8 +41,8 @@ const currentPlace: IPlace = {
       title: "SERVICES",
     },
     {
-      id: "conversations",
-      title: "CONVERSATIONS",
+      id: "posts",
+      title: "POSTS",
     },
   ],
 };

@@ -4,32 +4,9 @@ import TitleSection from "../title";
 import { styles } from "./styles";
 import { faker } from "@faker-js/faker";
 import { Avatar } from "native-base";
+import { createUsers, User } from "../../../../tests/data";
 
-interface User {
-  id: string;
-  firstName: string;
-  lastName: string;
-  username: string;
-  avatar: string;
-  email: string;
-}
-
-const peopleData: User[] = [];
-
-function createRandomUser(): User {
-  return {
-    id: faker.datatype.uuid(),
-    firstName: faker.name.firstName(),
-    lastName: faker.name.lastName(),
-    username: faker.internet.userName(),
-    email: faker.internet.email(),
-    avatar: faker.image.avatar(),
-  };
-}
-
-Array.from({ length: 15 }).forEach(() => {
-  peopleData.push(createRandomUser());
-});
+const peopleData = createUsers(15);
 
 interface PlaceServicesSectionProps {}
 

@@ -3,6 +3,7 @@ import { View, Text, FlatList, TouchableOpacity } from "react-native";
 import TitleSection from "../title";
 import { styles } from "./styles";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
+import { createPosts, Post } from "../../../../tests/data";
 import {
   faBurger,
   faBellConcierge,
@@ -10,19 +11,20 @@ import {
   faGolfBallTee,
   IconDefinition,
 } from "@fortawesome/free-solid-svg-icons";
-import { faker } from "@faker-js/faker";
 
-interface PlaceConversationsSectionProps {}
+const postsData = createPosts(10);
 
-const PlaceConversationsSection = () => {
+interface PlacePostsSectionProps {}
+
+const PlacePostsSection = () => {
   return (
     <View style={styles.container}>
       <TitleSection
         primaryTitle="Talkin' about Topgolf"
-        secondaryTitle="Conversations"
+        secondaryTitle="Posts"
       />
     </View>
   );
 };
 
-export default PlaceConversationsSection;
+export default PlacePostsSection;
