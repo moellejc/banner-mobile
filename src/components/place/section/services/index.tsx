@@ -2,33 +2,42 @@ import React, { useEffect, useRef, ReactElement } from "react";
 import { View, Text, FlatList, TouchableOpacity } from "react-native";
 import TitleSection from "../title";
 import { styles } from "./styles";
+import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
+import {
+  faBurger,
+  faBellConcierge,
+  faLifeRing,
+  faGolfBallTee,
+  IconDefinition,
+} from "@fortawesome/free-solid-svg-icons";
 import { faker } from "@faker-js/faker";
-import { Avatar } from "native-base";
 
-interface User {
+interface Service {
   id: string;
-  firstName: string;
-  lastName: string;
-  username: string;
-  avatar: string;
-  email: string;
+  name: string;
+  icon: IconDefinition;
 }
 
-const peopleData: User[] = [];
-
-function createRandomUser(): User {
-  return {
-    id: faker.datatype.uuid(),
-    firstName: faker.name.firstName(),
-    lastName: faker.name.lastName(),
-    username: faker.internet.userName(),
-    email: faker.internet.email(),
-    avatar: faker.image.avatar(),
-  };
-}
-
-Array.from({ length: 15 }).forEach(() => {
-  peopleData.push(createRandomUser());
+const serviceData: Service[] = [];
+serviceData.push({
+  id: faker.datatype.uuid(),
+  name: "Check In",
+  icon: faBellConcierge,
+});
+serviceData.push({
+  id: faker.datatype.uuid(),
+  name: "Play",
+  icon: faGolfBallTee,
+});
+serviceData.push({
+  id: faker.datatype.uuid(),
+  name: "Order",
+  icon: faBurger,
+});
+serviceData.push({
+  id: faker.datatype.uuid(),
+  name: "Help",
+  icon: faLifeRing,
 });
 
 interface PlaceServicesSectionProps {}
@@ -38,8 +47,8 @@ const PlaceServicesSection = () => {
     <View style={styles.container}>
       {/* Section Header */}
       <TitleSection
-        primaryTitle="Who's here?"
-        secondaryTitle="People"
+        primaryTitle="Make life easier"
+        secondaryTitle="Services"
         style={{ paddingHorizontal: 10 }}
       />
       {/* Section Content */}
@@ -48,29 +57,33 @@ const PlaceServicesSection = () => {
         showsHorizontalScrollIndicator={false}
         horizontal={true}
         scrollEventThrottle={16}
-        style={styles.peopleList}
-        data={peopleData}
+        style={styles.servicesList}
+        data={serviceData}
         contentOffset={{ x: -10, y: 0 }}
-        keyExtractor={(item: User) => `${item.id}`}
-        renderItem={(item) => (
-          <View style={styles.avatarContainer}>
-            <TouchableOpacity>
-              <Avatar
-                bg="gray.300"
-                alignSelf="center"
-                size="md"
-                source={{
-                  uri: item.item.avatar,
-                }}
-              />
-              <Text style={styles.avatarName}>
-                {item.item.firstName.length < 10
-                  ? item.item.firstName
-                  : `${item.item.firstName.substring(0, 7)}...`}
-              </Text>
-            </TouchableOpacity>
-          </View>
-        )}
+        keyExtractor={(item: Service) => `${item.id}`}
+        renderItem={(item) => {
+          const itemLeftPadding = item.index == 0 ? 10 : 20;
+
+          return (
+            <View
+              style={[
+                styles.serviceContainer,
+                { paddingLeft: itemLeftPadding },
+              ]}
+            >
+              <TouchableOpacity>
+                <View style={styles.serviceIconBG}>
+                  <FontAwesomeIcon
+                    color="white"
+                    size={32}
+                    icon={item.item.icon}
+                  />
+                </View>
+                <Text style={styles.serviceName}>{item.item.name}</Text>
+              </TouchableOpacity>
+            </View>
+          );
+        }}
       />
     </View>
   );

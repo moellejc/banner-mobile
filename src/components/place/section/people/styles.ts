@@ -8,30 +8,18 @@ export const styles = StyleSheet.create({
     width: "100%",
     paddingTop: 30,
   },
-  servicesList: {
+  peopleList: {
     paddingTop: 10,
   },
-  serviceContainer: {
-    paddingLeft: 20,
+  avatarContainer: {
+    paddingLeft: 10,
     flexDirection: "column",
     alignContent: "center",
-    alignItems: "center",
     justifyContent: "center",
   },
-  serviceIconBG: {
-    backgroundColor: "black",
-    width: 64,
-    height: 64,
-    borderRadius: 32,
-    flexDirection: "row",
-    alignItems: "center",
-    alignContent: "center",
-    justifyContent: "center",
-  },
-
-  serviceName: {
+  avatarName: {
     color: "gray",
-    fontSize: 16,
+    fontSize: 12,
     fontWeight: "bold",
     textAlign: "center",
     marginTop: 5,

@@ -1,91 +1,79 @@
-import React from "react";
-import {
-  StyleSheet,
-  Text,
-  Image,
-  Dimensions,
-  View,
-  SafeAreaView,
-  FlatList,
-  SectionList,
-  StatusBar,
-} from "react-native";
-import { UserIcon, UserIconSizes } from "../../../user/icon";
+import React, { useEffect, useRef, ReactElement } from "react";
+import { View, Text, FlatList, TouchableOpacity } from "react-native";
+import TitleSection from "../title";
+import { styles } from "./styles";
+import { faker } from "@faker-js/faker";
+import { Avatar } from "native-base";
 
-const WINDOW_WIDTH = Dimensions.get("window").width;
-const WINDOW_HEIGHT = Dimensions.get("window").height;
+interface User {
+  id: string;
+  firstName: string;
+  lastName: string;
+  username: string;
+  avatar: string;
+  email: string;
+}
 
-const PeopleData = [
-  {
-    id: "bd7acbea-c1b1-46c2-aed5-3ad53abb28ba",
-    title: "First Person",
-  },
-  {
-    id: "3ac68afc-c605-48d3-a4f8-fbd91aa97f63",
-    title: "Second Person",
-  },
-  {
-    id: "58694a0f-3da1-471f-bd96-145571e29d72",
-    title: "Third Person",
-  },
-  {
-    id: "58694a0f-3da1-471f-bd96-a8sdfyoiuasdf",
-    title: "Fourth Person",
-  },
-  {
-    id: "58694a0f-3da1-471f-bd96-a8sydbfiuyasf",
-    title: "Fifth Person",
-  },
-  {
-    id: "58694a0f-3da1-471f-bd96-uaisdhfoiuyagh",
-    title: "Sixth Person",
-  },
-  {
-    id: "58694a0f-3da1-471f-bd96-872638rbnwmefd",
-    title: "Seventh Person",
-  },
-];
+const peopleData: User[] = [];
 
-export const PlacePeopleHeader = () => (
-  <View style={styles.headerContainer}>
-    <View style={styles.title}>
-      <Text style={styles.titleTxt}>People</Text>
-    </View>
-    <View style={styles.subheader}>
-      <Text style={styles.subheaderTxt}>Who's Here</Text>
-    </View>
-  </View>
-);
+function createRandomUser(): User {
+  return {
+    id: faker.datatype.uuid(),
+    firstName: faker.name.firstName(),
+    lastName: faker.name.lastName(),
+    username: faker.internet.userName(),
+    email: faker.internet.email(),
+    avatar: faker.image.avatar(),
+  };
+}
 
-export const PlacePeopleContent = () => (
-  <View>
-    <FlatList
-      data={PeopleData}
-      horizontal={true}
-      renderItem={() => (
-        <UserIcon size={UserIconSizes.MEDIUM} style={{ marginRight: 20 }} />
-      )}
-      keyExtractor={(item) => item.id}
-      showsVerticalScrollIndicator={false}
-      showsHorizontalScrollIndicator={false}
-    />
-  </View>
-);
-
-const styles = StyleSheet.create({
-  contentContainer: {},
-
-  headerContainer: {},
-  title: {},
-  titleTxt: {
-    fontSize: 20,
-    fontWeight: "bold",
-    color: "#666666",
-    textTransform: "uppercase",
-  },
-  subheader: {},
-  subheaderTxt: {
-    fontSize: 32,
-    color: "#FFF",
-  },
+Array.from({ length: 15 }).forEach(() => {
+  peopleData.push(createRandomUser());
 });
+
+interface PlaceServicesSectionProps {}
+
+const PlaceServicesSection = () => {
+  return (
+    <View style={styles.container}>
+      {/* Section Header */}
+      <TitleSection
+        primaryTitle="Who's here?"
+        secondaryTitle="People"
+        style={{ paddingHorizontal: 10 }}
+      />
+      {/* Section Content */}
+      <FlatList
+        showsVerticalScrollIndicator={false}
+        showsHorizontalScrollIndicator={false}
+        horizontal={true}
+        scrollEventThrottle={16}
+        style={styles.peopleList}
+        data={peopleData}
+        contentOffset={{ x: -10, y: 0 }}
+        keyExtractor={(item: User) => `${item.id}`}
+        renderItem={(item) => (
+          <View style={styles.avatarContainer}>
+            <TouchableOpacity>
+              <Avatar
+                bg="gray.300"
+                alignSelf="center"
+                size="md"
+                source={{
+                  uri: item.item.avatar,
+                }}
+              />
+              <Text style={styles.avatarName}>
+                {item.item.firstName.length < 10
+                  ? item.item.firstName
+                  : `${item.item.firstName.substring(0, 7)}...`}
+              </Text>
+            </TouchableOpacity>
+          </View>
+        )}
+      />
+    </View>
+  );
+};
+
+export default PlaceServicesSection;
