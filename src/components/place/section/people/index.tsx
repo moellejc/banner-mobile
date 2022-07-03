@@ -2,7 +2,6 @@ import React, { useEffect, useRef, ReactElement } from "react";
 import { View, Text, FlatList, TouchableOpacity } from "react-native";
 import TitleSection from "../title";
 import { styles } from "./styles";
-import { faker } from "@faker-js/faker";
 import { Avatar } from "native-base";
 import { createUsers, User } from "../../../../tests/data";
 

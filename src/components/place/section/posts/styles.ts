@@ -10,4 +10,5 @@ export const styles = StyleSheet.create({
     paddingTop: SECTION_PADDING_TOP,
     paddingHorizontal: 10,
   },
+  postsList: {},
 });
