@@ -8,9 +8,9 @@ export const styles = StyleSheet.create({
   },
   secondaryTitle: {
     textTransform: "uppercase",
-    fontSize: 18,
+    fontSize: 20,
     fontWeight: "bold",
-    color: "lightgray",
+    color: "black",
   },
   primaryTitle: {
     fontSize: 32,

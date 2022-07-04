@@ -14,10 +14,7 @@ interface PlacePostsSectionProps {}
 const PlacePostsSection = () => {
   return (
     <View style={styles.container}>
-      <TitleSection
-        primaryTitle="Talkin' about Topgolf"
-        secondaryTitle="Posts"
-      />
+      <TitleSection smallTitle="Posts" style={{ marginHorizontal: 10 }} />
       <FlatList
         showsVerticalScrollIndicator={false}
         showsHorizontalScrollIndicator={false}

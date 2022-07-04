@@ -46,11 +46,7 @@ const PlaceServicesSection = () => {
   return (
     <View style={styles.container}>
       {/* Section Header */}
-      <TitleSection
-        primaryTitle="Make life easier"
-        secondaryTitle="Services"
-        style={{ paddingHorizontal: 10 }}
-      />
+      <TitleSection smallTitle="Services" style={{ paddingHorizontal: 10 }} />
       {/* Section Content */}
       <FlatList
         showsVerticalScrollIndicator={false}

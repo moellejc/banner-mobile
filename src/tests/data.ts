@@ -42,7 +42,7 @@ export const createMedia = (): Media => {
   return {
     id: faker.datatype.uuid(),
     mediaType: "image",
-    url: faker.image.imageUrl(640, 480, "place"),
+    url: faker.image.imageUrl(640, 480, "golf"),
   };
 };
 
@@ -87,7 +87,7 @@ export const createPost = (): Post => {
 
   return {
     id: faker.datatype.uuid(),
-    postDate: faker.date.recent(1 / 128),
+    postDate: faker.date.recent(30),
     totalComments: totalComments,
     user: createUser(),
     placeName: faker.lorem.words(2),

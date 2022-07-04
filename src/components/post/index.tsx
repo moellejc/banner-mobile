@@ -1,11 +1,18 @@
-import React, { useEffect, useRef, ReactElement } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { View, Text, Image, TouchableOpacity } from "react-native";
 import { Avatar } from "native-base";
 import { styles } from "./styles";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
-import { faAngleRight, faEllipsis } from "@fortawesome/free-solid-svg-icons";
+import {
+  faAngleRight,
+  faEllipsis,
+  faArrowUp,
+  faArrowDown,
+  faShare,
+} from "@fortawesome/free-solid-svg-icons";
 import { faMessage } from "@fortawesome/free-regular-svg-icons";
 import { DateTime } from "luxon";
+import { Shadow } from "react-native-shadow-2";
 import { Post as PostData, Media } from "../../tests/data";
 
 interface PostProps {
@@ -44,6 +51,8 @@ const formatElapsedTime = (postDateISO: Date): string => {
 };
 
 const Post = ({ data }: PostProps) => {
+  const [isMediaLoading, setIsMediaLoading] = useState(true);
+
   return (
     <View style={styles.container}>
       {/* Header */}
@@ -98,19 +107,52 @@ const Post = ({ data }: PostProps) => {
         </View>
         <View style={styles.mediaContainer}>
           <TouchableOpacity>
-            <Image
-              style={styles.mediaImage}
-              resizeMode={"cover"}
-              source={{ uri: data.content.media[0].url }}
-            />
+            <View style={styles.mediaImageContainer}>
+              <Image
+                style={styles.mediaImage}
+                resizeMode={"cover"}
+                source={{ uri: data.content.media[0].url }}
+                onLoadStart={() => setIsMediaLoading(true)}
+                onLoadEnd={() => setIsMediaLoading(false)}
+              />
+            </View>
           </TouchableOpacity>
         </View>
       </View>
       {/* Footer */}
       <View style={styles.footer}>
-        <View style={styles.ratingContainer}></View>
-        <View style={styles.commentsContainer}></View>
-        <View style={styles.shareContainer}></View>
+        <View style={styles.ratingContainer}>
+          <View style={styles.ratingIcon}>
+            <TouchableOpacity>
+              <FontAwesomeIcon color="black" size={20} icon={faArrowUp} />
+            </TouchableOpacity>
+          </View>
+          <View style={styles.rating}>
+            <Text style={styles.ratingTxt}>27</Text>
+          </View>
+          <View style={styles.ratingIcon}>
+            <TouchableOpacity>
+              <FontAwesomeIcon color="black" size={20} icon={faArrowDown} />
+            </TouchableOpacity>
+          </View>
+        </View>
+        <View style={styles.commentsContainer}>
+          <View style={styles.commentsIcon}>
+            <TouchableOpacity>
+              <FontAwesomeIcon color="black" size={20} icon={faMessage} />
+            </TouchableOpacity>
+          </View>
+          <View style={styles.commentsCount}>
+            <Text style={styles.commentsCountTxt}>10</Text>
+          </View>
+        </View>
+        <View style={styles.shareContainer}>
+          <View style={styles.commentsIcon}>
+            <TouchableOpacity>
+              <FontAwesomeIcon color="black" size={20} icon={faShare} />
+            </TouchableOpacity>
+          </View>
+        </View>
       </View>
     </View>
   );

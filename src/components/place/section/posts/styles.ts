@@ -8,7 +8,6 @@ export const styles = StyleSheet.create({
     backgroundColor: "white",
     width: "100%",
     paddingTop: SECTION_PADDING_TOP,
-    paddingHorizontal: 10,
   },
   postsList: {},
 });

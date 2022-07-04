@@ -5,10 +5,11 @@ const { width: WINDOW_WIDTH, height: WINDOW_HEIGHT } = Dimensions.get("window");
 export const styles = StyleSheet.create({
   container: {
     flexDirection: "column",
-    marginVertical: 10,
+    marginTop: 25,
   },
   header: {
     flexDirection: "row",
+    marginHorizontal: 10,
   },
   avatarContainer: {},
   headerInfoContainer: {
@@ -28,7 +29,7 @@ export const styles = StyleSheet.create({
   locationTxt: {
     fontSize: 20,
     fontWeight: "600",
-    color: "rebeccapurple",
+    color: "black",
   },
   usernameContainer: {
     flexDirection: "row",
@@ -51,19 +52,56 @@ export const styles = StyleSheet.create({
   },
   content: {
     marginTop: 10,
+    marginBottom: 20,
   },
-  messageContainer: {},
+  messageContainer: {
+    marginBottom: 10,
+    marginHorizontal: 10,
+  },
   messageTxt: {
     fontSize: 20,
   },
-  mediaContainer: {},
-  mediaImage: {
-    width: "100%",
-    height: WINDOW_HEIGHT * 0.6,
+  mediaContainer: {
     marginTop: 10,
   },
-  footer: {},
-  ratingContainer: {},
-  commentsContainer: {},
+  mediaImageContainer: {
+    width: WINDOW_WIDTH,
+  },
+  mediaImage: {
+    width: WINDOW_WIDTH,
+    height: WINDOW_HEIGHT * 0.6,
+  },
+  footer: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    marginHorizontal: 10,
+  },
+  ratingContainer: {
+    flexDirection: "row",
+    alignContent: "center",
+    alignItems: "center",
+  },
+  ratingIcon: {},
+  rating: {
+    marginHorizontal: 5,
+  },
+  ratingTxt: {
+    fontSize: 18,
+    fontWeight: "600",
+  },
+  commentsContainer: {
+    flexDirection: "row",
+    alignContent: "center",
+    alignItems: "center",
+  },
+  commentsIcon: {},
+  commentsCount: {
+    marginLeft: 5,
+  },
+  commentsCountTxt: {
+    fontSize: 18,
+    fontWeight: "600",
+  },
   shareContainer: {},
 });
