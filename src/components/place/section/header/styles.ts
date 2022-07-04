@@ -9,7 +9,7 @@ export const styles = StyleSheet.create({
   },
   backgroundImgContainer: {
     width: WINDOW_WIDTH,
-    height: WINDOW_HEIGHT - 150,
+    height: WINDOW_HEIGHT - 160,
   },
   backgroundImgGradient: {
     ...StyleSheet.absoluteFillObject,
@@ -23,7 +23,6 @@ export const styles = StyleSheet.create({
     width: "100%",
     paddingHorizontal: 10,
     marginTop: -100,
-    // height: 200 + 75, // account for -200 for image sixe and -75 for gradient margin
   },
   headerContentColumnsContainer: {
     flexDirection: "row",
@@ -79,23 +78,62 @@ export const styles = StyleSheet.create({
   hoursTxt: {
     fontSize: 16,
   },
+  peopleCountContainer: {
+    flexDirection: "row",
+  },
+  peopleCount: {
+    flexDirection: "row",
+    alignContent: "center",
+    justifyContent: "center",
+    alignItems: "center",
+    height: 40,
+    paddingHorizontal: 20,
+    backgroundColor: "purple",
+    borderRadius: 20,
+    marginRight: "auto",
+    // borderWidth: 3,
+  },
+  peopleCountTxt: {
+    color: "white",
+    fontWeight: "600",
+    fontSize: 16,
+    marginLeft: 10,
+  },
   actionsContainer: {
     display: "flex",
-    alignSelf: "flex-end",
     flexDirection: "column",
     marginLeft: "auto",
   },
-  saveActionBtnContainer: {},
+  saveActionBtnContainer: {
+    width: 48,
+    height: 48,
+  },
+  actionBtnContainer: {
+    width: 48,
+    height: 48,
+    marginBottom: 10,
+  },
   actionBtn: {
     width: 48,
     height: 48,
     borderRadius: 24,
-    flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "rgba(0,0,0,0.1)",
+    backgroundColor: "rgba(255,255,255,0.5)",
+    borderColor: "black",
+    borderWidth: 2,
   },
-  shareActionBtnContainer: {
-    marginTop: 10,
+  servicesPerviewContainer: {
+    flexDirection: "row",
   },
+  serviceContainer: {
+    width: 32,
+    height: 32,
+    backgroundColor: "black",
+    borderRadius: 16,
+    justifyContent: "center",
+    alignItems: "center",
+    marginRight: 5,
+  },
+  serviceIcon: {},
 });

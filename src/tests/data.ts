@@ -63,7 +63,7 @@ export const createPlace = (): Place => {
     }),
     totalFavorites: faker.datatype.number({
       min: 1000000,
-      max: 10000000,
+      max: 5000000,
       precision: 10000,
     }),
     coverImageURL: faker.image.imageUrl(640, 480, TEST_PLACE),
