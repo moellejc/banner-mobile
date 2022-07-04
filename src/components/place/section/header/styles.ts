@@ -4,11 +4,12 @@ const { width: WINDOW_WIDTH, height: WINDOW_HEIGHT } = Dimensions.get("window");
 
 export const styles = StyleSheet.create({
   container: {
-    width: "100%",
+    width: WINDOW_WIDTH,
+    height: WINDOW_HEIGHT,
   },
   backgroundImgContainer: {
-    width: "100%",
-    height: WINDOW_HEIGHT * 0.4,
+    width: WINDOW_WIDTH,
+    height: WINDOW_HEIGHT - 150,
   },
   backgroundImgGradient: {
     ...StyleSheet.absoluteFillObject,
@@ -21,10 +22,12 @@ export const styles = StyleSheet.create({
   headerContentContainer: {
     width: "100%",
     paddingHorizontal: 10,
-    marginTop: -75,
+    marginTop: -100,
+    // height: 200 + 75, // account for -200 for image sixe and -75 for gradient margin
   },
   headerContentColumnsContainer: {
     flexDirection: "row",
+    marginTop: 30,
   },
   headerInfoContainer: {
     flexDirection: "column",
@@ -35,15 +38,25 @@ export const styles = StyleSheet.create({
   titleContainer: {
     display: "flex",
     flexDirection: "row",
-    marginTop: 75,
+    marginTop: 15,
+  },
+  welcomeContainer: {
+    flexDirection: "column",
+  },
+  welcomeTxt: {
+    fontWeight: "bold",
+    fontSize: 40,
+    color: "black",
   },
   titleTxt: {
     fontWeight: "bold",
-    fontSize: 32,
+    fontSize: 45,
     color: "black",
   },
   mapIcon: {
-    marginLeft: 10,
+    marginLeft: 15,
+    marginTop: 10,
+    marginBottom: "auto",
   },
   testBox: {
     backgroundColor: "black",

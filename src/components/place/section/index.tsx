@@ -1,20 +1,23 @@
 import React, { useEffect, useRef, ReactElement } from "react";
 import { View } from "react-native";
-import { IPlace } from "../_place/model";
+import { Place as PlaceData } from "../../../tests";
 import PlacePostsSection from "./posts";
 import PlaceHeaderSection from "./header";
 import PlaceServicesSection from "./services";
 import { styles } from "./styles";
 
 interface PlaceSectionProps {
-  place: IPlace;
+  place: PlaceData;
   category: string;
 }
 
-const sectionCategoryHandler = (category: string): ReactElement => {
+const sectionCategoryHandler = (
+  category: string,
+  place: PlaceData
+): ReactElement => {
   switch (category) {
     case "header":
-      return <PlaceHeaderSection />;
+      return <PlaceHeaderSection place={place} />;
     case "services":
       return <PlaceServicesSection />;
     case "posts":
@@ -32,7 +35,9 @@ const PlaceSection = ({ place, category }: PlaceSectionProps) => {
   }, []);
 
   return (
-    <View style={styles.container}>{sectionCategoryHandler(category)}</View>
+    <View style={styles.container}>
+      {sectionCategoryHandler(category, place)}
+    </View>
   );
 };
 

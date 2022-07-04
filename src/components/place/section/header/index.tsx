@@ -9,10 +9,13 @@ import {
   faShare,
 } from "@fortawesome/free-solid-svg-icons";
 import { IconButton, Icon } from "native-base";
+import { Place as PlaceData } from "../../../../tests";
 
-interface PlaceHeaderSectionProps {}
+interface PlaceHeaderSectionProps {
+  place: PlaceData;
+}
 
-const PlaceHeaderSection = () => {
+const PlaceHeaderSection = ({ place }: PlaceHeaderSectionProps) => {
   return (
     <View style={styles.container}>
       <View style={styles.backgroundImgContainer}>
@@ -26,7 +29,7 @@ const PlaceHeaderSection = () => {
         <Image
           style={styles.backgroundImg}
           resizeMode="cover"
-          source={require("../../../../../assets/images/mock-images/topgolf_atlanta.jpg")}
+          source={{ uri: place.coverImageURL }}
         />
       </View>
       <View style={styles.headerContentContainer}>
@@ -40,21 +43,25 @@ const PlaceHeaderSection = () => {
         <View style={styles.headerContentColumnsContainer}>
           <View style={styles.headerInfoContainer}>
             <View style={styles.titleContainer}>
-              <Text style={styles.titleTxt}>Topgolf</Text>
-              <TouchableOpacity style={styles.mapIcon}>
-                <FontAwesomeIcon
-                  color="black"
-                  size={32}
-                  icon={faMapLocationDot}
-                />
-              </TouchableOpacity>
+              <View style={styles.welcomeContainer}>
+                <Text style={styles.welcomeTxt}>Welcome to</Text>
+                <Text style={styles.titleTxt}>{place.name}!</Text>
+              </View>
+              <View style={styles.mapIcon}>
+                <TouchableOpacity>
+                  <FontAwesomeIcon
+                    color="black"
+                    size={32}
+                    icon={faMapLocationDot}
+                  />
+                </TouchableOpacity>
+              </View>
             </View>
-            <View style={styles.categoryContainer}>
-              <Text style={styles.categoryTxt}>Entertainment</Text>
-            </View>
-            <View style={styles.hoursContainer}>
-              <Text style={styles.hoursTxt}>Closed - Opens at 10am</Text>
-            </View>
+            {place.hours && (
+              <View style={styles.hoursContainer}>
+                <Text style={styles.hoursTxt}>Closed - Opens at 10am</Text>
+              </View>
+            )}
           </View>
           <View style={styles.actionsContainer}>
             <View style={styles.saveActionBtnContainer}>
