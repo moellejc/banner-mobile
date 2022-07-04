@@ -12,7 +12,6 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { faMessage } from "@fortawesome/free-regular-svg-icons";
 import { DateTime } from "luxon";
-import { Shadow } from "react-native-shadow-2";
 import { Post as PostData, Media } from "../../tests/data";
 
 interface PostProps {
