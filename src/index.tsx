@@ -1,4 +1,5 @@
 import React from "react";
+import { StatusBar } from "react-native";
 import { ApolloProvider } from "@apollo/client";
 import { Router } from "./navigations";
 import { NativeBaseProvider } from "native-base";
@@ -44,6 +45,7 @@ export default class App extends React.PureComponent {
         <NativeBaseProvider>
           <SafeAreaProvider>
             <Provider store={store}>
+              <StatusBar hidden={true} />
               <Router />
             </Provider>
           </SafeAreaProvider>
