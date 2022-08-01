@@ -4,9 +4,11 @@ import { LocationActions } from "../actions";
 
 export interface ILocationState {
   current: Location.LocationObject;
+  currentTitle: string;
 }
 
 const initialLocationState: ILocationState = {
+  currentTitle: "",
   current: {
     coords: {
       latitude: Number.NEGATIVE_INFINITY,
@@ -26,6 +28,17 @@ export function locationReducer(state = initialLocationState, action: any) {
     case LocationActions.UPDATE_CURRENT:
       return {
         ...state,
+        current: {
+          ...state.current,
+          coords: {
+            ...action.payload.coords,
+          },
+        },
+      };
+    case LocationActions.UPDATE_CURRENT_TITLE:
+      return {
+        ...state,
+        currentTitle: action.payload,
       };
     case LocationActions.CLEAR:
       return initialLocationState;

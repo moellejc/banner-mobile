@@ -2,7 +2,8 @@ import { BannerAPI } from "../api";
 import { Actions, store } from "../state";
 import * as TaskManager from "expo-task-manager";
 import * as Location from "expo-location";
-import { current } from "immer";
+import axios from "axios";
+import { DateTime } from "luxon";
 
 const LOCATION_TASK_NAME = "BANNER_BACKGROUND_LOCATION_TASK";
 let foregroundSubscription: Location.LocationSubscription;
@@ -60,10 +61,54 @@ export const startForegroundTracking = async () => {
     {
       // For better logs, we set the accuracy to the most sensitive option
       accuracy: Location.Accuracy.BestForNavigation,
+      distanceInterval: 5,
     },
     (location) => {
-      console.log(location.coords);
-      storeLocation(location);
+      let existingLat = store.getState().loc.current.coords.latitude;
+      let existingLon = store.getState().loc.current.coords.longitude;
+      let prevCoordDist = haversinesDist(
+        location.coords.latitude,
+        location.coords.longitude,
+        existingLat,
+        existingLon
+      );
+
+      if (
+        prevCoordDist < 10 &&
+        !(
+          existingLat === Number.NEGATIVE_INFINITY ||
+          existingLon === Number.NEGATIVE_INFINITY
+        )
+      )
+        return;
+
+      // reverse geocode
+      axios
+        .get(
+          `https://revgeocode.search.hereapi.com/v1/revgeocode?at=${location.coords.latitude},${location.coords.longitude}&lang=en-US`,
+          {
+            headers: {
+              Authorization: "Bearer " + HERE_JWT,
+            },
+          }
+        )
+        .then((res: any) => {
+          // store place information
+          if (res.data.items.length > 0) {
+            storeLocation(location);
+            store.dispatch({
+              type: Actions.LocationActions.UPDATE_CURRENT_TITLE,
+              payload: `Lat: ${location.coords.latitude}\nLon: ${
+                location.coords.longitude
+              } \nTime: ${DateTime.now()
+                .setZone("America/New_York")
+                .toLocaleString(DateTime.DATETIME_MED_WITH_SECONDS)}\n${
+                res.data.items[0].title
+              }`,
+            });
+          }
+        })
+        .catch((error) => console.log(error));
     }
   );
 };
@@ -129,4 +174,28 @@ export const storeLocation = (location: Location.LocationObject) => {
     type: Actions.LocationActions.UPDATE_CURRENT,
     payload: location,
   });
+};
+
+// expires 8/2/2022 3:30PM
+let HERE_JWT =
+  "eyJhbGciOiJSUzUxMiIsImN0eSI6IkpXVCIsImlzcyI6IkhFUkUiLCJhaWQiOiJSTk12QVc0SzQ2Zk8yY2QxNWpmSiIsImlhdCI6MTY1OTI5NTA4OSwiZXhwIjoxNjU5MzgxNDg5LCJraWQiOiJqMSJ9.ZXlKaGJHY2lPaUprYVhJaUxDSmxibU1pT2lKQk1qVTJRMEpETFVoVE5URXlJbjAuLjZDWUs2TjRxNU1ueHpBMkVJTlpLMlEuWDV3RW5pcER6M1RqMHByOXdNbTVlM1lhNDN1TVZEd21tN2ljVlRGekxYeC15ZW5aM3NObXhvc0R4d2k4bDhma01DQng1enh3UFFNYWlZS3B1YlVPWUdxWkdmajRBSE90bHJaOGpIX1pab0lnVW9zSUEtdGl4UFo3S004MkRNWlFKS05LRUZMOGgtbnJIOEU0Zk9FcjlFR0E1Nlh4WTkyVXIwQW1IdzM1dXp2YlpoOUVfV3RMNjBuZTR5SzA5aHlhNjlBWjAtX2JpWThfdkI0OFFUWUFla2M2aVhfcHZaeXFCOEVtRTlWQUxwUS5WNkt4VGxwb0MwTWdPNFQzeG1mNnhJMlZFUWd1dEI4RmtHblJKV3R1V1Zj.Fk_iQSdwFGcjSPP6-1v1Izoeg0SIJkPLx2Z4q8QLS8HN1uMpm9LiOZiJAfel43pvfcMB8EffyUvIugJFT-pzTa-0TCF-dy5Fdv9on90yOacUBwjgS0hQz7wfdLUGQD3IhHtylDXuc1zAjjG9zGyj3K3jlUCyJpe-Img6dyNCJ4XXXausYqUNvbGvk8vw06A6gtwBRMv72J5vEaEJkLJRMRHBzzHS5qUgEaz85BcQYc7MmAUHBiietzg-o8zqd87u7xZCl8HdnqUiih6kMINHJ6mUx7rZ_tFizGeO18j3LI_KGb8o9RQTg1zKlSJXmSa0npULQMU-fzPd2GvaYTQQrQ";
+
+const haversinesDist = (
+  lat1: number,
+  lon1: number,
+  lat2: number,
+  lon2: number
+): number => {
+  const R = 6371e3; // metres
+  const φ1 = (lat1 * Math.PI) / 180; // φ, λ in radians
+  const φ2 = (lat2 * Math.PI) / 180;
+  const Δφ = ((lat2 - lat1) * Math.PI) / 180;
+  const Δλ = ((lon2 - lon1) * Math.PI) / 180;
+
+  const a =
+    Math.sin(Δφ / 2) * Math.sin(Δφ / 2) +
+    Math.cos(φ1) * Math.cos(φ2) * Math.sin(Δλ / 2) * Math.sin(Δλ / 2);
+  const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+
+  return R * c; // in metres
 };

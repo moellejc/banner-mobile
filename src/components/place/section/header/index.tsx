@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, ReactElement } from "react";
 import { View, Text, Image, TouchableOpacity } from "react-native";
+import { connect } from "react-redux";
 import { LinearGradient } from "expo-linear-gradient";
 import { styles } from "./styles";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
@@ -18,6 +19,7 @@ import {
 import { IconButton, Icon } from "native-base";
 import { Place as PlaceData } from "../../../../tests";
 import { convertAbsoluteToRem } from "native-base/lib/typescript/theme/v33x-theme/tools";
+import PlaceHeaderTitle from "./PlaceHeaderTitle";
 
 const formatCount = (num: number): string => {
   if (num < 0) return "";
@@ -66,7 +68,8 @@ const PlaceHeaderSection = ({ place }: PlaceHeaderSectionProps) => {
             <View style={styles.titleContainer}>
               <View style={styles.welcomeContainer}>
                 <Text style={styles.welcomeTxt}>Welcome to</Text>
-                <Text style={styles.titleTxt}>{place.name}!</Text>
+                {/* <Text style={styles.titleTxt}>{place.name}!</Text> */}
+                <PlaceHeaderTitle />
               </View>
               <View style={styles.mapIcon}>
                 <TouchableOpacity></TouchableOpacity>

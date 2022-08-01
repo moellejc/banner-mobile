@@ -49,7 +49,7 @@ export const styles = StyleSheet.create({
   },
   titleTxt: {
     fontWeight: "bold",
-    fontSize: 45,
+    fontSize: 15,
     color: "black",
   },
   mapIcon: {
