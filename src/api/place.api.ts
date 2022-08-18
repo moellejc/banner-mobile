@@ -17,3 +17,7 @@ export const getPlaceByLocation = async (
 
   return placeHolder;
 };
+
+export const getPlaceByAddress = async (): Promise<undefined> => {
+  return;
+};

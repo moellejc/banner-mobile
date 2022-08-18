@@ -3,6 +3,7 @@ import { AuthActions } from "../actions";
 export interface IAuthState {
   token: string;
   refreshToken: string;
+  hereMapsJWTToken: string;
   isLoggedIn: boolean;
   loginComplete: boolean;
 }
@@ -10,6 +11,7 @@ export interface IAuthState {
 const initialAuthState: IAuthState = {
   token: "",
   refreshToken: "",
+  hereMapsJWTToken: "",
   isLoggedIn: false,
   loginComplete: false,
 };
@@ -28,6 +30,11 @@ export function authReducer(state = initialAuthState, action: any) {
         ...state,
         isLoggedIn: true,
         loginComplete: true,
+      };
+    case AuthActions.SET_HERE_MAPS_JWT:
+      return {
+        ...state,
+        hereMapsJWTToken: action.payload,
       };
     case AuthActions.CLEAR_TOKENS:
       return initialAuthState;

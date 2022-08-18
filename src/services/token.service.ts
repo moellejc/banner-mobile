@@ -1,10 +1,12 @@
 import * as SecureStore from "expo-secure-store";
 import jwt_decode from "jwt-decode";
 import * as TokenAPI from "../api/token.api";
+import * as HereMapsAPI from "../api/heremaps.api";
 import { Actions, store } from "../state";
 
 // Secure Storage Keys
 const TOKEN_REFRESH_KEY = "banner-jwt_refresh_token";
+const TOKEN_HERE_MAPS_KEY = "banner-heremaps-jwt_token";
 
 export const setTokens = (accessToken: string, refreshToken: string) => {
   store.dispatch({
@@ -107,14 +109,112 @@ export const updateAccessToken = (newAccessToken: string) => {
   });
 };
 
-export const restore = async (): Promise<boolean> => {
-  const refreshToken = await getRefreshTokenFromStorage();
+/**
+ *
+ * HereMaps Token functions
+ *
+ */
 
-  if (!refreshToken) return false;
+export const refreshHereMapsAccessToken = async (): Promise<boolean> => {
+  const res = await HereMapsAPI.getAccessToken();
 
-  setRefreshToken(refreshToken);
+  // here maps request failed
+  if (!res) {
+    return false;
+  }
+
+  // get access token and update in app
+  setHereMapsAccessToken(
+    await res.data.json().then((data: any) => data.accessToken as string)
+  );
 
   return true;
+};
+
+export const setHereMapsAccessToken = (newAccessToken: string) => {
+  store.dispatch({
+    type: Actions.AuthActions.SET_HERE_MAPS_TOKEN,
+    payload: { token: newAccessToken },
+  });
+
+  // save in secure storage
+  setHereMapsTokenInStorage(newAccessToken);
+};
+
+export const setHereMapsTokenInStorage = async (token: string) => {
+  await SecureStore.setItemAsync(TOKEN_HERE_MAPS_KEY, token);
+};
+
+export const getHereMapsAccessToken = (): string => {
+  return store.getState().auth.token;
+};
+
+export const getHereMapsTokenFromStorage = async (): Promise<string | null> => {
+  return await SecureStore.getItemAsync(TOKEN_HERE_MAPS_KEY);
+};
+
+const isHereMapsTokenValid = (token: string): boolean => {
+  let { exp }: any = jwt_decode(token, { header: true });
+
+  if (Date.now() >= exp * 1000) return false;
+
+  return true;
+};
+
+export const isHereMapsAccessValid = () => {
+  const accessToken = getHereMapsAccessToken();
+
+  if (!accessToken) return false;
+
+  // confirm token is valid
+  return isHereMapsTokenValid(accessToken);
+};
+
+/**
+ *
+ * State and storage functions
+ *
+ */
+
+export const restore = async (): Promise<boolean> => {
+  await restoreBannerTokens();
+  await restoreHereMapsToken();
+
+  return true;
+};
+
+export const restoreBannerTokens = async (): Promise<boolean> => {
+  const refreshToken = await getRefreshTokenFromStorage();
+
+  if (refreshToken) {
+    if (await isRefreshValid()) {
+      console.log("On Load Refresh Access Token");
+      setRefreshToken(refreshToken);
+      const res = await refreshAccessToken();
+
+      // if refresh was sucessful go to feed
+      if (!res) {
+        console.log("refresh access token failed");
+        return false;
+      }
+      return true;
+    }
+  }
+
+  return false;
+};
+
+export const restoreHereMapsToken = async (): Promise<boolean> => {
+  const hereMapsToken = await getHereMapsTokenFromStorage();
+
+  // pulled token from storage. now check if its valid
+  if (hereMapsToken && isHereMapsTokenValid(hereMapsToken)) {
+    setHereMapsAccessToken(hereMapsToken);
+    return true;
+  }
+
+  // request a new token
+  return await refreshHereMapsAccessToken();
 };
 
 export const clearTokens = () => {

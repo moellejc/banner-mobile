@@ -63,7 +63,7 @@ export const startForegroundTracking = async () => {
       accuracy: Location.Accuracy.BestForNavigation,
       distanceInterval: 5,
     },
-    (location) => {
+    async (location) => {
       let existingLat = store.getState().loc.current.coords.latitude;
       let existingLon = store.getState().loc.current.coords.longitude;
       let prevCoordDist = haversinesDist(
@@ -83,32 +83,28 @@ export const startForegroundTracking = async () => {
         return;
 
       // reverse geocode
-      axios
-        .get(
-          `https://revgeocode.search.hereapi.com/v1/revgeocode?at=${location.coords.latitude},${location.coords.longitude}&lang=en-US`,
-          {
-            headers: {
-              Authorization: "Bearer " + HERE_JWT,
-            },
-          }
-        )
-        .then((res: any) => {
-          // store place information
-          if (res.data.items.length > 0) {
-            storeLocation(location);
-            store.dispatch({
-              type: Actions.LocationActions.UPDATE_CURRENT_TITLE,
-              payload: `Lat: ${location.coords.latitude}\nLon: ${
-                location.coords.longitude
-              } \nTime: ${DateTime.now()
-                .setZone("America/New_York")
-                .toLocaleString(DateTime.DATETIME_MED_WITH_SECONDS)}\n${
-                res.data.items[0].title
-              }`,
-            });
-          }
-        })
-        .catch((error) => console.log(error));
+      let addressRes = await BannerAPI.HereMaps.reverseGeocode(
+        location.coords.latitude,
+        location.coords.longitude
+      );
+
+      // reverse geocode request failed
+      if (addressRes?.status != 200) return;
+
+      // extract address
+      if (addressRes.data.items.length > 0) {
+        storeLocation(location);
+        store.dispatch({
+          type: Actions.LocationActions.UPDATE_CURRENT_TITLE,
+          payload: `Lat: ${location.coords.latitude}\nLon: ${
+            location.coords.longitude
+          } \nTime: ${DateTime.now()
+            .setZone("America/New_York")
+            .toLocaleString(DateTime.DATETIME_MED_WITH_SECONDS)}\n${
+            addressRes.data.items[0].title
+          }`,
+        });
+      }
     }
   );
 };
