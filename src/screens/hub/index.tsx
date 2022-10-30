@@ -6,6 +6,7 @@ import Place from "../../components/place";
 import Profile from "../profile";
 import Settings from "../settings";
 import Chat from "../../components/chat";
+import Menu from "../../components/menu";
 import {
   BANNER_SCROLL_POSITIONS,
   BANNER_PLACE_POSITIONS,
@@ -179,6 +180,7 @@ const HubScreen: React.FC = () => {
         }}
       />
       */}
+      <Menu />
     </>
   );
 };

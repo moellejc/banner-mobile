@@ -26,7 +26,7 @@ export const Router = () => {
       console.log("Start tracking from navigator");
       await Services.TrackingService.startTracking();
     };
-    startTracking();
+    // startTracking(); // TODO: uncomment to start tracking
   }, []);
 
   const getNavigator = (): any | null => {
