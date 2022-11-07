@@ -41,7 +41,7 @@ interface PlaceHeaderSectionProps {
 const PlaceHeaderSection = ({ place }: PlaceHeaderSectionProps) => {
   return (
     <View style={styles.container}>
-      <View style={styles.backgroundImgContainer}>
+      {/* <View style={styles.backgroundImgContainer}>
         <LinearGradient
           colors={["rgba(0,0,0,0.8)", "transparent"]}
           start={{ x: 0, y: 0 }}
@@ -54,7 +54,7 @@ const PlaceHeaderSection = ({ place }: PlaceHeaderSectionProps) => {
           resizeMode="cover"
           source={{ uri: place.coverImageURL }}
         />
-      </View>
+      </View> */}
       <View style={styles.headerContentContainer}>
         <LinearGradient
           colors={["rgba(255,255,255,0.0)", "white"]}
@@ -68,11 +68,19 @@ const PlaceHeaderSection = ({ place }: PlaceHeaderSectionProps) => {
             <View style={styles.titleContainer}>
               <View style={styles.welcomeContainer}>
                 <Text style={styles.welcomeTxt}>Welcome to</Text>
-                {/* <Text style={styles.titleTxt}>{place.name}!</Text> */}
-                <PlaceHeaderTitle />
+                <Text style={styles.titleTxt}>Paycor Stadium!</Text>
+                {/* <PlaceHeaderTitle /> */}
               </View>
-              <View style={styles.mapIcon}>
-                <TouchableOpacity></TouchableOpacity>
+              <View style={styles.favoriteContainer}>
+                <TouchableOpacity>
+                  <View style={styles.actionBtn}>
+                    <FontAwesomeIcon
+                      color="black"
+                      size={20}
+                      icon={faBookmark}
+                    />
+                  </View>
+                </TouchableOpacity>
               </View>
             </View>
             {place.hours && (
@@ -89,7 +97,7 @@ const PlaceHeaderSection = ({ place }: PlaceHeaderSectionProps) => {
               </View>
             </View>
           </View>
-          <View style={styles.actionsContainer}>
+          {/* <View style={styles.actionsContainer}>
             <View style={styles.actionBtnContainer}>
               <TouchableOpacity>
                 <View style={styles.actionBtn}>
@@ -115,25 +123,26 @@ const PlaceHeaderSection = ({ place }: PlaceHeaderSectionProps) => {
                 </View>
               </TouchableOpacity>
             </View>
-          </View>
+          </View> */}
         </View>
-        <View style={styles.servicesPerviewContainer}>
-          <View style={styles.serviceContainer}>
-            <FontAwesomeIcon color="white" size={14} icon={faBurger} />
-          </View>
-          <View style={styles.serviceContainer}>
-            <FontAwesomeIcon color="white" size={14} icon={faMartiniGlass} />
-          </View>
-          <View style={styles.serviceContainer}>
-            <FontAwesomeIcon color="white" size={14} icon={faTrainSubway} />
-          </View>
-          <View style={styles.serviceContainer}>
-            <FontAwesomeIcon color="white" size={14} icon={faBed} />
-          </View>
-          <View style={styles.serviceContainer}>
-            <FontAwesomeIcon color="white" size={14} icon={faInfo} />
-          </View>
-        </View>
+
+        {/* <View style={styles.servicesPerviewContainer}>
+            <View style={styles.serviceContainer}>
+              <FontAwesomeIcon color="white" size={14} icon={faBurger} />
+            </View>
+            <View style={styles.serviceContainer}>
+              <FontAwesomeIcon color="white" size={14} icon={faMartiniGlass} />
+            </View>
+            <View style={styles.serviceContainer}>
+              <FontAwesomeIcon color="white" size={14} icon={faTrainSubway} />
+            </View>
+            <View style={styles.serviceContainer}>
+              <FontAwesomeIcon color="white" size={14} icon={faBed} />
+            </View>
+            <View style={styles.serviceContainer}>
+              <FontAwesomeIcon color="white" size={14} icon={faInfo} />
+            </View>
+          </View> */}
       </View>
     </View>
   );

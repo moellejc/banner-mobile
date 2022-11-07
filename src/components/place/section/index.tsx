@@ -22,6 +22,10 @@ const sectionCategoryHandler = (
       return <PlaceServicesSection />;
     case "posts":
       return <PlacePostsSection />;
+    case "people":
+      return <PlacePostsSection />;
+    case "conversations":
+      return <PlacePostsSection />;
     default:
       break;
   }

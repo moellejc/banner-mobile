@@ -22,7 +22,7 @@ export const styles = StyleSheet.create({
   headerContentContainer: {
     width: "100%",
     paddingHorizontal: 10,
-    marginTop: -100,
+    // marginTop: -100, // NOTE: active when place background image visible
   },
   headerContentColumnsContainer: {
     flexDirection: "row",
@@ -35,22 +35,29 @@ export const styles = StyleSheet.create({
     ...StyleSheet.absoluteFillObject,
   },
   titleContainer: {
+    width: "100%",
     display: "flex",
     flexDirection: "row",
     marginTop: 15,
+    marginBottom: 15,
   },
   welcomeContainer: {
     flexDirection: "column",
   },
   welcomeTxt: {
     fontWeight: "bold",
-    fontSize: 40,
+    fontSize: 26,
+    textTransform: "uppercase",
     color: "black",
   },
   titleTxt: {
     fontWeight: "bold",
-    fontSize: 15,
+    fontSize: 40,
     color: "black",
+  },
+  favoriteContainer: {
+    marginTop: "auto",
+    marginLeft: "auto",
   },
   mapIcon: {
     marginLeft: 15,
