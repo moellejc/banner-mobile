@@ -6,6 +6,7 @@ import {
   faMagnifyingGlass,
   faPlus,
   faLocationDot,
+  faTimeline,
 } from "@fortawesome/free-solid-svg-icons";
 import { faMessage, faBookmark } from "@fortawesome/free-regular-svg-icons";
 import { MENU_ICON_SIZE } from "./constants";
@@ -20,7 +21,7 @@ const Menu = () => {
     <View style={styles.menuContainer}>
       <View style={styles.menuIconsContainer}>
         <View style={styles.iconContainer}>
-          <TouchableOpacity style={styles.icon}>
+          {/* <TouchableOpacity style={styles.icon}>
             <Avatar
               bg="gray.300"
               alignSelf="center"
@@ -28,6 +29,14 @@ const Menu = () => {
               source={{
                 uri: "",
               }}
+            />
+          </TouchableOpacity> */}
+          <TouchableOpacity style={styles.icon}>
+            <FontAwesomeIcon
+              color="black"
+              size={MENU_ICON_SIZE}
+              icon={faTimeline}
+              style={{ transform: [{ rotate: "90deg" }] }}
             />
           </TouchableOpacity>
           <TouchableOpacity style={styles.icon}>

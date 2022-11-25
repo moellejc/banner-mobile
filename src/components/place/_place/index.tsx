@@ -49,7 +49,6 @@ const Place = ({ bannerPlaceY }: PlaceProps) => {
         showsHorizontalScrollIndicator={false}
         horizontal={false}
         scrollEventThrottle={16}
-        snapToInterval={WINDOW_HEIGHT}
         decelerationRate={"fast"}
         onScroll={(event) => {
           handleScroll(event.nativeEvent.contentOffset.y);

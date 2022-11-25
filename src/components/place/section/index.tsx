@@ -4,6 +4,9 @@ import { Place as PlaceData } from "../../../tests";
 import PlacePostsSection from "./posts";
 import PlaceHeaderSection from "./header";
 import PlaceServicesSection from "./services";
+import PlacePeopleSection from "./people";
+import PlaceNearbySection from "./nearby";
+import PlaceTicketsSection from "./tickets";
 import { styles } from "./styles";
 
 interface PlaceSectionProps {
@@ -23,9 +26,11 @@ const sectionCategoryHandler = (
     case "posts":
       return <PlacePostsSection />;
     case "people":
-      return <PlacePostsSection />;
-    case "conversations":
-      return <PlacePostsSection />;
+      return <PlacePeopleSection />;
+    case "nearby":
+      return <PlaceNearbySection />;
+    case "tickets":
+      return <PlaceNearbySection />;
     default:
       break;
   }

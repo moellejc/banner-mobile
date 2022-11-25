@@ -7,13 +7,11 @@ import { createUsers, User } from "../../../../tests/data";
 
 const peopleData = createUsers(15);
 
-interface PlacePeopleSectionProps {}
+interface PlaceTicketsSectionProps {}
 
-const PlacePeopleSection = () => {
+const PlaceTicketsSection = () => {
   return (
     <View style={styles.container}>
-      {/* Section Header */}
-      <TitleSection smallTitle="People" style={{ paddingHorizontal: 10 }} />
       {/* Section Content */}
       <FlatList
         showsVerticalScrollIndicator={false}
@@ -48,4 +46,4 @@ const PlacePeopleSection = () => {
   );
 };
 
-export default PlacePeopleSection;
+export default PlaceTicketsSection;

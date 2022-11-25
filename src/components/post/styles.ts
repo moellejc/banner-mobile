@@ -1,20 +1,30 @@
 import { StyleSheet, Dimensions } from "react-native";
+import { textColorMasonry } from "./constants";
 
 const { width: WINDOW_WIDTH, height: WINDOW_HEIGHT } = Dimensions.get("window");
+const postHeight = WINDOW_HEIGHT * 0.3;
 
 export const styles = StyleSheet.create({
   container: {
     flexDirection: "column",
-    marginTop: 25,
+    margin: 5,
+    height: postHeight,
+    backgroundColor: "red",
+    overflow: "hidden",
+    borderRadius: 15,
   },
   header: {
+    position: "absolute",
     flexDirection: "row",
+    left: 0,
+    right: 0,
+    top: 10,
     marginHorizontal: 10,
   },
   avatarContainer: {},
   headerInfoContainer: {
     flexDirection: "column",
-    marginLeft: 10,
+    marginRight: "",
   },
   locationContainer: {
     flexDirection: "row",
@@ -33,26 +43,28 @@ export const styles = StyleSheet.create({
   },
   usernameContainer: {
     flexDirection: "row",
-    marginTop: 4,
   },
   usernameTxt: {
     fontSize: 16,
-    fontWeight: "500",
-    color: "dimgray",
+    fontWeight: "bold",
+    flex: 1,
+    color: textColorMasonry,
   },
+  postTimeContainer: {},
   postTimeTxt: {
     fontSize: 16,
-    marginLeft: 15,
+    marginLeft: 4,
     fontWeight: "400",
-    color: "gray",
+    color: textColorMasonry,
   },
   optionsContainer: {
     marginLeft: "auto",
-    marginTop: 3,
+  },
+  optionsIcon: {
+    // transform: [{ rotateX: "90deg" }],
   },
   content: {
-    marginTop: 10,
-    marginBottom: 20,
+    height: postHeight,
   },
   messageContainer: {
     marginBottom: 10,
@@ -62,20 +74,32 @@ export const styles = StyleSheet.create({
     fontSize: 20,
   },
   mediaContainer: {
-    marginTop: 10,
+    // marginTop: 10,
+    height: postHeight,
   },
   mediaImageContainer: {
-    width: WINDOW_WIDTH,
+    // width: WINDOW_WIDTH,
+  },
+  mediaImageOverlay: {
+    ...StyleSheet.absoluteFillObject,
+    // backgroundColor: "black",
+    // opacity: 0.3,
+    zIndex: 10,
   },
   mediaImage: {
-    width: WINDOW_WIDTH,
-    height: WINDOW_HEIGHT * 0.6,
+    width: WINDOW_WIDTH / 2,
+    height: postHeight,
+    aspectRatio: 1,
   },
   footer: {
-    flexDirection: "row",
+    position: "absolute",
+    left: 0,
+    right: 0,
+    bottom: 10,
     justifyContent: "space-between",
     alignItems: "center",
     marginHorizontal: 10,
+    flexDirection: "row",
   },
   ratingContainer: {
     flexDirection: "row",
@@ -89,6 +113,7 @@ export const styles = StyleSheet.create({
   ratingTxt: {
     fontSize: 18,
     fontWeight: "600",
+    color: textColorMasonry,
   },
   commentsContainer: {
     flexDirection: "row",
@@ -97,11 +122,12 @@ export const styles = StyleSheet.create({
   },
   commentsIcon: {},
   commentsCount: {
-    marginLeft: 5,
+    marginRight: 5,
   },
   commentsCountTxt: {
     fontSize: 18,
     fontWeight: "600",
+    color: textColorMasonry,
   },
   shareContainer: {},
 });

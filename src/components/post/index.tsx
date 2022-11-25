@@ -12,6 +12,8 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { faMessage } from "@fortawesome/free-regular-svg-icons";
 import { DateTime } from "luxon";
+import { LinearGradient } from "expo-linear-gradient";
+import { iconColor, iconSize } from "./constants";
 import { Post as PostData, Media } from "../../tests/data";
 
 interface PostProps {
@@ -54,6 +56,33 @@ const Post = ({ data }: PostProps) => {
 
   return (
     <View style={styles.container}>
+      {/* Content */}
+      <View style={styles.content}>
+        {/* <View style={styles.messageContainer}>
+          <Text style={styles.messageTxt}>{data.content.message}</Text>
+        </View> */}
+        <View style={styles.mediaContainer}>
+          <View style={styles.mediaImageContainer}>
+            <LinearGradient
+              locations={[0, 0.35, 0.7, 1]}
+              colors={[
+                "rgba(0,0,0,0.9)",
+                "rgba(0,0,0,0.25)",
+                "rgba(0,0,0,0.25)",
+                "rgba(0,0,0,0.9)",
+              ]}
+              style={styles.mediaImageOverlay}
+            />
+            <Image
+              style={styles.mediaImage}
+              resizeMode={"cover"}
+              source={{ uri: data.content.media[0].url }}
+              onLoadStart={() => setIsMediaLoading(true)}
+              onLoadEnd={() => setIsMediaLoading(false)}
+            />
+          </View>
+        </View>
+      </View>
       {/* Header */}
       <View style={styles.header}>
         <View style={styles.avatarContainer}>
@@ -61,7 +90,7 @@ const Post = ({ data }: PostProps) => {
             <Avatar
               bg="gray.300"
               alignSelf="center"
-              size="md"
+              size="sm"
               source={{
                 uri: data.user.avatar,
               }}
@@ -69,7 +98,7 @@ const Post = ({ data }: PostProps) => {
           </TouchableOpacity>
         </View>
         <View style={styles.headerInfoContainer}>
-          <View style={styles.locationContainer}>
+          {/* <View style={styles.locationContainer}>
             <TouchableOpacity>
               <Text style={[styles.parentLocation, styles.locationTxt]}>
                 West Chester
@@ -83,47 +112,39 @@ const Post = ({ data }: PostProps) => {
                 Topgolf
               </Text>
             </TouchableOpacity>
-          </View>
+          </View> */}
           <View style={styles.usernameContainer}>
             <TouchableOpacity>
               <Text style={styles.usernameTxt}>{`@${data.user.username}`}</Text>
             </TouchableOpacity>
+          </View>
+          <View style={styles.postTimeContainer}>
             <Text style={styles.postTimeTxt}>
               {formatElapsedTime(data.postDate)}
             </Text>
           </View>
         </View>
-        <View style={styles.optionsContainer}>
+        {/* <View style={styles.optionsContainer}>
           <TouchableOpacity>
-            <FontAwesomeIcon color="gray" size={24} icon={faEllipsis} />
+            <FontAwesomeIcon
+              style={styles.optionsIcon}
+              color={iconColor}
+              size={24}
+              icon={faEllipsis}
+            />
           </TouchableOpacity>
-        </View>
-      </View>
-      {/* Content */}
-      <View style={styles.content}>
-        <View style={styles.messageContainer}>
-          <Text style={styles.messageTxt}>{data.content.message}</Text>
-        </View>
-        <View style={styles.mediaContainer}>
-          <TouchableOpacity>
-            <View style={styles.mediaImageContainer}>
-              <Image
-                style={styles.mediaImage}
-                resizeMode={"cover"}
-                source={{ uri: data.content.media[0].url }}
-                onLoadStart={() => setIsMediaLoading(true)}
-                onLoadEnd={() => setIsMediaLoading(false)}
-              />
-            </View>
-          </TouchableOpacity>
-        </View>
+        </View> */}
       </View>
       {/* Footer */}
       <View style={styles.footer}>
         <View style={styles.ratingContainer}>
           <View style={styles.ratingIcon}>
             <TouchableOpacity>
-              <FontAwesomeIcon color="black" size={20} icon={faArrowUp} />
+              <FontAwesomeIcon
+                color={iconColor}
+                size={iconSize}
+                icon={faArrowUp}
+              />
             </TouchableOpacity>
           </View>
           <View style={styles.rating}>
@@ -131,27 +152,39 @@ const Post = ({ data }: PostProps) => {
           </View>
           <View style={styles.ratingIcon}>
             <TouchableOpacity>
-              <FontAwesomeIcon color="black" size={20} icon={faArrowDown} />
+              <FontAwesomeIcon
+                color={iconColor}
+                size={iconSize}
+                icon={faArrowDown}
+              />
             </TouchableOpacity>
           </View>
         </View>
         <View style={styles.commentsContainer}>
-          <View style={styles.commentsIcon}>
-            <TouchableOpacity>
-              <FontAwesomeIcon color="black" size={20} icon={faMessage} />
-            </TouchableOpacity>
-          </View>
           <View style={styles.commentsCount}>
             <Text style={styles.commentsCountTxt}>10</Text>
           </View>
-        </View>
-        <View style={styles.shareContainer}>
           <View style={styles.commentsIcon}>
             <TouchableOpacity>
-              <FontAwesomeIcon color="black" size={20} icon={faShare} />
+              <FontAwesomeIcon
+                color={iconColor}
+                size={iconSize}
+                icon={faMessage}
+              />
             </TouchableOpacity>
           </View>
         </View>
+        {/* <View style={styles.shareContainer}>
+          <View style={styles.commentsIcon}>
+            <TouchableOpacity>
+              <FontAwesomeIcon
+                color={iconColor}
+                size={iconSize}
+                icon={faShare}
+              />
+            </TouchableOpacity>
+          </View>
+        </View> */}
       </View>
     </View>
   );

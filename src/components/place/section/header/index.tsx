@@ -88,14 +88,14 @@ const PlaceHeaderSection = ({ place }: PlaceHeaderSectionProps) => {
                 <Text style={styles.hoursTxt}>Closed - Opens at 10am</Text>
               </View>
             )}
-            <View style={styles.peopleCountContainer}>
+            {/* <View style={styles.peopleCountContainer}>
               <View style={styles.peopleCount}>
                 <FontAwesomeIcon color="white" size={16} icon={faUser} />
                 <Text style={styles.peopleCountTxt}>
                   {formatCount(place.totalPeople)} here!
                 </Text>
               </View>
-            </View>
+            </View> */}
           </View>
           {/* <View style={styles.actionsContainer}>
             <View style={styles.actionBtnContainer}>

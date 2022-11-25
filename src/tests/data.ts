@@ -84,16 +84,28 @@ export interface PlaceFeedSection {
   title: string;
 }
 
+/**
+ * {
+      id: "tickets",
+      title: "TICKETS",
+    },
+    {
+      id: "people",
+      title: "PEOPLE",
+    },
+    {
+      id: "nearby",
+      title: "NEARBY",
+    },
+ */
+
 export const createPlaceFeedSections = (): PlaceFeedSection[] => {
   return [
     {
       id: "header",
       title: "",
     },
-    {
-      id: "services",
-      title: "SERVICES",
-    },
+    
     {
       id: "posts",
       title: "POSTS",
