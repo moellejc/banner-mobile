@@ -44,16 +44,20 @@ export interface Place {
   hours?: string;
   address?: string;
   coverImageURL: string;
-  avatarImageURL: string;
+  avatarImageURL?: string;
   services?: string[];
-  feedSections: PlaceFeedSection[];
+  feedSections?: PlaceFeedSection[];
+  nearBy?: Place[];
 }
 
-export const createPlace = (): Place => {
+export const createPlace = (
+  name: string = TEST_PLACE,
+  isTruncated: boolean = false
+): Place => {
   // NOTE: address not implemented
   return {
     id: faker.datatype.uuid(),
-    name: TEST_PLACE,
+    name: name,
     placeType: TEST_PLACE_TYPE,
     placeCategory: TEST_PLACE_CATEGORY,
     totalPeople: faker.datatype.number({
@@ -66,16 +70,31 @@ export const createPlace = (): Place => {
       max: 5000000,
       precision: 10000,
     }),
-    coverImageURL: faker.image.imageUrl(640, 480, TEST_PLACE),
-    avatarImageURL: faker.image.imageUrl(100, 100, TEST_PLACE),
-    services: TEST_PLACE_SERVICES,
-    feedSections: createPlaceFeedSections(),
+    coverImageURL: faker.image.imageUrl(640, 480, name),
+    avatarImageURL: faker.image.imageUrl(100, 100, name),
+    services: isTruncated ? undefined : TEST_PLACE_SERVICES,
+    feedSections: isTruncated ? undefined : createPlaceFeedSections(),
+    nearBy: isTruncated ? undefined : createNearbyPlaces(),
   };
 };
 
-export const createNearbyPlace = () => {};
+export const createNearbyPlace = (name: string): Place => {
+  return createPlace(name, true);
+};
 
-export const createNearbyPlaces = (numPlaces: number) => {};
+export const createNearbyPlaces = (): Place[] => {
+  return [
+    createNearbyPlace("The Banks"),
+    createNearbyPlace("Great American Ballpark"),
+    createNearbyPlace("Heritage Bank Center"),
+    createNearbyPlace("Holy Grail Tavern & Grill"),
+    createNearbyPlace("Ruth's Chris Steak House"),
+    createNearbyPlace("Taste of Belgium"),
+    createNearbyPlace("Moerlein Lager House"),
+    createNearbyPlace("Jefferson Social"),
+    createNearbyPlace("E+O Kitchen"),
+  ];
+};
 
 export const createPlaceHierarchy = () => {};
 
@@ -83,18 +102,6 @@ export interface PlaceFeedSection {
   id: string;
   title: string;
 }
-
-/**
- * 
-    {
-      id: "people",
-      title: "PEOPLE",
-    },
-    {
-      id: "nearby",
-      title: "NEARBY",
-    },
- */
 
 export const createPlaceFeedSections = (): PlaceFeedSection[] => {
   return [
@@ -105,6 +112,14 @@ export const createPlaceFeedSections = (): PlaceFeedSection[] => {
     {
       id: "tickets",
       title: "TICKETS",
+    },
+    {
+      id: "people",
+      title: "PEOPLE",
+    },
+    {
+      id: "nearby",
+      title: "NEARBY",
     },
     {
       id: "posts",

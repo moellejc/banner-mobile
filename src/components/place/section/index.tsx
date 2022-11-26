@@ -28,7 +28,7 @@ const sectionCategoryHandler = (
     case "people":
       return <PlacePeopleSection />;
     case "nearby":
-      return <PlaceNearbySection />;
+      return <PlaceNearbySection place={place} />;
     case "tickets":
       return <PlaceTicketsSection />;
     default:

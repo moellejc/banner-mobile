@@ -6,7 +6,6 @@ export const styles = StyleSheet.create({
   container: {
     backgroundColor: "white",
     width: "100%",
-    paddingTop: 30,
   },
   peopleList: {
     paddingTop: 10,

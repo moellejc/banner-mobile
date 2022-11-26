@@ -23,17 +23,6 @@ const PlacePostsSection = () => {
         onEndReachedThreshold={0.1}
         onEndReached={() => console.log("end reached")}
       />
-      {/* <FlatList
-        showsVerticalScrollIndicator={false}
-        showsHorizontalScrollIndicator={false}
-        horizontal={false}
-        scrollEventThrottle={16}
-        style={styles.postsList}
-        data={postsData}
-        contentOffset={{ x: -10, y: 0 }}
-        keyExtractor={(item: PostData) => `${item.id}`}
-        renderItem={(item) => <Post data={item.item} />}
-      /> */}
     </View>
   );
 };
