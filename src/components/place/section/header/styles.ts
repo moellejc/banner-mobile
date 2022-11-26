@@ -25,7 +25,6 @@ export const styles = StyleSheet.create({
   },
   headerContentColumnsContainer: {
     flexDirection: "row",
-    marginTop: 30,
   },
   headerInfoContainer: {
     flexDirection: "column",
@@ -47,11 +46,6 @@ export const styles = StyleSheet.create({
     fontWeight: "bold",
     fontSize: 26,
     textTransform: "uppercase",
-    color: "black",
-  },
-  titleTxt: {
-    fontWeight: "bold",
-    fontSize: 40,
     color: "black",
   },
   favoriteContainer: {
@@ -142,4 +136,18 @@ export const styles = StyleSheet.create({
     marginRight: 5,
   },
   serviceIcon: {},
+  titleTxt: {
+    fontWeight: "bold",
+    fontSize: 40,
+    color: "black",
+  },
+});
+
+export const stylesSectionTitle = StyleSheet.create({
+  container: {},
+  titleTxt: {
+    fontWeight: "bold",
+    fontSize: 40,
+    color: "black",
+  },
 });

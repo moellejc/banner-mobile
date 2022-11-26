@@ -9,7 +9,7 @@ export const styles = StyleSheet.create({
     flexDirection: "column",
     margin: 5,
     height: postHeight,
-    backgroundColor: "red",
+    backgroundColor: "black",
     overflow: "hidden",
     borderRadius: 15,
   },
@@ -24,7 +24,7 @@ export const styles = StyleSheet.create({
   avatarContainer: {},
   headerInfoContainer: {
     flexDirection: "column",
-    marginRight: "",
+    marginRight: "auto",
   },
   locationContainer: {
     flexDirection: "row",

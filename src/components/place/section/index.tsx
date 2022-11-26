@@ -30,7 +30,7 @@ const sectionCategoryHandler = (
     case "nearby":
       return <PlaceNearbySection />;
     case "tickets":
-      return <PlaceNearbySection />;
+      return <PlaceTicketsSection />;
     default:
       break;
   }

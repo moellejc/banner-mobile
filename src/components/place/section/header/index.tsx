@@ -56,13 +56,13 @@ const PlaceHeaderSection = ({ place }: PlaceHeaderSectionProps) => {
         />
       </View> */}
       <View style={styles.headerContentContainer}>
-        <LinearGradient
+        {/* <LinearGradient
           colors={["rgba(255,255,255,0.0)", "white"]}
           start={{ x: 0, y: 0 }}
           end={{ x: 0, y: 0.45 }}
           locations={[0, 1]}
           style={styles.headerInfoGradient}
-        ></LinearGradient>
+        ></LinearGradient> */}
         <View style={styles.headerContentColumnsContainer}>
           <View style={styles.headerInfoContainer}>
             <View style={styles.titleContainer}>

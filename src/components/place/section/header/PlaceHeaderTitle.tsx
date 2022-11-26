@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, ReactElement } from "react";
 import { View, Text, Image, TouchableOpacity } from "react-native";
 import { connect } from "react-redux";
-import { styles } from "./styles";
+import { stylesSectionTitle } from "./styles";
 import { RootState } from "../../../../state";
 
 interface PlaceHeaderTitleProps {
@@ -9,7 +9,7 @@ interface PlaceHeaderTitleProps {
 }
 
 const PlaceHeaderTitle = ({ title }: PlaceHeaderTitleProps) => {
-  return <Text style={styles.titleTxt}>{title}!</Text>;
+  return <Text style={stylesSectionTitle.titleTxt}>{title}!</Text>;
 };
 
 const mapStateToProps = (state: RootState) => {

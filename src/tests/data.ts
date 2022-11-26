@@ -85,10 +85,7 @@ export interface PlaceFeedSection {
 }
 
 /**
- * {
-      id: "tickets",
-      title: "TICKETS",
-    },
+ * 
     {
       id: "people",
       title: "PEOPLE",
@@ -105,7 +102,10 @@ export const createPlaceFeedSections = (): PlaceFeedSection[] => {
       id: "header",
       title: "",
     },
-    
+    {
+      id: "tickets",
+      title: "TICKETS",
+    },
     {
       id: "posts",
       title: "POSTS",
