@@ -14,9 +14,9 @@ import { faMessage } from "@fortawesome/free-regular-svg-icons";
 import { DateTime } from "luxon";
 import { LinearGradient } from "expo-linear-gradient";
 import { iconColor, iconSize } from "./constants";
-import { Post as PostData, Media } from "../../tests/data";
+import { Post as PostData, Media } from "../../../../../tests/data";
 
-interface PostProps {
+interface PostCardProps {
   data: PostData;
 }
 
@@ -51,7 +51,7 @@ const formatElapsedTime = (postDateISO: Date): string => {
   return "";
 };
 
-const Post = ({ data }: PostProps) => {
+const PostCard = ({ data }: PostCardProps) => {
   const [isMediaLoading, setIsMediaLoading] = useState(true);
 
   return (
@@ -190,4 +190,4 @@ const Post = ({ data }: PostProps) => {
   );
 };
 
-export default Post;
+export default PostCard;

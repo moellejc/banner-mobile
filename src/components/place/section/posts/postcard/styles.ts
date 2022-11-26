@@ -12,6 +12,7 @@ export const styles = StyleSheet.create({
     backgroundColor: "black",
     overflow: "hidden",
     borderRadius: 15,
+    flex: 1 / 2,
   },
   header: {
     position: "absolute",

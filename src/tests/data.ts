@@ -8,7 +8,7 @@ const TEST_PLACE_HOUR = "";
 const TEST_PLACE_MIN_PEOPLE = 1000000;
 const TEST_PLACE_MAX_PEOPLE = 3000000;
 const TEST_PLACE_PERCISION_PEOPLE = 10000;
-const TEST_POSTS_PLACE = "Fenway";
+const TEST_POSTS_PLACE = "Cincinnati Bengals";
 const TEST_POSTS_RECENT_DAYS = 30;
 
 export interface User {
