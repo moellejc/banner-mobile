@@ -3,14 +3,8 @@ import { View, Text, Image, TouchableOpacity } from "react-native";
 import { Avatar } from "native-base";
 import { styles } from "./styles";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
-import {
-  faAngleRight,
-  faEllipsis,
-  faArrowUp,
-  faArrowDown,
-  faShare,
-} from "@fortawesome/free-solid-svg-icons";
-import { faMessage } from "@fortawesome/free-regular-svg-icons";
+import { faArrowUp, faArrowDown } from "@fortawesome/free-solid-svg-icons";
+import { faMessage, faThumbsUp } from "@fortawesome/free-regular-svg-icons";
 import { DateTime } from "luxon";
 import { LinearGradient } from "expo-linear-gradient";
 import { iconColor, iconSize } from "./constants";
@@ -143,14 +137,14 @@ const PostCard = ({ data }: PostCardProps) => {
               <FontAwesomeIcon
                 color={iconColor}
                 size={iconSize}
-                icon={faArrowUp}
+                icon={faThumbsUp}
               />
             </TouchableOpacity>
           </View>
           <View style={styles.rating}>
             <Text style={styles.ratingTxt}>27</Text>
           </View>
-          <View style={styles.ratingIcon}>
+          {/* <View style={styles.ratingIcon}>
             <TouchableOpacity>
               <FontAwesomeIcon
                 color={iconColor}
@@ -158,7 +152,7 @@ const PostCard = ({ data }: PostCardProps) => {
                 icon={faArrowDown}
               />
             </TouchableOpacity>
-          </View>
+          </View> */}
         </View>
         <View style={styles.commentsContainer}>
           <View style={styles.commentsCount}>
