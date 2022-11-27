@@ -5,7 +5,7 @@ import { faMagnifyingGlass, faBars } from "@fortawesome/free-solid-svg-icons";
 import { ICON_SIZE } from "./constants";
 import { styles } from "./styles";
 
-const ExpandScopeButton = () => {
+const MenuNavButton = () => {
   return (
     <TouchableOpacity
       style={styles.contain}
@@ -16,4 +16,4 @@ const ExpandScopeButton = () => {
   );
 };
 
-export default ExpandScopeButton;
+export default MenuNavButton;

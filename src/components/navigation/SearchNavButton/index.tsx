@@ -5,7 +5,7 @@ import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import { ICON_SIZE } from "./constants";
 import { styles } from "./styles";
 
-const SearchButton = () => {
+const SearchNavButton = () => {
   return (
     <TouchableOpacity onPress={() => console.log("right pressed")}>
       <FontAwesomeIcon
@@ -17,4 +17,4 @@ const SearchButton = () => {
   );
 };
 
-export default SearchButton;
+export default SearchNavButton;
