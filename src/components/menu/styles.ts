@@ -30,7 +30,7 @@ export const calculateIndicatorPosition = (
 
 export const styles = StyleSheet.create({
   menuContainer: {
-    height: 120,
+    height: 90,
     position: "absolute",
     left: 0,
     right: 0,
@@ -38,11 +38,12 @@ export const styles = StyleSheet.create({
     backgroundColor: "white",
     justifyContent: "center",
     flexDirection: "column",
-    paddingHorizontal: 10,
+    paddingHorizontal: MENU_SIDE_MARGIN,
   },
   menuIconsContainer: {
-    height: 50,
+    height: 40,
     width: "100%",
+    marginTop: 15,
   },
   iconContainer: {
     flexDirection: "row",
@@ -56,6 +57,7 @@ export const styles = StyleSheet.create({
   indicatorContainer: {
     width: "100%",
     height: MENU_INDICATOR_SIZE,
+    marginBottom: "auto",
   },
   indicator: {
     position: "absolute",

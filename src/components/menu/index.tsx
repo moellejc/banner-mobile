@@ -13,7 +13,7 @@ import {
   faLocationDot,
   faTimeline,
 } from "@fortawesome/free-solid-svg-icons";
-import { faMessage, faBookmark } from "@fortawesome/free-regular-svg-icons";
+import { faMessage } from "@fortawesome/free-regular-svg-icons";
 import { MENU_ICON_SIZE, MENU_TOTAL_OPTIONS } from "./constants";
 import { styles, calculateIndicatorPosition } from "./styles";
 
@@ -99,7 +99,7 @@ const Menu = () => {
             <FontAwesomeIcon
               color="black"
               size={MENU_ICON_SIZE}
-              icon={faBookmark}
+              icon={faMessage}
             />
           </TouchableOpacity>
           <TouchableOpacity
@@ -111,7 +111,7 @@ const Menu = () => {
             <FontAwesomeIcon
               color="black"
               size={MENU_ICON_SIZE}
-              icon={faMessage}
+              icon={faMagnifyingGlass}
             />
           </TouchableOpacity>
         </View>
