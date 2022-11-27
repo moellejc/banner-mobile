@@ -4,6 +4,7 @@ import {
   MENU_INDICATOR_SIZE,
   MENU_SIDE_MARGIN,
   MENU_ICON_SIZE,
+  MENU_TOTAL_OPTIONS,
 } from "./constants";
 
 const MENU_CONTAINER_WIDTH = WINDOW_WIDTH - MENU_SIDE_MARGIN * 2;
@@ -16,7 +17,7 @@ const MENU_ICON_INDICATOR_CENTER = MENU_ICON_SIZE / 2 - MENU_INDICATOR_SIZE / 2;
  * @param totalItems
  * @returns
  */
-const calculateIndicatorPosition = (
+export const calculateIndicatorPosition = (
   indicatorIndex: number,
   totalItems: number
 ): number => {
@@ -58,7 +59,7 @@ export const styles = StyleSheet.create({
   },
   indicator: {
     position: "absolute",
-    left: calculateIndicatorPosition(1, 5),
+    left: calculateIndicatorPosition(1, MENU_TOTAL_OPTIONS),
     backgroundColor: "purple",
     width: MENU_INDICATOR_SIZE,
     height: MENU_INDICATOR_SIZE,

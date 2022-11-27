@@ -4,7 +4,7 @@ const { width: WINDOW_WIDTH, height: WINDOW_HEIGHT } = Dimensions.get("window");
 
 export const styles = StyleSheet.create({
   container: {
-    height: WINDOW_HEIGHT,
+    height: WINDOW_HEIGHT - 120, // subtract height of bottom menu
     width: WINDOW_WIDTH,
     backgroundColor: "white",
   },

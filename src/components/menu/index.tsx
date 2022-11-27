@@ -1,6 +1,11 @@
 import React, { useEffect, useRef, useState } from "react";
 import { View, Text, Image, TouchableOpacity } from "react-native";
-import { Avatar } from "native-base";
+import Animated, {
+  useSharedValue,
+  useAnimatedStyle,
+  withTiming,
+  Easing,
+} from "react-native-reanimated";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import {
   faMagnifyingGlass,
@@ -9,14 +14,31 @@ import {
   faTimeline,
 } from "@fortawesome/free-solid-svg-icons";
 import { faMessage, faBookmark } from "@fortawesome/free-regular-svg-icons";
-import { MENU_ICON_SIZE } from "./constants";
-import { styles } from "./styles";
+import { MENU_ICON_SIZE, MENU_TOTAL_OPTIONS } from "./constants";
+import { styles, calculateIndicatorPosition } from "./styles";
 
 interface MenuProps {
   data: "";
 }
 
 const Menu = () => {
+  const offset = useSharedValue(
+    calculateIndicatorPosition(1, MENU_TOTAL_OPTIONS)
+  );
+
+  const indicatorAni = useAnimatedStyle(() => {
+    return {
+      left: withTiming(offset.value, {
+        duration: 500,
+        easing: Easing.out(Easing.exp),
+      }),
+    };
+  });
+
+  const moveIndicator = (index: number) => {
+    offset.value = calculateIndicatorPosition(index, MENU_TOTAL_OPTIONS);
+  };
+
   return (
     <View style={styles.menuContainer}>
       <View style={styles.menuIconsContainer}>
@@ -31,7 +53,12 @@ const Menu = () => {
               }}
             />
           </TouchableOpacity> */}
-          <TouchableOpacity style={styles.icon}>
+          <TouchableOpacity
+            style={styles.icon}
+            onPress={() => {
+              moveIndicator(0);
+            }}
+          >
             <FontAwesomeIcon
               color="black"
               size={MENU_ICON_SIZE}
@@ -39,28 +66,48 @@ const Menu = () => {
               style={{ transform: [{ rotate: "90deg" }] }}
             />
           </TouchableOpacity>
-          <TouchableOpacity style={styles.icon}>
+          <TouchableOpacity
+            style={styles.icon}
+            onPress={() => {
+              moveIndicator(1);
+            }}
+          >
             <FontAwesomeIcon
               color="black"
               size={MENU_ICON_SIZE}
               icon={faLocationDot}
             />
           </TouchableOpacity>
-          <TouchableOpacity style={styles.icon}>
+          <TouchableOpacity
+            style={styles.icon}
+            onPress={() => {
+              moveIndicator(2);
+            }}
+          >
             <FontAwesomeIcon
               color="black"
               size={MENU_ICON_SIZE}
               icon={faPlus}
             />
           </TouchableOpacity>
-          <TouchableOpacity style={styles.icon}>
+          <TouchableOpacity
+            style={styles.icon}
+            onPress={() => {
+              moveIndicator(3);
+            }}
+          >
             <FontAwesomeIcon
               color="black"
               size={MENU_ICON_SIZE}
               icon={faBookmark}
             />
           </TouchableOpacity>
-          <TouchableOpacity style={styles.icon}>
+          <TouchableOpacity
+            style={styles.icon}
+            onPress={() => {
+              moveIndicator(4);
+            }}
+          >
             <FontAwesomeIcon
               color="black"
               size={MENU_ICON_SIZE}
@@ -70,7 +117,7 @@ const Menu = () => {
         </View>
       </View>
       <View style={styles.indicatorContainer}>
-        <View style={styles.indicator}></View>
+        <Animated.View style={[styles.indicator, indicatorAni]}></Animated.View>
       </View>
     </View>
   );

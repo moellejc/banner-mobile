@@ -9,7 +9,7 @@ export const styles = StyleSheet.create({
   },
   screen: {
     width: WINDOW_WIDTH,
-    height: WINDOW_HEIGHT,
+    height: WINDOW_HEIGHT - 120, // subtract height of the menu
     flex: 1,
   },
   screenText: {
