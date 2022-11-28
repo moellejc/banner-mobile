@@ -7,12 +7,19 @@
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/appicon/appicon-banner-white-1024@1x.png",
-    "assetBundlePatterns": ["**/*"],
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "android": {
       "package": "com.banner.bannermobile"
     },
     "ios": {
       "bundleIdentifier": "com.banner.bannermobile"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "43cb5417-cc39-4bb0-9497-1ce472a3e20c"
+      }
     }
   }
 }

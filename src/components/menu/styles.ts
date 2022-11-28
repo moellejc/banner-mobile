@@ -4,6 +4,8 @@ import {
   MENU_INDICATOR_SIZE,
   MENU_SIDE_MARGIN,
   MENU_ICON_SIZE,
+  MENU_ICON_ADD_SIZE,
+  MENU_ICON_CONTAINER_SIZE,
   MENU_TOTAL_OPTIONS,
 } from "./constants";
 
@@ -44,15 +46,29 @@ export const styles = StyleSheet.create({
     height: 40,
     width: "100%",
     marginTop: 15,
-  },
-  iconContainer: {
+    marginBottom: "auto",
     flexDirection: "row",
-    alignItems: "center",
     justifyContent: "space-between",
   },
+  iconContainer: {
+    flexDirection: "column",
+    alignItems: "center",
+    width: MENU_ICON_CONTAINER_SIZE,
+  },
   icon: {
-    width: MENU_ICON_SIZE,
+    width: MENU_ICON_CONTAINER_SIZE,
     height: MENU_ICON_SIZE,
+    alignItems: "center",
+  },
+  iconAdd: {
+    height: MENU_ICON_ADD_SIZE,
+    marginTop: -7,
+  },
+  menuTxt: {
+    marginTop: 5,
+    fontSize: 12,
+    color: "darkgray",
+    textAlign: "center",
   },
   indicatorContainer: {
     width: "100%",
