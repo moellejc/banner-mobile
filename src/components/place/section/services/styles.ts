@@ -1,5 +1,6 @@
 import { StyleSheet, Dimensions } from "react-native";
 import { SECTION_PADDING_TOP } from "../constants";
+import { ICON_SIZE } from "./constants";
 
 const { width: WINDOW_WIDTH, height: WINDOW_HEIGHT } = Dimensions.get("window");
 
@@ -10,7 +11,7 @@ export const styles = StyleSheet.create({
     paddingTop: SECTION_PADDING_TOP,
   },
   servicesList: {
-    paddingTop: 10,
+    // paddingTop: 10,
   },
   serviceContainer: {
     paddingLeft: 20,
@@ -20,10 +21,12 @@ export const styles = StyleSheet.create({
     justifyContent: "center",
   },
   serviceIconBG: {
-    backgroundColor: "black",
-    width: 64,
-    height: 64,
-    borderRadius: 32,
+    backgroundColor: "white",
+    width: ICON_SIZE,
+    height: ICON_SIZE,
+    borderRadius: ICON_SIZE / 2,
+    borderColor: "black",
+    borderWidth: 2,
     flexDirection: "row",
     alignItems: "center",
     alignContent: "center",

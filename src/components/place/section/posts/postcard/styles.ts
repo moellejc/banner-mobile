@@ -7,11 +7,10 @@ const postHeight = WINDOW_HEIGHT * 0.3;
 export const styles = StyleSheet.create({
   container: {
     flexDirection: "column",
-    margin: 5,
+    margin: 1,
     height: postHeight,
     backgroundColor: "black",
     overflow: "hidden",
-    borderRadius: 15,
     flex: 1 / 2,
   },
   header: {
@@ -83,8 +82,6 @@ export const styles = StyleSheet.create({
   },
   mediaImageOverlay: {
     ...StyleSheet.absoluteFillObject,
-    // backgroundColor: "black",
-    // opacity: 0.3,
     zIndex: 10,
   },
   mediaImage: {

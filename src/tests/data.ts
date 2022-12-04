@@ -110,6 +110,10 @@ export const createPlaceFeedSections = (): PlaceFeedSection[] => {
       title: "",
     },
     {
+      id: "services",
+      title: "SERVICES",
+    },
+    {
       id: "tickets",
       title: "TICKETS",
     },

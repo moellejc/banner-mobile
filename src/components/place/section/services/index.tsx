@@ -6,7 +6,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import {
   faBurger,
   faBellConcierge,
-  faLifeRing,
+  faHeadset,
+  faTruckPickup,
   faGolfBallTee,
   IconDefinition,
 } from "@fortawesome/free-solid-svg-icons";
@@ -26,6 +27,11 @@ serviceData.push({
 });
 serviceData.push({
   id: faker.datatype.uuid(),
+  name: "Pickup",
+  icon: faTruckPickup,
+});
+serviceData.push({
+  id: faker.datatype.uuid(),
   name: "Play",
   icon: faGolfBallTee,
 });
@@ -37,7 +43,7 @@ serviceData.push({
 serviceData.push({
   id: faker.datatype.uuid(),
   name: "Help",
-  icon: faLifeRing,
+  icon: faHeadset,
 });
 
 interface PlaceServicesSectionProps {}
@@ -46,7 +52,7 @@ const PlaceServicesSection = () => {
   return (
     <View style={styles.container}>
       {/* Section Header */}
-      <TitleSection smallTitle="Services" style={{ paddingHorizontal: 10 }} />
+      {/* <TitleSection smallTitle="Services" /> */}
       {/* Section Content */}
       <FlatList
         showsVerticalScrollIndicator={false}
@@ -70,7 +76,7 @@ const PlaceServicesSection = () => {
               <TouchableOpacity>
                 <View style={styles.serviceIconBG}>
                   <FontAwesomeIcon
-                    color="white"
+                    color="black"
                     size={32}
                     icon={item.item.icon}
                   />
