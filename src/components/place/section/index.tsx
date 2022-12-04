@@ -7,6 +7,7 @@ import PlaceServicesSection from "./services";
 import PlacePeopleSection from "./people";
 import PlaceNearbySection from "./nearby";
 import PlaceTicketsSection from "./tickets";
+import PlacePaddingSection from "./padding";
 import { styles } from "./styles";
 
 interface PlaceSectionProps {
@@ -31,6 +32,8 @@ const sectionCategoryHandler = (
       return <PlaceNearbySection place={place} />;
     case "tickets":
       return <PlaceTicketsSection />;
+    case "padding":
+      return <PlacePaddingSection />;
     default:
       break;
   }

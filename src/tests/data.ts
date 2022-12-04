@@ -129,6 +129,10 @@ export const createPlaceFeedSections = (): PlaceFeedSection[] => {
       id: "posts",
       title: "POSTS",
     },
+    {
+      id: "padding",
+      title: "",
+    },
   ];
 };
 export interface Media {

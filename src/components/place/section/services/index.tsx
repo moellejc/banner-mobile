@@ -30,11 +30,11 @@ serviceData.push({
   name: "Pickup",
   icon: faTruckPickup,
 });
-serviceData.push({
-  id: faker.datatype.uuid(),
-  name: "Play",
-  icon: faGolfBallTee,
-});
+// serviceData.push({
+//   id: faker.datatype.uuid(),
+//   name: "Play",
+//   icon: faGolfBallTee,
+// });
 serviceData.push({
   id: faker.datatype.uuid(),
   name: "Order",
