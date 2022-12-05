@@ -3,6 +3,11 @@ export enum CollapseStates {
   Expanded = 1,
 }
 
+export enum VisibilityStates {
+  Hidden = 0,
+  Visible = 1,
+}
+
 export enum HubScreens {
   Place,
   Chat,

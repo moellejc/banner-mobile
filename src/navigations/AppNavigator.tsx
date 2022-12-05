@@ -1,5 +1,5 @@
 import React from "react";
-import { View } from "react-native";
+import { View, Text } from "react-native";
 import HubScreen from "../screens/hub";
 import {
   createStackNavigator,
@@ -10,12 +10,13 @@ import { createSharedElementStackNavigator } from "react-navigation-shared-eleme
 import { styles } from "./styles";
 import ProfileNavButton from "../components/navigation/ProfileNavButton";
 import NotificationsButton from "../components/navigation/NotificationsNavButton";
+import TitleNav from "../components/navigation/TitleNav";
 
 const Stack = createSharedElementStackNavigator();
 
 const screenOptions = ({ navigation }: any): StackNavigationOptions => {
   return {
-    headerTitle: "",
+    headerTitle: () => <TitleNav />,
     headerStyle: { ...styles.header },
     headerTintColor: "black",
     headerLeft: () => <ProfileNavButton />,

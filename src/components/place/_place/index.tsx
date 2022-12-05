@@ -7,6 +7,7 @@ import {
   FlatList,
   ListRenderItem,
 } from "react-native";
+import { VisibilityStates } from "../../../types";
 import Animated, { useSharedValue, SharedValue } from "react-native-reanimated";
 import { connect } from "react-redux";
 import { RootState, Actions, store } from "../../../state";
@@ -24,6 +25,7 @@ const { height: WINDOW_HEIGHT } = Dimensions.get("window");
 const { Value } = Animated;
 
 const currentPlaceData = createPlace();
+const HEADER_TITLE_BOTTOM = 90;
 
 interface PlaceProps {
   bannerPlaceY: SharedValue<number>;
@@ -32,14 +34,38 @@ interface PlaceProps {
 const Place = ({ bannerPlaceY }: PlaceProps) => {
   const y = new Value(0);
   const panDownY = useSharedValue(0);
+  const placeTitleVisibility = useRef(VisibilityStates.Visible);
   const bannerPlaceScrollRef = useRef<FlatList>(null);
+
   const dispatch = useDispatch();
 
   const handleScroll = (y: number) => {
+    // scrolling down the page
+    if (
+      y >= HEADER_TITLE_BOTTOM &&
+      placeTitleVisibility.current === VisibilityStates.Visible
+    ) {
+      dispatch({ type: PlacesActions.HEADER_TITLE_HIDDEN });
+      placeTitleVisibility.current = VisibilityStates.Hidden;
+    }
+    // scrolling up the page
+    else if (
+      y <= HEADER_TITLE_BOTTOM &&
+      placeTitleVisibility.current === VisibilityStates.Hidden
+    ) {
+      dispatch({ type: PlacesActions.HEADER_TITLE_VISIBLE });
+      placeTitleVisibility.current = VisibilityStates.Visible;
+    }
+
     bannerPlaceY.value = y;
   };
 
-  useEffect(() => {}, []);
+  useEffect(() => {
+    dispatch({
+      type: PlacesActions.UPDATE_CURRENT_PLACE,
+      payload: currentPlaceData,
+    });
+  }, []);
 
   return (
     <View style={styles.container}>

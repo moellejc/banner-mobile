@@ -1,35 +1,36 @@
-import { Place, CollapseStates, PlaceScreens } from "../../types";
+import { CollapseStates, PlaceScreens, VisibilityStates } from "../../types";
+import { Place } from "../../tests/data";
 import { PlacesActions } from "../actions";
 
 export interface IPlacesState {
   currentPlace: Place;
-  headerState: CollapseStates;
-  hierarchyState: CollapseStates;
   goToPlaceScreen: PlaceScreens | null;
   placeScreen: PlaceScreens;
+  titleState: VisibilityStates;
 }
 
 const initialPlacesState: IPlacesState = {
   currentPlace: {
     id: "",
-    title: "",
-    address: "",
-    location: null,
-    services: ["Feed", "check-in", "order"],
-    sectionOrder: [],
-    peopleHere: [],
+    name: "",
+    placeType: "",
+    placeCategory: "",
+    services: [],
+    totalPeople: 0,
+    totalFavorites: 0,
+    coverImageURL: "",
   },
-  headerState: CollapseStates.Expanded,
-  hierarchyState: CollapseStates.Collapsed,
+  titleState: VisibilityStates.Visible,
   goToPlaceScreen: null,
   placeScreen: PlaceScreens.Content,
 };
 
 export function placesReducer(state = initialPlacesState, action: any) {
   switch (action.type) {
-    case PlacesActions.INFO:
+    case PlacesActions.UPDATE_CURRENT_PLACE:
       return {
         ...state,
+        currentPlace: action.payload,
       };
     case PlacesActions.UPDATE_FEED:
       return {
@@ -55,24 +56,23 @@ export function placesReducer(state = initialPlacesState, action: any) {
         },
         headerState: CollapseStates.Expanded,
       };
-    case PlacesActions.TRANSITION_HIERARCHY_COLLAPSE:
+    case PlacesActions.HEADER_TITLE_VISIBLE:
       return {
         ...state,
         currentPlace: {
           ...state.currentPlace,
         },
-        hierarchyState: CollapseStates.Collapsed,
+        titleState: VisibilityStates.Visible,
       };
-    case PlacesActions.TRANSITION_HIERARCHY_EXPAND:
+    case PlacesActions.HEADER_TITLE_HIDDEN:
       return {
         ...state,
         currentPlace: {
           ...state.currentPlace,
         },
-        hierarchyState: CollapseStates.Expanded,
+        titleState: VisibilityStates.Hidden,
       };
     case PlacesActions.NAV_TOGO_PLACE_SCREEN_START:
-      console.log(action);
       return {
         ...state,
         currentPlace: {

@@ -1,0 +1,1 @@
+export const TITLE_TRANSITION_DIFFERNCE = 50;

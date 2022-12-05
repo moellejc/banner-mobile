@@ -1,8 +1,8 @@
 import { Faker, faker } from "@faker-js/faker";
 
-const TEST_PLACE = "Boston";
-const TEST_PLACE_TYPE = "City";
-const TEST_PLACE_CATEGORY = "City";
+const TEST_PLACE = "Paycor Stadium";
+const TEST_PLACE_TYPE = "Statium";
+const TEST_PLACE_CATEGORY = "Commercial";
 const TEST_PLACE_SERVICES: string[] = [];
 const TEST_PLACE_HOUR = "";
 const TEST_PLACE_MIN_PEOPLE = 1000000;

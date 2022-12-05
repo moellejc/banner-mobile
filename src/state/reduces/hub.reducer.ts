@@ -1,5 +1,5 @@
 import { HubActions } from "../actions";
-import { HubScreens } from "../../types";
+import { HubScreens, VisibilityStates } from "../../types";
 
 export interface IHubState {
   hubScreen: HubScreens;

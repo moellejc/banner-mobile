@@ -11,9 +11,7 @@ import {
   BANNER_SCROLL_POSITIONS,
   BANNER_PLACE_POSITIONS,
 } from "../../components/place/_place/model";
-import BannerHeader from "../../components/header/bar";
-import { CollapseStates, HubScreens } from "../../types";
-import SearchDrawer from "../../components/search/drawer";
+import { HubScreens } from "../../types";
 import Animated, { useSharedValue } from "react-native-reanimated";
 import BottomSheet from "@gorhom/bottom-sheet";
 import { connect } from "react-redux";
