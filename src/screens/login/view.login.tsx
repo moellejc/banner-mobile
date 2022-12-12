@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { View, StyleSheet, Dimensions, Image } from "react-native";
-import { TextInput, Button, Text } from "react-native-paper";
+import { View, StyleSheet, Dimensions, Image, Text } from "react-native";
+import { Input, Button } from "native-base";
 import AppTheme, { textInputTheme } from "../../constants/styles/Theme";
 import { useNavigation } from "@react-navigation/native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
@@ -81,7 +81,7 @@ export const LoginScreen: React.FC = () => {
         </View>
         <View style={[{ flex: 3 }, styles.row]}>
           <View style={{ alignContent: "center" }}>
-            <TextInput
+            <Input
               style={styles.input}
               textAlign="left"
               mode="flat"
@@ -89,10 +89,10 @@ export const LoginScreen: React.FC = () => {
               value={email}
               theme={textInputTheme}
               underlineColor="white"
-              onChangeText={(email) => setEmail(email)}
+              onChangeText={(email: string) => setEmail(email)}
               selectionColor={AppTheme.colors.bannerPurple}
             />
-            <TextInput
+            <Input
               style={styles.input}
               textAlign="left"
               mode="flat"
@@ -101,7 +101,7 @@ export const LoginScreen: React.FC = () => {
               value={password}
               theme={textInputTheme}
               underlineColor="white"
-              onChangeText={(password) => setPassword(password)}
+              onChangeText={(password: string) => setPassword(password)}
               selectionColor={AppTheme.colors.bannerPurple}
             />
             <Text style={styles.error}>{errorMessage}</Text>

@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
-import { View, StyleSheet, Dimensions, Image } from "react-native";
-import { TextInput, Button, Headline } from "react-native-paper";
+import { View, StyleSheet, Dimensions, Text } from "react-native";
+import { Input } from "native-base";
 import AppTheme, { textInputTheme } from "../../constants/styles/Theme";
 import { ApolloError, gql, useMutation } from "@apollo/client";
 import { useNavigation } from "@react-navigation/native";
@@ -99,10 +99,10 @@ const RegisterScreen: React.FC = () => {
   return (
     <View style={styles.pageContainer}>
       <View style={[styles.row, { flex: 1, alignItems: "flex-start" }]}>
-        <Headline style={styles.headline}>Join in</Headline>
+        <Text style={styles.headline}>Join in</Text>
       </View>
       <View style={[styles.row, { flex: 3 }]}>
-        <TextInput
+        <Input
           style={styles.input}
           textAlign="left"
           mode="flat"
@@ -112,7 +112,7 @@ const RegisterScreen: React.FC = () => {
           underlineColor="white"
           onChangeText={(firstName) => setFirstName(firstName)}
         />
-        <TextInput
+        <Input
           style={styles.input}
           textAlign="left"
           mode="flat"
@@ -122,7 +122,7 @@ const RegisterScreen: React.FC = () => {
           underlineColor="white"
           onChangeText={(lastName) => setLastName(lastName)}
         />
-        <TextInput
+        <Input
           style={styles.input}
           textAlign="left"
           mode="flat"
@@ -132,7 +132,7 @@ const RegisterScreen: React.FC = () => {
           underlineColor="white"
           onChangeText={(email) => setEmail(email)}
         />
-        <TextInput
+        <Input
           style={styles.input}
           textAlign="left"
           mode="flat"
@@ -143,7 +143,7 @@ const RegisterScreen: React.FC = () => {
           underlineColor="white"
           onChangeText={(password) => setPassword(password)}
         />
-        <TextInput
+        <Input
           style={styles.input}
           textAlign="left"
           mode="flat"
