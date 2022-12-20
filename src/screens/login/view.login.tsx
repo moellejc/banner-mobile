@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { View, StyleSheet, Dimensions, Image, Text } from "react-native";
 import { Input, Button } from "native-base";
-import AppTheme, { textInputTheme } from "../../constants/styles/Theme";
+import { useTheme } from "native-base";
 import { useNavigation } from "@react-navigation/native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import BannerButton from "../../components/general/buttons/bannerButton";
@@ -24,6 +24,7 @@ const screenWidth = Dimensions.get("window").width - 60;
 
 export const LoginScreen: React.FC = () => {
   const dispatch = useDispatch();
+  const theme = useTheme();
   const navigation = useNavigation();
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
@@ -87,10 +88,9 @@ export const LoginScreen: React.FC = () => {
               mode="flat"
               label="Email"
               value={email}
-              theme={textInputTheme}
               underlineColor="white"
               onChangeText={(email: string) => setEmail(email)}
-              selectionColor={AppTheme.colors.bannerPurple}
+              selectionColor={theme.colors.primary[400]}
             />
             <Input
               style={styles.input}
@@ -99,10 +99,9 @@ export const LoginScreen: React.FC = () => {
               label="Password"
               secureTextEntry={true}
               value={password}
-              theme={textInputTheme}
               underlineColor="white"
               onChangeText={(password: string) => setPassword(password)}
-              selectionColor={AppTheme.colors.bannerPurple}
+              selectionColor={theme.colors.primary[400]}
             />
             <Text style={styles.error}>{errorMessage}</Text>
           </View>

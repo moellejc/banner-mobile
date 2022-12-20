@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { View, StyleSheet, Dimensions, Text } from "react-native";
 import { Input } from "native-base";
-import AppTheme, { textInputTheme } from "../../constants/styles/Theme";
+import { useTheme } from "native-base";
 import { ApolloError, gql, useMutation } from "@apollo/client";
 import { useNavigation } from "@react-navigation/native";
 import { AntDesign } from "@expo/vector-icons";
@@ -108,7 +108,6 @@ const RegisterScreen: React.FC = () => {
           mode="flat"
           label="First Name"
           value={firstName}
-          theme={textInputTheme}
           underlineColor="white"
           onChangeText={(firstName) => setFirstName(firstName)}
         />
@@ -118,7 +117,6 @@ const RegisterScreen: React.FC = () => {
           mode="flat"
           label="Last Name"
           value={lastName}
-          theme={textInputTheme}
           underlineColor="white"
           onChangeText={(lastName) => setLastName(lastName)}
         />
@@ -128,7 +126,6 @@ const RegisterScreen: React.FC = () => {
           mode="flat"
           label="Email"
           value={email}
-          theme={textInputTheme}
           underlineColor="white"
           onChangeText={(email) => setEmail(email)}
         />
@@ -139,7 +136,6 @@ const RegisterScreen: React.FC = () => {
           label="Password"
           value={password}
           secureTextEntry={true}
-          theme={textInputTheme}
           underlineColor="white"
           onChangeText={(password) => setPassword(password)}
         />
@@ -150,7 +146,6 @@ const RegisterScreen: React.FC = () => {
           label="Password Again"
           secureTextEntry={true}
           value={passwordAgain}
-          theme={textInputTheme}
           underlineColor="white"
           onChangeText={(passwordAgain) => setPasswordAgain(passwordAgain)}
         />

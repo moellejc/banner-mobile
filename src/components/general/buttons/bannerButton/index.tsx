@@ -1,7 +1,7 @@
 import React from "react";
 import { StyleSheet } from "react-native";
 import GradientBorderButton from "../gradientBorderButton";
-import AppTheme from "../../../../constants/styles/Theme";
+import { useTheme } from "native-base";
 import { DARK_PURPLE } from "../../../../constants/styles/Colors";
 import { StringLocale } from "yup/lib/locale";
 
@@ -19,14 +19,15 @@ interface BannerButtonProps {
 const BannerButton: React.FC<BannerButtonProps> = (
   props: BannerButtonProps
 ) => {
+  const theme = useTheme();
   return (
     <GradientBorderButton
       style={styles.btn}
       text={props.text}
       gradientColors={[
-        AppTheme.colors.bannerBlue,
-        AppTheme.colors.bannerPurple,
-        AppTheme.colors.bannerPink,
+        theme.colors.tertiary[400],
+        theme.colors.primary[400],
+        theme.colors.secondary[400],
       ]}
       gradientPositions={{ start: { x: 0, y: 0 }, end: { x: 1, y: 1 } }}
       height={props.height}

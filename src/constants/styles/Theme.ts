@@ -1,83 +1,57 @@
-import { NativeBaseProvider, extendTheme } from 'native-base';
+import { NativeBaseProvider, extendTheme } from "native-base";
 import {
   BLACK,
   BLUE,
-  DARK_PURPLE,
+  WHITE,
   PINK,
   PURPLE,
   RED,
   TEXTINPUT_PLACEHOLDER,
 } from "./Colors";
 
-export default function () {
-  const theme = extendTheme({
-    colors: {
-      // Add new color
-      primary: {
-        50: '#E3F2F9',
-        100: '#C5E4F3',
-        200: '#A2D4EC',
-        300: '#7AC1E4',
-        400: '#47A9DA',
-        500: '#0088CC',
-        600: '#007AB8',
-        700: '#006BA1',
-        800: '#005885',
-        900: '#003F5E',
-      },
-      // Redefining only one shade, rest of the color will remain same.
-      amber: {
-        400: '#d97706',
-      },
-    },
-    config: {
-      // Changing initialColorMode to 'dark'
-      initialColorMode: 'dark',
-    },
-  });
-
-declare global {
-  namespace ReactNativePaper {
-    interface ThemeColors {
-      appBackgroundColor: string;
-      bannerBlue: string;
-      bannerDarkPurple: string;
-      bannerPurple: string;
-      bannerPink: string;
-      bannerRed: string;
-      textInputPlaceholderColor: string;
-    }
-  }
-}
-
-const AppTheme: ReactNativePaper.Theme = {
-  ...DefaultTheme,
-  // Specify custom property in nested object
+const theme = extendTheme({
   colors: {
-    ...DefaultTheme.colors,
-    appBackgroundColor: BLACK,
-    // appBackgroundColor: "red",
-    // background: "#000000",
-    // backdrop: "#000000",
-    bannerBlue: BLUE,
-    bannerDarkPurple: DARK_PURPLE,
-    bannerPurple: PURPLE,
-    bannerPink: PINK,
-    bannerRed: RED,
-    textInputPlaceholderColor: TEXTINPUT_PLACEHOLDER,
+    primary: {
+      50: "#dbcafd",
+      100: "#c2a6f9",
+      200: "#aa85f2",
+      300: "#9266e9",
+      400: PURPLE, // original
+      500: "#6d36da",
+      600: "#622ecb",
+      700: "#5b30b1",
+      800: "#543198",
+      900: "#4c3181",
+    },
+    secondary: {
+      50: "#fa62ff",
+      100: "#f83aff",
+      200: "#f218f9",
+      300: "#d60ddd",
+      400: PINK, // original
+      500: "#970e9c",
+      600: "#7e1182",
+      700: "#661269",
+      800: "#501152",
+      900: "#3b103d",
+    },
+    tertiary: {
+      50: "#7658ff",
+      100: "#5833fc",
+      200: "#3c13f4",
+      300: "#3411cf",
+      400: BLUE, // original
+      500: "#28118f",
+      600: "#251276",
+      700: "#21135e",
+      800: "#1b1148",
+      900: "#150f33",
+    },
   },
-};
-
-export default AppTheme;
-
-const textInputTheme = {
-  colors: {
-    placeholder: AppTheme.colors.textInputPlaceholderColor,
-    text: "white",
-    underlineColor: "white",
-    background: "black",
-    primary: "white",
+  config: {
+    // Changing initialColorMode to 'dark'
+    initialColorMode: "dark",
   },
-};
+});
 
-export { textInputTheme };
+export default theme;

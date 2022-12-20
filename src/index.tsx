@@ -5,7 +5,7 @@ import { Router } from "./navigations";
 import { NativeBaseProvider } from "native-base";
 import { client } from "./lib/apollo";
 import { SafeAreaProvider } from "react-native-safe-area-context";
-import AppTheme from "./constants/styles/Theme";
+import theme from "./constants/styles/Theme";
 import { Provider } from "react-redux";
 import { store } from "./state";
 import AppLoading from "expo-app-loading";
@@ -42,7 +42,7 @@ export default class App extends React.PureComponent {
 
     return (
       <ApolloProvider client={client}>
-        <NativeBaseProvider>
+        <NativeBaseProvider theme={theme}>
           <SafeAreaProvider>
             <Provider store={store}>
               <StatusBar hidden={true} />
