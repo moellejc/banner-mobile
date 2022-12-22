@@ -28,6 +28,7 @@ yarn-error.log
 *.sublime-workspace
 
 # Xcode
+ios/
 build/
 *.pbxuser
 !default.pbxuser
@@ -50,6 +51,7 @@ project.xcworkspace
 /ios/Pods/
 
 # Android Studio
+android/
 build/
 *.iml
 .gradle

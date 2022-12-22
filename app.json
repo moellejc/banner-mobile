@@ -2,14 +2,13 @@
   "name": "Banner",
   "displayName": "Banner",
   "expo": {
-    "name": "banner-mobile",
+    "name": "Banner",
     "slug": "banner-mobile",
+    "owner": "Banner inc.",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/appicon/appicon-banner-white-1024@1x.png",
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "android": {
       "package": "com.banner.bannermobile"
     },
