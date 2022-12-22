@@ -8,7 +8,6 @@ import { SafeAreaProvider } from "react-native-safe-area-context";
 import theme from "./constants/styles/Theme";
 import { Provider } from "react-redux";
 import { store } from "./state";
-import AppLoading from "expo-app-loading";
 import { appStartupLoader } from "./loaders/appstartup.loader";
 
 export default class App extends React.PureComponent {
@@ -17,16 +16,6 @@ export default class App extends React.PureComponent {
   };
 
   render() {
-    if (!this.state.isReady) {
-      return (
-        <AppLoading
-          startAsync={appStartupLoader}
-          onFinish={() => this.setState({ isReady: true })}
-          onError={console.warn}
-        />
-      );
-    }
-
     /**
      * Application Hierarchy
      * ---------------------
