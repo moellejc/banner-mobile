@@ -10,6 +10,7 @@ import { createSharedElementStackNavigator } from "react-navigation-shared-eleme
 import { styles } from "./styles";
 import ProfileNavButton from "../components/navigation/ProfileNavButton";
 import NotificationsButton from "../components/navigation/NotificationsNavButton";
+import AddNavButton from "../components/navigation/AddNavButton";
 import TitleNav from "../components/navigation/TitleNav";
 
 const Stack = createSharedElementStackNavigator();
@@ -20,7 +21,7 @@ const screenOptions = ({ navigation }: any): StackNavigationOptions => {
     headerStyle: { ...styles.header },
     headerTintColor: "black",
     headerLeft: () => <ProfileNavButton />,
-    headerRight: () => <NotificationsButton />,
+    headerRight: () => <AddNavButton />,
     headerRightContainerStyle: { ...styles.rightIcon },
   };
 };

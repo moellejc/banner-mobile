@@ -12,8 +12,9 @@ import {
   faPlus,
   faLocationDot,
   faShoePrints,
+  faListUl,
 } from "@fortawesome/free-solid-svg-icons";
-import { faMessage } from "@fortawesome/free-regular-svg-icons";
+import { faMessage, faCompass } from "@fortawesome/free-regular-svg-icons";
 import {
   MENU_ICON_SIZE,
   MENU_TOTAL_OPTIONS,
@@ -25,10 +26,10 @@ import { styles, calculateIndicatorPosition } from "./styles";
 
 enum MenuOptions {
   History,
+  Discover,
   Here,
-  Add,
   Messages,
-  Search,
+  Things,
 }
 
 interface MenuProps {
@@ -39,11 +40,13 @@ const Menu = () => {
   const menuStatus = useRef(MenuOptions.Here);
   const [historyColor, setHistoryColor] = useState(MENU_OPTION_COLOR_INACTIVE);
   const [hereColor, setHereColor] = useState(MENU_OPTION_COLOR_ACTIVE);
-  const [addColor, setAddColor] = useState(MENU_OPTION_COLOR_INACTIVE);
+  const [discoverColor, setDiscoverColor] = useState(
+    MENU_OPTION_COLOR_INACTIVE
+  );
   const [messagesColor, setMessagesColor] = useState(
     MENU_OPTION_COLOR_INACTIVE
   );
-  const [searchColor, setSearchColor] = useState(MENU_OPTION_COLOR_INACTIVE);
+  const [thingsColor, setThingsColor] = useState(MENU_OPTION_COLOR_INACTIVE);
 
   const offset = useSharedValue(
     calculateIndicatorPosition(1, MENU_TOTAL_OPTIONS)
@@ -80,17 +83,18 @@ const Menu = () => {
       case MenuOptions.History:
         setHistoryColor(MENU_OPTION_COLOR_INACTIVE);
         break;
+      case MenuOptions.Discover:
+        setDiscoverColor(MENU_OPTION_COLOR_INACTIVE);
+        break;
       case MenuOptions.Here:
         setHereColor(MENU_OPTION_COLOR_INACTIVE);
         break;
-      case MenuOptions.Add:
-        setAddColor(MENU_OPTION_COLOR_INACTIVE);
-        break;
+
       case MenuOptions.Messages:
         setMessagesColor(MENU_OPTION_COLOR_INACTIVE);
         break;
-      case MenuOptions.Search:
-        setSearchColor(MENU_OPTION_COLOR_INACTIVE);
+      case MenuOptions.Things:
+        setThingsColor(MENU_OPTION_COLOR_INACTIVE);
         break;
       default:
         break;
@@ -101,17 +105,18 @@ const Menu = () => {
       case MenuOptions.History:
         setHistoryColor(MENU_OPTION_COLOR_ACTIVE);
         break;
+      case MenuOptions.Discover:
+        setDiscoverColor(MENU_OPTION_COLOR_ACTIVE);
+        break;
       case MenuOptions.Here:
         setHereColor(MENU_OPTION_COLOR_ACTIVE);
         break;
-      case MenuOptions.Add:
-        setAddColor(MENU_OPTION_COLOR_ACTIVE);
-        break;
+
       case MenuOptions.Messages:
         setMessagesColor(MENU_OPTION_COLOR_ACTIVE);
         break;
-      case MenuOptions.Search:
-        setSearchColor(MENU_OPTION_COLOR_ACTIVE);
+      case MenuOptions.Things:
+        setThingsColor(MENU_OPTION_COLOR_ACTIVE);
         break;
       default:
         break;
@@ -142,6 +147,22 @@ const Menu = () => {
         </TouchableWithoutFeedback>
         <TouchableWithoutFeedback
           onPress={() => {
+            changeOption(MenuOptions.Discover);
+          }}
+        >
+          <View style={styles.iconContainer}>
+            <View style={styles.icon}>
+              <FontAwesomeIcon
+                color={discoverColor}
+                size={MENU_ICON_SIZE}
+                icon={faCompass}
+              />
+            </View>
+            <Text style={styles.menuTxt}>Discover</Text>
+          </View>
+        </TouchableWithoutFeedback>
+        <TouchableWithoutFeedback
+          onPress={() => {
             changeOption(MenuOptions.Here);
           }}
         >
@@ -154,21 +175,6 @@ const Menu = () => {
               />
             </View>
             <Text style={styles.menuTxt}>Here</Text>
-          </View>
-        </TouchableWithoutFeedback>
-        <TouchableWithoutFeedback
-          onPress={() => {
-            changeOption(MenuOptions.Add);
-          }}
-        >
-          <View style={styles.iconContainer}>
-            <View style={[styles.icon, styles.iconAdd]}>
-              <FontAwesomeIcon
-                color={addColor}
-                size={MENU_ICON_ADD_SIZE}
-                icon={faPlus}
-              />
-            </View>
           </View>
         </TouchableWithoutFeedback>
         <TouchableWithoutFeedback
@@ -189,19 +195,19 @@ const Menu = () => {
         </TouchableWithoutFeedback>
         <TouchableWithoutFeedback
           onPress={() => {
-            changeOption(MenuOptions.Search);
+            changeOption(MenuOptions.Things);
           }}
         >
           <View style={styles.iconContainer}>
             <View style={styles.icon}>
               <FontAwesomeIcon
-                color={searchColor}
+                color={thingsColor}
                 size={MENU_ICON_SIZE}
-                icon={faMagnifyingGlass}
+                icon={faListUl}
               />
             </View>
             <View>
-              <Text style={[styles.menuTxt]}>Search</Text>
+              <Text style={[styles.menuTxt]}>Things</Text>
             </View>
           </View>
         </TouchableWithoutFeedback>
