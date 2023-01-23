@@ -2,7 +2,7 @@ import {
   UserRoles,
   UserStatuses,
   UserTypes,
-} from "../graphql/generator/BannerGQLTypes";
+} from "../../graphql/generator/BannerGQLTypes";
 import { Like } from "./Like";
 import { Media } from "./Media";
 import { Post } from "./Post";

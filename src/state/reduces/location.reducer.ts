@@ -1,10 +1,12 @@
 import * as Location from "expo-location";
 import { number } from "yup/lib/locale";
+import { Place } from "../../types";
 import { LocationActions } from "../actions";
 
 export interface ILocationState {
   current: Location.LocationObject;
   currentTitle: string;
+  placesNear: Place[];
 }
 
 const initialLocationState: ILocationState = {
@@ -21,6 +23,7 @@ const initialLocationState: ILocationState = {
     },
     timestamp: -1,
   },
+  placesNear: [],
 };
 
 export function locationReducer(state = initialLocationState, action: any) {

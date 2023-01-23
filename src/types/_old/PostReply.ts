@@ -1,4 +1,4 @@
-import { Post } from "../graphql/generator/BannerGQLTypes";
+import { Post } from "../../graphql/generator/BannerGQLTypes";
 import { User } from "./User";
 
 export type PostReply = {

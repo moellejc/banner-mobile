@@ -1,6 +1,6 @@
 import { BannerAPI } from "../api";
 import { store } from "../state";
-import { Place } from "../types/Place";
+import { Place } from "../types/_old/Place";
 import * as Location from "expo-location";
 
 export type PlaceMenuData = {

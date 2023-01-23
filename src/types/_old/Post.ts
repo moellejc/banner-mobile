@@ -1,4 +1,4 @@
-import { Like } from "../graphql/generator/BannerGQLTypes";
+import { Like } from "../../graphql/generator/BannerGQLTypes";
 import { Coordinates } from "./Coordinates";
 import { Media } from "./Media";
 import { PostReply } from "./PostReply";

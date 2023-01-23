@@ -3,7 +3,7 @@ import {
   UserStatuses,
   UserTypes,
 } from "../../graphql/generator/BannerGQLTypes";
-import { Coordinates } from "../../types/Coordinates";
+import { Coordinates } from "../../types/_old/Coordinates";
 import { MeActions } from "../actions";
 
 export interface IMeState {
