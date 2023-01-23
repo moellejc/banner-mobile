@@ -1,15 +1,11 @@
 import React, { useEffect } from "react";
 import { View, StyleSheet, Dimensions, Text } from "react-native";
 import { Input } from "native-base";
-import { useTheme } from "native-base";
 import { ApolloError, gql, useMutation } from "@apollo/client";
 import { useNavigation } from "@react-navigation/native";
 import { AntDesign } from "@expo/vector-icons";
 import BannerButton from "../../components/general/buttons/bannerButton";
-import {
-  RegisterResponse,
-  FieldError,
-} from "../../graphql/generator/BannerGQLTypes";
+import { RegisterResponse } from "../../types";
 import { useSelector, useDispatch } from "react-redux";
 // import { authConstants } from "../../constants/state_old";
 // import { meConstants } from "../../constants/state_old";
@@ -105,48 +101,42 @@ const RegisterScreen: React.FC = () => {
         <Input
           style={styles.input}
           textAlign="left"
-          mode="flat"
-          label="First Name"
+          placeholder="firstname"
+          variant="underlined"
           value={firstName}
-          underlineColor="white"
           onChangeText={(firstName) => setFirstName(firstName)}
         />
         <Input
           style={styles.input}
           textAlign="left"
-          mode="flat"
-          label="Last Name"
+          placeholder="Lastname"
           value={lastName}
-          underlineColor="white"
           onChangeText={(lastName) => setLastName(lastName)}
         />
         <Input
           style={styles.input}
           textAlign="left"
-          mode="flat"
-          label="Email"
+          placeholder="Email"
+          variant="underlined"
           value={email}
-          underlineColor="white"
           onChangeText={(email) => setEmail(email)}
         />
         <Input
           style={styles.input}
           textAlign="left"
-          mode="flat"
-          label="Password"
+          placeholder="Password"
+          variant="underlined"
           value={password}
           secureTextEntry={true}
-          underlineColor="white"
           onChangeText={(password) => setPassword(password)}
         />
         <Input
           style={styles.input}
           textAlign="left"
-          mode="flat"
-          label="Password Again"
+          placeholder="Password Again"
+          variant="underlined"
           secureTextEntry={true}
           value={passwordAgain}
-          underlineColor="white"
           onChangeText={(passwordAgain) => setPasswordAgain(passwordAgain)}
         />
       </View>

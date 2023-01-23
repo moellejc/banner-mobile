@@ -1,9 +1,5 @@
 import { BannerAPI } from "../api";
-import {
-  FieldError,
-  LoginResponse,
-  RegisterResponse,
-} from "../graphql/generator/BannerGQLTypes";
+import { FieldError, LoginResponse, RegisterResponse } from "../types";
 import { Actions, store } from "../state";
 import * as MeService from "./me.service";
 import * as TokenService from "./token.service";

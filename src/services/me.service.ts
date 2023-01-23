@@ -1,5 +1,5 @@
 import { BannerAPI } from "../api";
-import { FieldError, User } from "../graphql/generator/BannerGQLTypes";
+import { FieldError, User } from "../types";
 import { Actions, store } from "../state";
 
 // TODO: implement secure storage for me user

@@ -7,7 +7,7 @@ import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view
 import BannerButton from "../../components/general/buttons/bannerButton";
 import { useLogin } from "./use.login";
 import { useDispatch } from "react-redux";
-import { FieldError } from "../../graphql/generator/BannerGQLTypes";
+import { FieldError } from "../../types";
 import { styles } from "./styles";
 
 const defaultState = {
@@ -85,21 +85,19 @@ export const LoginScreen: React.FC = () => {
             <Input
               style={styles.input}
               textAlign="left"
-              mode="flat"
-              label="Email"
               value={email}
-              underlineColor="white"
+              placeholder="Email"
+              variant="underlined"
               onChangeText={(email: string) => setEmail(email)}
               selectionColor={theme.colors.primary[400]}
             />
             <Input
               style={styles.input}
               textAlign="left"
-              mode="flat"
-              label="Password"
               secureTextEntry={true}
               value={password}
-              underlineColor="white"
+              placeholder="Password"
+              variant="underlined"
               onChangeText={(password: string) => setPassword(password)}
               selectionColor={theme.colors.primary[400]}
             />
@@ -117,7 +115,6 @@ export const LoginScreen: React.FC = () => {
           />
           <Button
             style={styles.buttonRegister}
-            labelStyle={{ fontSize: 12 }}
             color="lightgray"
             onPress={() => navigation.navigate("Register")}
           >

@@ -1,8 +1,5 @@
 import { REGISTER_MUTATION, LOGIN_MUTATION } from "./constants";
-import {
-  LoginResponse,
-  RegisterResponse,
-} from "../../graphql/generator/BannerGQLTypes";
+import { LoginResponse, RegisterResponse } from "../../types";
 import { client } from "../../lib/apollo";
 
 export const register = async (

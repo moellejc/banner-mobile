@@ -1,8 +1,4 @@
-import {
-  UserRoles,
-  UserStatuses,
-  UserTypes,
-} from "../../graphql/generator/BannerGQLTypes";
+import { UserRoles, UserStatuses } from "../graphql";
 import { Like } from "./Like";
 import { Media } from "./Media";
 import { Post } from "./Post";
@@ -17,7 +13,7 @@ export type User = {
   role: UserRoles;
   screenName: string;
   status: UserStatuses;
-  userType: UserTypes;
+  userType: string;
   likes?: Array<Like>;
   media?: Array<Media>;
   posts?: Array<Post>;
