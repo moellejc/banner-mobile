@@ -2,15 +2,17 @@ import React, { useEffect, useRef, useState } from "react";
 import { View, Text, TouchableOpacity } from "react-native";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
-import { faPlusSquare } from "@fortawesome/free-regular-svg-icons";
+import { useNavigation } from "@react-navigation/native";
 import { ICON_SIZE } from "./constants";
 import { styles } from "./styles";
 
 const AddNavButton = () => {
+  const navigation = useNavigation();
+
   return (
     <TouchableOpacity
       style={styles.contain}
-      onPress={() => console.log("add button pressed")}
+      onPress={() => navigation.navigate("Add")}
     >
       <FontAwesomeIcon color="black" size={ICON_SIZE} icon={faPlus} />
     </TouchableOpacity>
