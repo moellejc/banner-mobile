@@ -17,23 +17,23 @@ import TitleNav from "../components/navigation/TitleNav";
 const Stack = createSharedElementStackNavigator();
 const AddStack = createStackNavigator();
 
-const horizontalAnimation = {
-  gestureDirection: "horizontal",
-  cardStyleInterpolator: ({ current, layouts }) => {
-    return {
-      cardStyle: {
-        transform: [
-          {
-            translateX: current.progress.interpolate({
-              inputRange: [0, 1],
-              outputRange: [layouts.screen.width, 0],
-            }),
-          },
-        ],
-      },
-    };
-  },
-};
+// const horizontalAnimation = {
+//   gestureDirection: "horizontal",
+//   cardStyleInterpolator: ({ current, layouts }) => {
+//     return {
+//       cardStyle: {
+//         transform: [
+//           {
+//             translateX: current.progress.interpolate({
+//               inputRange: [0, 1],
+//               outputRange: [layouts.screen.width, 0],
+//             }),
+//           },
+//         ],
+//       },
+//     };
+//   },
+// };
 
 const screenOptions = ({ navigation }: any): StackNavigationOptions => {
   return {
@@ -49,7 +49,11 @@ const screenOptions = ({ navigation }: any): StackNavigationOptions => {
 const AddModalScreen = () => {
   return (
     <AddStack.Navigator headerMode="none" initialRouteName="AddNav">
-      <AddStack.Screen name="Add" component={AddScreen} />
+      <AddStack.Screen
+        options={{ headerShown: false }}
+        name="Add"
+        component={AddScreen}
+      />
     </AddStack.Navigator>
   );
 };
@@ -66,7 +70,11 @@ function AppNavigator() {
       mode="modal"
     >
       <Stack.Screen name="Hub" component={HubScreen} options={screenOptions} />
-      <Stack.Screen name="Add" component={AddModalScreen} />
+      <Stack.Screen
+        options={{ headerShown: false }}
+        name="Add"
+        component={AddModalScreen}
+      />
     </Stack.Navigator>
   );
 }

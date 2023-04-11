@@ -31,7 +31,7 @@ export const styles = StyleSheet.create({
     marginTop: 15,
   },
   input: {
-    marginBottom: 30,
+    // marginBottom: 30,
     width: WINDOW_WIDTH,
     textAlign: "left",
   },
