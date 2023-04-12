@@ -92,12 +92,16 @@ const AddScreen: React.FC = () => {
             selectionColor={theme.colors.primary[400]}
           />
         </View>
+        <View></View>
       </View>
       <View style={styles.submit}>
         <BannerButton
           text={"Create a New Place!"}
           borderRadius={30}
           height={60}
+          textColor={"#000"}
+          backgroundColor={"#fff"}
+          pressBackgroundColor={"#d9d9d9"}
           width={WINDOW_WIDTH - 2 * SIDE_MARGIN}
           onPress={() => setIsSubmitted(true)}
         />

@@ -11,8 +11,11 @@ interface BannerButtonProps {
   borderRadius?: number;
   text: string;
   fontSize?: number;
+  textColor?: string;
   style?: any;
   disabled?: boolean;
+  backgroundColor?: string;
+  pressBackgroundColor?: string;
   onPress?: () => void;
 }
 
@@ -34,9 +37,9 @@ const BannerButton: React.FC<BannerButtonProps> = (
       width={props.width}
       borderRadius={props.borderRadius}
       borderWidth={2}
-      textColor="#fff"
-      backgroundColor="#000"
-      pressBackgroundColor="rgba(0,0,0,0.75)"
+      textColor={props.textColor}
+      backgroundColor={props.backgroundColor}
+      pressBackgroundColor={props.pressBackgroundColor}
       disabled={props.disabled}
       onPress={props.onPress}
     />
@@ -48,6 +51,9 @@ BannerButton.defaultProps = {
   width: 100,
   borderRadius: 15,
   fontSize: 18,
+  textColor: "#fff",
+  backgroundColor: "#000",
+  pressBackgroundColor: "#1a1a1a",
   disabled: false,
   style: {},
 };
