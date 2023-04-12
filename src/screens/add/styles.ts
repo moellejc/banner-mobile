@@ -16,6 +16,10 @@ export const styles = StyleSheet.create({
     justifyContent: "center",
     backgroundColor: "white",
   },
+  bottomSheetContainer: {
+    flex: 1,
+    alignItems: "center",
+  },
   header: {
     flexDirection: "row",
     alignSelf: "center",
