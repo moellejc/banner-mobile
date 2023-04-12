@@ -1,5 +1,9 @@
 import { StyleSheet, Dimensions } from "react-native";
-import { SIDE_MARGIN } from "./constants";
+import {
+  SIDE_MARGIN,
+  INPUT_BORDER_COLOR,
+  INPUT_PLACEHOLDER_COLOR,
+} from "./constants";
 
 export const { width: WINDOW_WIDTH, height: WINDOW_HEIGHT } =
   Dimensions.get("window");
@@ -10,6 +14,7 @@ export const styles = StyleSheet.create({
     flex: 1,
     flexDirection: "column",
     justifyContent: "center",
+    backgroundColor: "white",
   },
   header: {
     flexDirection: "row",
@@ -40,6 +45,26 @@ export const styles = StyleSheet.create({
     marginVertical: 10,
     color: "black",
   },
+  photoContainer: {
+    flexDirection: "column",
+    justifyContent: "center",
+    alignItems: "center",
+    height: 150,
+    borderColor: INPUT_BORDER_COLOR,
+    borderWidth: 1,
+    borderRadius: 10,
+  },
+  photoIconContainer: {
+    flexDirection: "column",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  photoText: {
+    fontSize: 20,
+    color: INPUT_PLACEHOLDER_COLOR,
+    marginTop: 10,
+  },
+  photo: {},
   submit: {
     alignSelf: "center",
     marginTop: "auto",

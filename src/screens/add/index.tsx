@@ -1,13 +1,21 @@
 import React, { useState } from "react";
 import { TouchableOpacity, View, Text } from "react-native";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
-import { faXmark } from "@fortawesome/free-solid-svg-icons";
+import {
+  faXmark,
+  faCamera,
+  faCameraAlt,
+} from "@fortawesome/free-solid-svg-icons";
 import { useNavigation } from "@react-navigation/native";
 import { styles, WINDOW_WIDTH } from "./styles";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { Input, Button, useTheme } from "native-base";
 import BannerButton from "../../components/general/buttons/bannerButton";
-import { SIDE_MARGIN } from "./constants";
+import {
+  SIDE_MARGIN,
+  INPUT_BORDER_COLOR,
+  INPUT_PLACEHOLDER_COLOR,
+} from "./constants";
 
 type AddScreenProps = {};
 const AddScreen: React.FC = () => {
@@ -48,10 +56,12 @@ const AddScreen: React.FC = () => {
           <Input
             style={styles.input}
             textAlign="left"
+            placeholderTextColor={INPUT_PLACEHOLDER_COLOR}
             value={address}
-            placeholder="Address"
+            placeholder="Place Address"
             variant="outline"
             borderRadius={10}
+            borderColor={INPUT_BORDER_COLOR}
             onChangeText={(val: string) => setAddress(val)}
             selectionColor={theme.colors.primary[400]}
           />
@@ -60,10 +70,12 @@ const AddScreen: React.FC = () => {
           <Input
             style={styles.input}
             textAlign="left"
+            placeholderTextColor={INPUT_PLACEHOLDER_COLOR}
             value={placeName}
             placeholder="Place Name"
             variant="outline"
             borderRadius={10}
+            borderColor={INPUT_BORDER_COLOR}
             onChangeText={(val: string) => setPlaceName(val)}
             selectionColor={theme.colors.primary[400]}
           />
@@ -72,10 +84,12 @@ const AddScreen: React.FC = () => {
           <Input
             style={styles.input}
             textAlign="left"
+            placeholderTextColor={INPUT_PLACEHOLDER_COLOR}
             value={placeType}
             placeholder="Place Type"
             variant="outline"
             borderRadius={10}
+            borderColor={INPUT_BORDER_COLOR}
             onChangeText={(val: string) => setPlaceType(val)}
             selectionColor={theme.colors.primary[400]}
           />
@@ -84,15 +98,22 @@ const AddScreen: React.FC = () => {
           <Input
             style={styles.input}
             textAlign="left"
+            placeholderTextColor={INPUT_PLACEHOLDER_COLOR}
             value={placeCategories}
             placeholder="Place Categories"
             variant="outline"
             borderRadius={10}
+            borderColor={INPUT_BORDER_COLOR}
             onChangeText={(val: string) => setPlaceCategories(val)}
             selectionColor={theme.colors.primary[400]}
           />
         </View>
-        <View></View>
+        <View style={styles.photoContainer}>
+          <TouchableOpacity style={styles.photoIconContainer}>
+            <FontAwesomeIcon color="black" size={50} icon={faCamera} />
+            <Text style={styles.photoText}>Add a Photo</Text>
+          </TouchableOpacity>
+        </View>
       </View>
       <View style={styles.submit}>
         <BannerButton
@@ -101,7 +122,7 @@ const AddScreen: React.FC = () => {
           height={60}
           textColor={"#000"}
           backgroundColor={"#fff"}
-          pressBackgroundColor={"#d9d9d9"}
+          pressBackgroundColor={"#ededed"}
           width={WINDOW_WIDTH - 2 * SIDE_MARGIN}
           onPress={() => setIsSubmitted(true)}
         />
