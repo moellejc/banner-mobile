@@ -16,10 +16,6 @@ export const styles = StyleSheet.create({
     justifyContent: "center",
     backgroundColor: "white",
   },
-  bottomSheetContainer: {
-    flex: 1,
-    alignItems: "center",
-  },
   header: {
     flexDirection: "row",
     alignSelf: "center",
@@ -72,5 +68,31 @@ export const styles = StyleSheet.create({
   submit: {
     alignSelf: "center",
     marginTop: "auto",
+  },
+
+  bsModal: {
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: -2 },
+    shadowOpacity: 0.6,
+    shadowRadius: 10,
+    elevation: 5,
+  },
+
+  bsContainer: {
+    flex: 1,
+    alignItems: "center",
+  },
+  bsTitleContainer: {
+    marginBottom: 20,
+  },
+  bsTitle: {
+    fontSize: 32,
+    fontWeight: "600",
+  },
+  bsListContainer: {
+    width: WINDOW_WIDTH - SIDE_MARGIN * 2,
+  },
+  bsList: {
+    width: WINDOW_WIDTH - SIDE_MARGIN * 2,
   },
 });

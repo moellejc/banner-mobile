@@ -1,5 +1,5 @@
 import React, { useState, useRef, useMemo, useCallback } from "react";
-import { TouchableOpacity, View, Text } from "react-native";
+import { TouchableOpacity, View, Text, FlatList } from "react-native";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import {
   faXmark,
@@ -15,10 +15,12 @@ import {
   BottomSheetModal,
   BottomSheetModalProvider,
 } from "@gorhom/bottom-sheet";
+import { AddressItem, AddressItemProps } from "../../components/place/address";
 import {
   SIDE_MARGIN,
   INPUT_BORDER_COLOR,
   INPUT_PLACEHOLDER_COLOR,
+  ADDRESS_DATA,
 } from "./constants";
 
 type AddScreenProps = {};
@@ -47,6 +49,17 @@ const AddScreen: React.FC = () => {
   const handleSheetChanges = useCallback((index: number) => {
     console.log("handleSheetChanges", index);
   }, []);
+  const handleSelectAddress = (props: AddressItemProps) => {
+    setAddress(
+      `${props.address.houseNumber} ${props.address.street}, ${
+        props.address.city
+      }, ${
+        props.address.stateCode ? props.address.stateCode : props.address.state
+      } ${props.address.postalCode}`
+    );
+    setPlaceName(props.name);
+    bottomSheetModalRef.current?.close();
+  };
 
   return (
     <BottomSheetModalProvider>
@@ -154,10 +167,29 @@ const AddScreen: React.FC = () => {
           index={1}
           snapPoints={snapPoints}
           onChange={handleSheetChanges}
-          backgroundStyle={{ backgroundColor: "#F5F5F5" }}
+          backgroundStyle={{ backgroundColor: "#FFF" }}
+          style={styles.bsModal}
         >
-          <View style={styles.bottomSheetContainer}>
-            <Text>Awesome 🎉</Text>
+          <View style={styles.bsContainer}>
+            <View style={styles.bsTitleContainer}>
+              <Text style={styles.bsTitle}>A couple of suggestions...</Text>
+            </View>
+            <View style={styles.bsListContainer}>
+              <FlatList
+                data={ADDRESS_DATA}
+                style={styles.bsList}
+                renderItem={({ item }) => (
+                  <AddressItem
+                    name={item.name}
+                    address={item}
+                    onSelect={() => {
+                      handleSelectAddress({ name: item.name, address: item });
+                    }}
+                  />
+                )}
+                keyExtractor={(item) => item.id}
+              />
+            </View>
           </View>
         </BottomSheetModal>
       </View>
