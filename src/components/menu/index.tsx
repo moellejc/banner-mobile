@@ -30,8 +30,8 @@ enum MenuOptions {
   History,
   Discover,
   Here,
-  Messages,
-  Things,
+  Group,
+  Add,
 }
 
 interface MenuProps {
@@ -45,10 +45,8 @@ const Menu = () => {
   const [discoverColor, setDiscoverColor] = useState(
     MENU_OPTION_COLOR_INACTIVE
   );
-  const [messagesColor, setMessagesColor] = useState(
-    MENU_OPTION_COLOR_INACTIVE
-  );
-  const [thingsColor, setThingsColor] = useState(MENU_OPTION_COLOR_INACTIVE);
+  const [groupColor, setGroupColor] = useState(MENU_OPTION_COLOR_INACTIVE);
+  const [addColor, setAddColor] = useState(MENU_OPTION_COLOR_INACTIVE);
 
   const offset = useSharedValue(
     calculateIndicatorPosition(1, MENU_TOTAL_OPTIONS)
@@ -91,12 +89,11 @@ const Menu = () => {
       case MenuOptions.Here:
         setHereColor(MENU_OPTION_COLOR_INACTIVE);
         break;
-
-      case MenuOptions.Messages:
-        setMessagesColor(MENU_OPTION_COLOR_INACTIVE);
+      case MenuOptions.Group:
+        setGroupColor(MENU_OPTION_COLOR_INACTIVE);
         break;
-      case MenuOptions.Things:
-        setThingsColor(MENU_OPTION_COLOR_INACTIVE);
+      case MenuOptions.Add:
+        setAddColor(MENU_OPTION_COLOR_INACTIVE);
         break;
       default:
         break;
@@ -113,12 +110,12 @@ const Menu = () => {
       case MenuOptions.Here:
         setHereColor(MENU_OPTION_COLOR_ACTIVE);
         break;
-
-      case MenuOptions.Messages:
-        setMessagesColor(MENU_OPTION_COLOR_ACTIVE);
+      case MenuOptions.Group:
+        console.log("set group color active");
+        setGroupColor(MENU_OPTION_COLOR_ACTIVE);
         break;
-      case MenuOptions.Things:
-        setThingsColor(MENU_OPTION_COLOR_ACTIVE);
+      case MenuOptions.Add:
+        setAddColor(MENU_OPTION_COLOR_ACTIVE);
         break;
       default:
         break;
@@ -170,14 +167,6 @@ const Menu = () => {
         >
           <View style={styles.iconContainer}>
             <View style={styles.icon}>
-              {/* <FontAwesomeIcon
-                color={hereColor}
-                size={MENU_ICON_SIZE}
-                icon={faLocationDot}
-              /> */}
-              {/* <Image
-                source={require("../../../assets/images/icon-pulse.png")}
-              ></Image> */}
               <IconPulse width={MENU_ICON_SIZE} height={MENU_ICON_SIZE} />
             </View>
             <Text style={styles.menuTxt}>Pulse</Text>
@@ -185,33 +174,30 @@ const Menu = () => {
         </TouchableWithoutFeedback>
         <TouchableWithoutFeedback
           onPress={() => {
-            changeOption(MenuOptions.Messages);
+            changeOption(MenuOptions.Group);
           }}
         >
           <View style={styles.iconContainer}>
             <View style={styles.icon}>
-              {/* <FontAwesomeIcon
-                color={messagesColor}
-                size={MENU_ICON_SIZE}
-                icon={faMessage}
-              /> */}
-              {/* <Image
-                source={require("../../../assets/images/icon-group-near.png")}
-              ></Image> */}
-              <IconGroupNear width={MENU_ICON_SIZE} height={MENU_ICON_SIZE} />
+              <IconGroupNear
+                width={MENU_ICON_SIZE}
+                height={MENU_ICON_SIZE}
+                style={{ color: groupColor }}
+                fillRule="evenodd"
+              />
             </View>
             <Text style={styles.menuTxt}>Group</Text>
           </View>
         </TouchableWithoutFeedback>
         <TouchableWithoutFeedback
           onPress={() => {
-            changeOption(MenuOptions.Things);
+            changeOption(MenuOptions.Add);
           }}
         >
           <View style={styles.iconContainer}>
             <View style={styles.icon}>
               <FontAwesomeIcon
-                color={thingsColor}
+                color={addColor}
                 size={MENU_ICON_SIZE}
                 icon={faPlus}
               />
