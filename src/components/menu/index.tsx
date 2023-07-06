@@ -23,6 +23,8 @@ import {
   MENU_ICON_ADD_SIZE,
 } from "./constants";
 import { styles, calculateIndicatorPosition } from "./styles";
+import IconPulse from "../../../assets/images/icon-pulse.svg";
+import IconGroupNear from "../../../assets/images/icon-group-near.svg";
 
 enum MenuOptions {
   History,
@@ -155,10 +157,10 @@ const Menu = () => {
               <FontAwesomeIcon
                 color={discoverColor}
                 size={MENU_ICON_SIZE}
-                icon={faCompass}
+                icon={faLocationDot}
               />
             </View>
-            <Text style={styles.menuTxt}>Discover</Text>
+            <Text style={styles.menuTxt}>Here</Text>
           </View>
         </TouchableWithoutFeedback>
         <TouchableWithoutFeedback
@@ -168,13 +170,17 @@ const Menu = () => {
         >
           <View style={styles.iconContainer}>
             <View style={styles.icon}>
-              <FontAwesomeIcon
+              {/* <FontAwesomeIcon
                 color={hereColor}
                 size={MENU_ICON_SIZE}
                 icon={faLocationDot}
-              />
+              /> */}
+              {/* <Image
+                source={require("../../../assets/images/icon-pulse.png")}
+              ></Image> */}
+              <IconPulse width={MENU_ICON_SIZE} height={MENU_ICON_SIZE} />
             </View>
-            <Text style={styles.menuTxt}>Here</Text>
+            <Text style={styles.menuTxt}>Pulse</Text>
           </View>
         </TouchableWithoutFeedback>
         <TouchableWithoutFeedback
@@ -184,13 +190,17 @@ const Menu = () => {
         >
           <View style={styles.iconContainer}>
             <View style={styles.icon}>
-              <FontAwesomeIcon
+              {/* <FontAwesomeIcon
                 color={messagesColor}
                 size={MENU_ICON_SIZE}
                 icon={faMessage}
-              />
+              /> */}
+              {/* <Image
+                source={require("../../../assets/images/icon-group-near.png")}
+              ></Image> */}
+              <IconGroupNear width={MENU_ICON_SIZE} height={MENU_ICON_SIZE} />
             </View>
-            <Text style={styles.menuTxt}>Messages</Text>
+            <Text style={styles.menuTxt}>Group</Text>
           </View>
         </TouchableWithoutFeedback>
         <TouchableWithoutFeedback
@@ -203,11 +213,11 @@ const Menu = () => {
               <FontAwesomeIcon
                 color={thingsColor}
                 size={MENU_ICON_SIZE}
-                icon={faListUl}
+                icon={faPlus}
               />
             </View>
             <View>
-              <Text style={[styles.menuTxt]}>Things</Text>
+              <Text style={[styles.menuTxt]}>Add</Text>
             </View>
           </View>
         </TouchableWithoutFeedback>
