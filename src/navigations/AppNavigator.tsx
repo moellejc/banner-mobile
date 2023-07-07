@@ -2,6 +2,8 @@ import React from "react";
 import { View, Text } from "react-native";
 import HubScreen from "../screens/hub";
 import AddScreen from "../screens/add";
+import SearchScreen from "../screens/search";
+import ProfileScreen from "../screens/profile";
 import {
   createStackNavigator,
   StackCardInterpolationProps,
@@ -12,28 +14,12 @@ import { styles } from "./styles";
 import ProfileNavButton from "../components/navigation/ProfileNavButton";
 import NotificationsButton from "../components/navigation/NotificationsNavButton";
 import AddNavButton from "../components/navigation/AddNavButton";
+import SearchNavButton from "../components/navigation/SearchNavButton";
 import TitleNav from "../components/navigation/TitleNav";
 
-const Stack = createSharedElementStackNavigator();
+// const Stack = createSharedElementStackNavigator();
+const Stack = createStackNavigator();
 const AddStack = createStackNavigator();
-
-// const horizontalAnimation = {
-//   gestureDirection: "horizontal",
-//   cardStyleInterpolator: ({ current, layouts }) => {
-//     return {
-//       cardStyle: {
-//         transform: [
-//           {
-//             translateX: current.progress.interpolate({
-//               inputRange: [0, 1],
-//               outputRange: [layouts.screen.width, 0],
-//             }),
-//           },
-//         ],
-//       },
-//     };
-//   },
-// };
 
 const screenOptions = ({ navigation }: any): StackNavigationOptions => {
   return {
@@ -41,22 +27,25 @@ const screenOptions = ({ navigation }: any): StackNavigationOptions => {
     headerStyle: { ...styles.header },
     headerTintColor: "black",
     headerLeft: () => <ProfileNavButton />,
-    headerRight: () => <AddNavButton />,
+    headerRight: () => <SearchNavButton />,
     headerRightContainerStyle: { ...styles.rightIcon },
   };
 };
 
-const AddModalScreen = () => {
-  return (
-    <AddStack.Navigator headerMode="none" initialRouteName="AddNav">
-      <AddStack.Screen
-        options={{ headerShown: false }}
-        name="Add"
-        component={AddScreen}
-      />
-    </AddStack.Navigator>
-  );
-};
+// const AddModalScreen = () => {
+//   return (
+//     <AddStack.Navigator
+//       screenOptions={{ headerShown: false }}
+//       initialRouteName="AddNav"
+//     >
+//       <AddStack.Screen
+//         options={{ headerShown: false }}
+//         name="Add"
+//         component={AddScreen}
+//       />
+//     </AddStack.Navigator>
+//   );
+// };
 
 function AppNavigator() {
   return (
@@ -67,13 +56,26 @@ function AppNavigator() {
         gestureEnabled: true,
       }}
       initialRouteName="Hub"
-      mode="modal"
     >
       <Stack.Screen name="Hub" component={HubScreen} options={screenOptions} />
+
+      <Stack.Group screenOptions={{ presentation: "modal" }}>
+        <Stack.Screen
+          options={{ headerShown: false }}
+          name="Add"
+          component={AddScreen}
+        />
+      </Stack.Group>
+
       <Stack.Screen
-        options={{ headerShown: false }}
-        name="Add"
-        component={AddModalScreen}
+        options={{ headerShown: true }}
+        name="Search"
+        component={SearchScreen}
+      />
+      <Stack.Screen
+        options={{ headerShown: true }}
+        name="Profile"
+        component={ProfileScreen}
       />
     </Stack.Navigator>
   );

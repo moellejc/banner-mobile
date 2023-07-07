@@ -8,11 +8,9 @@ import Animated, {
 } from "react-native-reanimated";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import {
-  faMagnifyingGlass,
   faPlus,
   faLocationDot,
   faShoePrints,
-  faListUl,
 } from "@fortawesome/free-solid-svg-icons";
 import { faMessage, faCompass } from "@fortawesome/free-regular-svg-icons";
 import {
@@ -25,6 +23,7 @@ import {
 import { styles, calculateIndicatorPosition } from "./styles";
 import IconPulse from "../../../assets/images/icon-pulse.svg";
 import IconGroupNear from "../../../assets/images/icon-group-near.svg";
+import { useNavigation } from "@react-navigation/native";
 
 enum MenuOptions {
   History,
@@ -39,6 +38,7 @@ interface MenuProps {
 }
 
 const Menu = () => {
+  const navigation = useNavigation();
   const menuStatus = useRef(MenuOptions.Here);
   const [historyColor, setHistoryColor] = useState(MENU_OPTION_COLOR_INACTIVE);
   const [hereColor, setHereColor] = useState(MENU_OPTION_COLOR_ACTIVE);
@@ -187,11 +187,7 @@ const Menu = () => {
             <Text style={styles.menuTxt}>Group</Text>
           </View>
         </TouchableWithoutFeedback>
-        <TouchableWithoutFeedback
-          onPress={() => {
-            changeOption(MenuOptions.Add);
-          }}
-        >
+        <TouchableWithoutFeedback onPress={() => navigation.navigate("Add")}>
           <View style={styles.iconContainer}>
             <View style={styles.icon}>
               <FontAwesomeIcon
