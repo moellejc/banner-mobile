@@ -111,7 +111,6 @@ const Menu = () => {
         setHereColor(MENU_OPTION_COLOR_ACTIVE);
         break;
       case MenuOptions.Group:
-        console.log("set group color active");
         setGroupColor(MENU_OPTION_COLOR_ACTIVE);
         break;
       case MenuOptions.Add:
@@ -182,8 +181,7 @@ const Menu = () => {
               <IconGroupNear
                 width={MENU_ICON_SIZE}
                 height={MENU_ICON_SIZE}
-                style={{ color: groupColor }}
-                fillRule="evenodd"
+                color={groupColor}
               />
             </View>
             <Text style={styles.menuTxt}>Group</Text>
