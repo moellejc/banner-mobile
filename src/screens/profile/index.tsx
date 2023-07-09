@@ -9,6 +9,9 @@ const ProfileScreen = () => {
   return (
     <View style={styles.container}>
       <Text style={styles.screenText}>Profile Screen</Text>
+      <TouchableOpacity onPress={() => navigation.navigate("Settings")}>
+        <Text>Settings</Text>
+      </TouchableOpacity>
     </View>
   );
 };

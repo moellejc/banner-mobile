@@ -1,25 +1,120 @@
 import React from "react";
-import { View, Text } from "react-native";
+import { View, Text, Animated } from "react-native";
 import HubScreen from "../screens/hub";
 import AddScreen from "../screens/add";
 import SearchScreen from "../screens/search";
 import ProfileScreen from "../screens/profile";
+import SettingsScreen from "../screens/settings";
 import {
   createStackNavigator,
   StackCardInterpolationProps,
   StackNavigationOptions,
+  StackHeaderInterpolationProps,
 } from "@react-navigation/stack";
-import { createSharedElementStackNavigator } from "react-navigation-shared-element";
+// import { createSharedElementStackNavigator } from "react-navigation-shared-element";
 import { styles } from "./styles";
 import ProfileNavButton from "../components/navigation/ProfileNavButton";
 import NotificationsButton from "../components/navigation/NotificationsNavButton";
 import AddNavButton from "../components/navigation/AddNavButton";
 import SearchNavButton from "../components/navigation/SearchNavButton";
 import TitleNav from "../components/navigation/TitleNav";
+import SettingsNavButton from "../components/navigation/SettingsNavButton";
+import RightChevNavButton from "../components/navigation/RightChevNavButton";
+
+import { Avatar } from "native-base";
+import { createUser } from "../tests/data";
+
+const profileUser = createUser();
 
 // const Stack = createSharedElementStackNavigator();
 const Stack = createStackNavigator();
 const AddStack = createStackNavigator();
+
+const forSlideLeft = ({
+  current,
+  next,
+  inverted,
+  layouts: { screen },
+}: StackCardInterpolationProps) => {
+  const progress = Animated.add(
+    current.progress.interpolate({
+      inputRange: [0, 1],
+      outputRange: [0, 1],
+      extrapolate: "clamp",
+    }),
+    next
+      ? next.progress.interpolate({
+          inputRange: [0, 1],
+          outputRange: [0, 1],
+          extrapolate: "clamp",
+        })
+      : 0
+  );
+
+  return {
+    cardStyle: {
+      transform: [
+        {
+          translateX: Animated.multiply(
+            progress.interpolate({
+              inputRange: [0, 1, 2],
+              outputRange: [
+                -screen.width, // Focused, but offscreen in the beginning
+                0, // Fully focused
+                screen.width, // Fully unfocused
+              ],
+              extrapolate: "clamp",
+            }),
+            inverted
+          ),
+        },
+      ],
+    },
+  };
+};
+
+const forSlideRight = ({
+  current,
+  next,
+  inverted,
+  layouts: { screen },
+}: StackCardInterpolationProps) => {
+  const progress = Animated.add(
+    current.progress.interpolate({
+      inputRange: [0, 1],
+      outputRange: [0, 1],
+      extrapolate: "clamp",
+    }),
+    next
+      ? next.progress.interpolate({
+          inputRange: [0, 1],
+          outputRange: [0, 1],
+          extrapolate: "clamp",
+        })
+      : 0
+  );
+
+  return {
+    cardStyle: {
+      transform: [
+        {
+          translateX: Animated.multiply(
+            progress.interpolate({
+              inputRange: [0, 1, 2],
+              outputRange: [
+                screen.width, // Focused, but offscreen in the beginning
+                0, // Fully focused
+                -screen.width, // Fully unfocused
+              ],
+              extrapolate: "clamp",
+            }),
+            inverted
+          ),
+        },
+      ],
+    },
+  };
+};
 
 const screenOptions = ({ navigation }: any): StackNavigationOptions => {
   return {
@@ -32,20 +127,38 @@ const screenOptions = ({ navigation }: any): StackNavigationOptions => {
   };
 };
 
-// const AddModalScreen = () => {
-//   return (
-//     <AddStack.Navigator
-//       screenOptions={{ headerShown: false }}
-//       initialRouteName="AddNav"
-//     >
-//       <AddStack.Screen
-//         options={{ headerShown: false }}
-//         name="Add"
-//         component={AddScreen}
-//       />
-//     </AddStack.Navigator>
-//   );
-// };
+const profileHeaderOptions = ({ navigation }: any): StackNavigationOptions => {
+  return {
+    headerTitle: () => (
+      <Avatar
+        bg="black"
+        alignSelf="center"
+        size="sm"
+        source={{
+          uri: profileUser.avatar,
+        }}
+      >
+        {`${profileUser.firstName.charAt(0)}${profileUser.lastName.charAt(0)}`}
+      </Avatar>
+    ),
+    headerStyle: { ...styles.header },
+    headerTintColor: "black",
+    headerLeft: () => <SettingsNavButton />,
+    headerRight: () => <RightChevNavButton />,
+    headerRightContainerStyle: { ...styles.rightIcon },
+  };
+};
+
+const settingsHeaderOptions = ({ navigation }: any): StackNavigationOptions => {
+  return {
+    headerTitle: () => <></>,
+    headerStyle: { ...styles.header },
+    headerTintColor: "black",
+    headerLeft: () => <></>,
+    headerRight: () => <RightChevNavButton />,
+    headerRightContainerStyle: { ...styles.rightIcon },
+  };
+};
 
 function AppNavigator() {
   return (
@@ -67,16 +180,29 @@ function AppNavigator() {
         />
       </Stack.Group>
 
-      <Stack.Screen
-        options={{ headerShown: true }}
-        name="Search"
-        component={SearchScreen}
-      />
-      <Stack.Screen
-        options={{ headerShown: true }}
-        name="Profile"
-        component={ProfileScreen}
-      />
+      <Stack.Group
+        screenOptions={{
+          cardStyleInterpolator: forSlideLeft,
+        }}
+      >
+        <Stack.Screen
+          options={profileHeaderOptions}
+          name="Profile"
+          component={ProfileScreen}
+        />
+        <Stack.Screen
+          options={settingsHeaderOptions}
+          name="Settings"
+          component={SettingsScreen}
+        />
+      </Stack.Group>
+      <Stack.Group screenOptions={{ cardStyleInterpolator: forSlideRight }}>
+        <Stack.Screen
+          options={{ headerShown: true }}
+          name="Search"
+          component={SearchScreen}
+        />
+      </Stack.Group>
     </Stack.Navigator>
   );
 }
