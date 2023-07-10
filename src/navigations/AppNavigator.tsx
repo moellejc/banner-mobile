@@ -17,9 +17,11 @@ import ProfileNavButton from "../components/navigation/ProfileNavButton";
 import NotificationsButton from "../components/navigation/NotificationsNavButton";
 import AddNavButton from "../components/navigation/AddNavButton";
 import SearchNavButton from "../components/navigation/SearchNavButton";
+import SearchNavHeaderNav from "../components/navigation/SearchNavHeader";
 import TitleNav from "../components/navigation/TitleNav";
 import SettingsNavButton from "../components/navigation/SettingsNavButton";
 import RightChevNavButton from "../components/navigation/RightChevNavButton";
+import LeftChevNavButton from "../components/navigation/LeftChevNavButton";
 
 import { Avatar } from "native-base";
 import { createUser } from "../tests/data";
@@ -122,6 +124,7 @@ const screenOptions = ({ navigation }: any): StackNavigationOptions => {
     headerStyle: { ...styles.header },
     headerTintColor: "black",
     headerLeft: () => <ProfileNavButton />,
+    headerLeftContainerStyle: { ...styles.leftIcon },
     headerRight: () => <SearchNavButton />,
     headerRightContainerStyle: { ...styles.rightIcon },
   };
@@ -144,11 +147,11 @@ const profileHeaderOptions = ({ navigation }: any): StackNavigationOptions => {
     headerStyle: { ...styles.header },
     headerTintColor: "black",
     headerLeft: () => <SettingsNavButton />,
+    headerLeftContainerStyle: { ...styles.leftIcon },
     headerRight: () => <RightChevNavButton />,
     headerRightContainerStyle: { ...styles.rightIcon },
   };
 };
-
 const settingsHeaderOptions = ({ navigation }: any): StackNavigationOptions => {
   return {
     headerTitle: () => <></>,
@@ -157,6 +160,17 @@ const settingsHeaderOptions = ({ navigation }: any): StackNavigationOptions => {
     headerLeft: () => <></>,
     headerRight: () => <RightChevNavButton />,
     headerRightContainerStyle: { ...styles.rightIcon },
+  };
+};
+
+const searchHeaderOptions = ({ navigation }: any): StackNavigationOptions => {
+  return {
+    headerTitle: () => <SearchNavHeaderNav />,
+    headerStyle: { ...styles.header, height: 100 },
+    headerTintColor: "black",
+    headerLeft: () => <LeftChevNavButton />,
+    headerLeftContainerStyle: { ...styles.leftIcon },
+    headerRight: () => <></>,
   };
 };
 
@@ -198,7 +212,7 @@ function AppNavigator() {
       </Stack.Group>
       <Stack.Group screenOptions={{ cardStyleInterpolator: forSlideRight }}>
         <Stack.Screen
-          options={{ headerShown: true }}
+          options={searchHeaderOptions}
           name="Search"
           component={SearchScreen}
         />

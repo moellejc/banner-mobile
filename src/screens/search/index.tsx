@@ -7,12 +7,6 @@ const SearchScreen = () => {
   return (
     <View>
       <Text>Search Screen</Text>
-      <Image
-        source={require("../../../assets/images/icon-explore-black.png")}
-        resizeMode={"cover"}
-        resizeMethod={"resize"}
-        style={styles.searchIcon}
-      />
     </View>
   );
 };

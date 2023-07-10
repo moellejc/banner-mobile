@@ -9,7 +9,7 @@ export const styles = StyleSheet.create({
     shadowColor: "transparent",
   },
   leftIcon: {
-    color: "black",
+    marginLeft: SIDE_MARGIN,
   },
   rightIcon: {
     marginRight: SIDE_MARGIN,

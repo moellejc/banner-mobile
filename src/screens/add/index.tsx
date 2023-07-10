@@ -1,5 +1,6 @@
 import React, { useState, useRef, useMemo, useCallback } from "react";
 import { TouchableOpacity, View, Text, FlatList } from "react-native";
+import { Input, Button, useTheme } from "native-base";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import {
   faXmark,
@@ -9,7 +10,6 @@ import {
 import { useNavigation } from "@react-navigation/native";
 import { styles, WINDOW_WIDTH } from "./styles";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { Input, Button, useTheme } from "native-base";
 import BannerButton from "../../components/general/buttons/bannerButton";
 import {
   BottomSheetModal,
