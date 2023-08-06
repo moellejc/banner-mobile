@@ -32,50 +32,7 @@ const profileUser = createUser();
 const Stack = createStackNavigator();
 const AddStack = createStackNavigator();
 
-const forSlideLeft = ({
-  current,
-  next,
-  inverted,
-  layouts: { screen },
-}: StackCardInterpolationProps) => {
-  const progress = Animated.add(
-    current.progress.interpolate({
-      inputRange: [0, 1],
-      outputRange: [0, 1],
-      extrapolate: "clamp",
-    }),
-    next
-      ? next.progress.interpolate({
-          inputRange: [0, 1],
-          outputRange: [0, 1],
-          extrapolate: "clamp",
-        })
-      : 0
-  );
-
-  return {
-    cardStyle: {
-      transform: [
-        {
-          translateX: Animated.multiply(
-            progress.interpolate({
-              inputRange: [0, 1, 2],
-              outputRange: [
-                -screen.width, // Focused, but offscreen in the beginning
-                0, // Fully focused
-                screen.width, // Fully unfocused
-              ],
-              extrapolate: "clamp",
-            }),
-            inverted
-          ),
-        },
-      ],
-    },
-  };
-};
-
-const forSlideRight = ({
+const forSlide = ({
   current,
   next,
   inverted,
@@ -196,7 +153,8 @@ function AppNavigator() {
 
       <Stack.Group
         screenOptions={{
-          cardStyleInterpolator: forSlideLeft,
+          cardStyleInterpolator: forSlide,
+          gestureDirection: "horizontal-inverted",
         }}
       >
         <Stack.Screen
@@ -210,7 +168,7 @@ function AppNavigator() {
           component={SettingsScreen}
         />
       </Stack.Group>
-      <Stack.Group screenOptions={{ cardStyleInterpolator: forSlideRight }}>
+      <Stack.Group screenOptions={{ cardStyleInterpolator: forSlide }}>
         <Stack.Screen
           options={searchHeaderOptions}
           name="Search"
