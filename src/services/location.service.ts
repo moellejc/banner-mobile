@@ -82,29 +82,16 @@ export const startForegroundTracking = async () => {
       )
         return;
 
-      // reverse geocode
-      let addressRes = await BannerAPI.HereMaps.reverseGeocode(
-        location.coords.latitude,
-        location.coords.longitude
-      );
+      // get places near
+      let nearInfo = await BannerAPI.Location.getNearInfo({
+        lat: location.coords.latitude,
+        lon: location.coords.longitude,
+      });
 
-      // reverse geocode request failed
-      if (addressRes?.status != 200) return;
+      // check for successful response
+      console.log(nearInfo);
 
-      // extract address
-      if (addressRes.data.items.length > 0) {
-        storeLocation(location);
-        store.dispatch({
-          type: Actions.LocationActions.UPDATE_CURRENT_TITLE,
-          payload: `Lat: ${location.coords.latitude}\nLon: ${
-            location.coords.longitude
-          } \nTime: ${DateTime.now()
-            .setZone("America/New_York")
-            .toLocaleString(DateTime.DATETIME_MED_WITH_SECONDS)}\n${
-            addressRes.data.items[0].title
-          }`,
-        });
-      }
+      // dispatch action for "new near info/places"
     }
   );
 };

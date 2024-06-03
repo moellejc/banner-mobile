@@ -8,12 +8,11 @@ import Animated, {
 } from "react-native-reanimated";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import {
-  faMagnifyingGlass,
   faPlus,
   faLocationDot,
   faShoePrints,
 } from "@fortawesome/free-solid-svg-icons";
-import { faMessage } from "@fortawesome/free-regular-svg-icons";
+import { faMessage, faCompass } from "@fortawesome/free-regular-svg-icons";
 import {
   MENU_ICON_SIZE,
   MENU_TOTAL_OPTIONS,
@@ -22,13 +21,16 @@ import {
   MENU_ICON_ADD_SIZE,
 } from "./constants";
 import { styles, calculateIndicatorPosition } from "./styles";
+import IconPulse from "../../../assets/images/icon-pulse.svg";
+import IconGroupNear from "../../../assets/images/icon-group-near.svg";
+import { useNavigation } from "@react-navigation/native";
 
 enum MenuOptions {
   History,
+  Discover,
   Here,
+  Group,
   Add,
-  Messages,
-  Search,
 }
 
 interface MenuProps {
@@ -36,14 +38,15 @@ interface MenuProps {
 }
 
 const Menu = () => {
+  const navigation = useNavigation();
   const menuStatus = useRef(MenuOptions.Here);
   const [historyColor, setHistoryColor] = useState(MENU_OPTION_COLOR_INACTIVE);
   const [hereColor, setHereColor] = useState(MENU_OPTION_COLOR_ACTIVE);
-  const [addColor, setAddColor] = useState(MENU_OPTION_COLOR_INACTIVE);
-  const [messagesColor, setMessagesColor] = useState(
+  const [discoverColor, setDiscoverColor] = useState(
     MENU_OPTION_COLOR_INACTIVE
   );
-  const [searchColor, setSearchColor] = useState(MENU_OPTION_COLOR_INACTIVE);
+  const [groupColor, setGroupColor] = useState(MENU_OPTION_COLOR_INACTIVE);
+  const [addColor, setAddColor] = useState(MENU_OPTION_COLOR_INACTIVE);
 
   const offset = useSharedValue(
     calculateIndicatorPosition(1, MENU_TOTAL_OPTIONS)
@@ -80,17 +83,17 @@ const Menu = () => {
       case MenuOptions.History:
         setHistoryColor(MENU_OPTION_COLOR_INACTIVE);
         break;
+      case MenuOptions.Discover:
+        setDiscoverColor(MENU_OPTION_COLOR_INACTIVE);
+        break;
       case MenuOptions.Here:
         setHereColor(MENU_OPTION_COLOR_INACTIVE);
         break;
+      case MenuOptions.Group:
+        setGroupColor(MENU_OPTION_COLOR_INACTIVE);
+        break;
       case MenuOptions.Add:
         setAddColor(MENU_OPTION_COLOR_INACTIVE);
-        break;
-      case MenuOptions.Messages:
-        setMessagesColor(MENU_OPTION_COLOR_INACTIVE);
-        break;
-      case MenuOptions.Search:
-        setSearchColor(MENU_OPTION_COLOR_INACTIVE);
         break;
       default:
         break;
@@ -101,17 +104,17 @@ const Menu = () => {
       case MenuOptions.History:
         setHistoryColor(MENU_OPTION_COLOR_ACTIVE);
         break;
+      case MenuOptions.Discover:
+        setDiscoverColor(MENU_OPTION_COLOR_ACTIVE);
+        break;
       case MenuOptions.Here:
         setHereColor(MENU_OPTION_COLOR_ACTIVE);
         break;
+      case MenuOptions.Group:
+        setGroupColor(MENU_OPTION_COLOR_ACTIVE);
+        break;
       case MenuOptions.Add:
         setAddColor(MENU_OPTION_COLOR_ACTIVE);
-        break;
-      case MenuOptions.Messages:
-        setMessagesColor(MENU_OPTION_COLOR_ACTIVE);
-        break;
-      case MenuOptions.Search:
-        setSearchColor(MENU_OPTION_COLOR_ACTIVE);
         break;
       default:
         break;
@@ -142,13 +145,13 @@ const Menu = () => {
         </TouchableWithoutFeedback>
         <TouchableWithoutFeedback
           onPress={() => {
-            changeOption(MenuOptions.Here);
+            changeOption(MenuOptions.Discover);
           }}
         >
           <View style={styles.iconContainer}>
             <View style={styles.icon}>
               <FontAwesomeIcon
-                color={hereColor}
+                color={discoverColor}
                 size={MENU_ICON_SIZE}
                 icon={faLocationDot}
               />
@@ -158,50 +161,43 @@ const Menu = () => {
         </TouchableWithoutFeedback>
         <TouchableWithoutFeedback
           onPress={() => {
-            changeOption(MenuOptions.Add);
+            changeOption(MenuOptions.Here);
           }}
         >
           <View style={styles.iconContainer}>
-            <View style={[styles.icon, styles.iconAdd]}>
+            <View style={styles.icon}>
+              <IconPulse width={MENU_ICON_SIZE} height={MENU_ICON_SIZE} />
+            </View>
+            <Text style={styles.menuTxt}>Pulse</Text>
+          </View>
+        </TouchableWithoutFeedback>
+        <TouchableWithoutFeedback
+          onPress={() => {
+            changeOption(MenuOptions.Group);
+          }}
+        >
+          <View style={styles.iconContainer}>
+            <View style={styles.icon}>
+              <IconGroupNear
+                width={MENU_ICON_SIZE}
+                height={MENU_ICON_SIZE}
+                color={groupColor}
+              />
+            </View>
+            <Text style={styles.menuTxt}>Group</Text>
+          </View>
+        </TouchableWithoutFeedback>
+        <TouchableWithoutFeedback onPress={() => navigation.navigate("Add")}>
+          <View style={styles.iconContainer}>
+            <View style={styles.icon}>
               <FontAwesomeIcon
                 color={addColor}
-                size={MENU_ICON_ADD_SIZE}
+                size={MENU_ICON_SIZE}
                 icon={faPlus}
               />
             </View>
-          </View>
-        </TouchableWithoutFeedback>
-        <TouchableWithoutFeedback
-          onPress={() => {
-            changeOption(MenuOptions.Messages);
-          }}
-        >
-          <View style={styles.iconContainer}>
-            <View style={styles.icon}>
-              <FontAwesomeIcon
-                color={messagesColor}
-                size={MENU_ICON_SIZE}
-                icon={faMessage}
-              />
-            </View>
-            <Text style={styles.menuTxt}>Messages</Text>
-          </View>
-        </TouchableWithoutFeedback>
-        <TouchableWithoutFeedback
-          onPress={() => {
-            changeOption(MenuOptions.Search);
-          }}
-        >
-          <View style={styles.iconContainer}>
-            <View style={styles.icon}>
-              <FontAwesomeIcon
-                color={searchColor}
-                size={MENU_ICON_SIZE}
-                icon={faMagnifyingGlass}
-              />
-            </View>
             <View>
-              <Text style={[styles.menuTxt]}>Search</Text>
+              <Text style={[styles.menuTxt]}>Add</Text>
             </View>
           </View>
         </TouchableWithoutFeedback>

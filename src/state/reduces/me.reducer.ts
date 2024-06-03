@@ -1,9 +1,5 @@
-import {
-  UserRoles,
-  UserStatuses,
-  UserTypes,
-} from "../../graphql/generator/BannerGQLTypes";
-import { Coordinates } from "../../types/Coordinates";
+import { UserRoles, UserStatuses } from "../../types";
+import { Coordinates } from "../../types/_old/Coordinates";
 import { MeActions } from "../actions";
 
 export interface IMeState {
@@ -42,10 +38,10 @@ const initialMeState: IMeState = {
     lastName: "",
     profilePic: "",
     verified: false,
-    role: UserRoles.Basic,
+    role: UserRoles.User,
     screenName: "",
     status: UserStatuses.Active,
-    userType: UserTypes.Standard,
+    userType: "Standard",
     likes: [],
     media: [],
     posts: [],

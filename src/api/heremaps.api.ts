@@ -32,14 +32,6 @@ export const getAccessToken = async (): Promise<
       //   .digest("base64");
     },
   });
-  // POST&https%3A%2F%2Faccount.api.here.com%2Foauth2%2Ftoken&grant_type%3Dclient_credentials%26oauth_consumer_key%3DzDYMk6jfpjD3RlLiSCUbTQ%26oauth_nonce%3DLkcV2WZD9g8dp0WlTVdeDqfAju1gpw0I%26oauth_signature_method%3DHMAC-SHA256%26oauth_timestamp%3D1659842108%26oauth_version%3D1.0
-  // let signature = await JSHmac(
-  //   replace_base_str,
-  //   HERE_KEY_SECRET,
-  //   CONSTANTS.HmacAlgorithms.HmacSHA256
-  // );
-  // CryptoJS.enc.Base64.stringify(CryptoJS.enc.Utf8.parse(hmac_encoded_str));
-  // console.log(`SIGNATURE: ${signature}`);
 
   const request_data = {
     url: "https://account.api.here.com/oauth2/token",

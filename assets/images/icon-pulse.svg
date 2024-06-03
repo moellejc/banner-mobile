@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="37px" height="35px" viewBox="0 0 37 35" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>icon-pulse</title>
+    <defs>
+        <linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="linearGradient-1">
+            <stop stop-color="#FFFFFF" stop-opacity="0.5" offset="0%"></stop>
+            <stop stop-color="#000000" stop-opacity="0.5" offset="100%"></stop>
+        </linearGradient>
+        <linearGradient x1="50.000204%" y1="0%" x2="50%" y2="100%" id="linearGradient-2">
+            <stop stop-color="#2B0EAC" offset="0%"></stop>
+            <stop stop-color="#7B46E4" offset="50.122924%"></stop>
+            <stop stop-color="#AE0BB5" offset="100%"></stop>
+        </linearGradient>
+        <circle id="path-3" cx="17.5" cy="23.5" r="8"></circle>
+        <path d="M0,8 C4.94943042,2.66666667 10.7596314,0 17.4306028,0 C24.1015742,0 29.9117752,2.66666667 34.8612056,8" id="path-4"></path>
+        <path d="M6,13 C9.09339401,9.66666667 12.7247696,8 16.8941267,8 C21.0634839,8 24.6948595,9.66666667 27.7882535,13" id="path-5"></path>
+    </defs>
+    <g id="icon-pulse" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Group" transform="translate(1.000000, 2.000000)">
+            <g id="Oval">
+                <use fill="#4A00FF" xlink:href="#path-3"></use>
+                <use fill="url(#linearGradient-1)" xlink:href="#path-3"></use>
+                <circle stroke="#000000" stroke-width="1" fill="url(#linearGradient-2)" cx="17.5" cy="23.5" r="8.5"></circle>
+            </g>
+            <g id="Line-Copy-2" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+                <use stroke="#3515B3" xlink:href="#path-4"></use>
+                <use stroke="#000000" xlink:href="#path-4"></use>
+            </g>
+            <g id="Line-Copy-3" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+                <use stroke="#3515B3" xlink:href="#path-5"></use>
+                <use stroke="#000000" xlink:href="#path-5"></use>
+            </g>
+        </g>
+    </g>
+</svg>

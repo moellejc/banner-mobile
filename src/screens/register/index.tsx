@@ -1,15 +1,11 @@
 import React, { useEffect } from "react";
-import { View, StyleSheet, Dimensions, Image } from "react-native";
-import { TextInput, Button, Headline } from "react-native-paper";
-import AppTheme, { textInputTheme } from "../../constants/styles/Theme";
+import { View, StyleSheet, Dimensions, Text } from "react-native";
+import { Input } from "native-base";
 import { ApolloError, gql, useMutation } from "@apollo/client";
 import { useNavigation } from "@react-navigation/native";
 import { AntDesign } from "@expo/vector-icons";
 import BannerButton from "../../components/general/buttons/bannerButton";
-import {
-  RegisterResponse,
-  FieldError,
-} from "../../graphql/generator/BannerGQLTypes";
+import { RegisterResponse } from "../../types";
 import { useSelector, useDispatch } from "react-redux";
 // import { authConstants } from "../../constants/state_old";
 // import { meConstants } from "../../constants/state_old";
@@ -99,59 +95,48 @@ const RegisterScreen: React.FC = () => {
   return (
     <View style={styles.pageContainer}>
       <View style={[styles.row, { flex: 1, alignItems: "flex-start" }]}>
-        <Headline style={styles.headline}>Join in</Headline>
+        <Text style={styles.headline}>Join in</Text>
       </View>
       <View style={[styles.row, { flex: 3 }]}>
-        <TextInput
+        <Input
           style={styles.input}
           textAlign="left"
-          mode="flat"
-          label="First Name"
+          placeholder="firstname"
+          variant="underlined"
           value={firstName}
-          theme={textInputTheme}
-          underlineColor="white"
           onChangeText={(firstName) => setFirstName(firstName)}
         />
-        <TextInput
+        <Input
           style={styles.input}
           textAlign="left"
-          mode="flat"
-          label="Last Name"
+          placeholder="Lastname"
           value={lastName}
-          theme={textInputTheme}
-          underlineColor="white"
           onChangeText={(lastName) => setLastName(lastName)}
         />
-        <TextInput
+        <Input
           style={styles.input}
           textAlign="left"
-          mode="flat"
-          label="Email"
+          placeholder="Email"
+          variant="underlined"
           value={email}
-          theme={textInputTheme}
-          underlineColor="white"
           onChangeText={(email) => setEmail(email)}
         />
-        <TextInput
+        <Input
           style={styles.input}
           textAlign="left"
-          mode="flat"
-          label="Password"
+          placeholder="Password"
+          variant="underlined"
           value={password}
           secureTextEntry={true}
-          theme={textInputTheme}
-          underlineColor="white"
           onChangeText={(password) => setPassword(password)}
         />
-        <TextInput
+        <Input
           style={styles.input}
           textAlign="left"
-          mode="flat"
-          label="Password Again"
+          placeholder="Password Again"
+          variant="underlined"
           secureTextEntry={true}
           value={passwordAgain}
-          theme={textInputTheme}
-          underlineColor="white"
           onChangeText={(passwordAgain) => setPasswordAgain(passwordAgain)}
         />
       </View>

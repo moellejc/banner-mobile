@@ -1,14 +1,13 @@
-import * as Auth from "./auth.api";
-// import * as Location from "./location.api";
-import * as Token from "./token.api";
-import * as User from "./user.api";
-import * as Place from "./place.api";
-import * as HereMaps from "./heremaps.api";
+import * as Auth from "./auth";
+import * as Location from "./location";
+import * as Token from "./auth/token";
+import * as User from "./users";
+import * as Places from "./places";
 
 export const BannerAPI = {
   Auth,
   User,
   Token,
-  Place,
-  HereMaps,
+  Places,
+  Location,
 };

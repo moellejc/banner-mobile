@@ -1,5 +1,5 @@
 import React, { useRef, useEffect } from "react";
-import { CollapseStates } from "../../../types/Misc";
+import { CollapseStates } from "../../../types/enums";
 import {
   Text,
   Image,

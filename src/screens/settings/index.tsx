@@ -1,9 +1,15 @@
 import React, { useEffect } from "react";
-import { StyleSheet, View, Text, Dimensions } from "react-native";
+import {
+  StyleSheet,
+  TouchableOpacity,
+  View,
+  Text,
+  Dimensions,
+} from "react-native";
 import { styles } from "./styles";
 
 interface SettingsProps {}
-const Settings = () => {
+const SettingsScreen = () => {
   return (
     <View style={styles.container}>
       <Text style={styles.screenText}>Settings Screen</Text>
@@ -11,4 +17,4 @@ const Settings = () => {
   );
 };
 
-export default Settings;
+export default SettingsScreen;

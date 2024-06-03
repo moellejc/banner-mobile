@@ -3,14 +3,16 @@ import { View, Text, TouchableOpacity } from "react-native";
 import { Avatar } from "native-base";
 import { styles } from "./styles";
 import { createUser } from "../../../tests/data";
+import { useNavigation } from "@react-navigation/native";
 
 const profileUser = createUser();
 
 const ProfileNavButton = () => {
+  const navigation = useNavigation();
   return (
     <TouchableOpacity
       style={styles.contain}
-      onPress={() => console.log("profile nav pressed")}
+      onPress={() => navigation.navigate("Profile")}
     >
       <Avatar
         bg="black"

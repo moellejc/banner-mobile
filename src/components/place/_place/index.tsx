@@ -24,6 +24,7 @@ const { height: WINDOW_HEIGHT } = Dimensions.get("window");
 
 const { Value } = Animated;
 
+// TODO: Replace with loading from API
 const currentPlaceData = createPlace();
 const HEADER_TITLE_BOTTOM = 90;
 

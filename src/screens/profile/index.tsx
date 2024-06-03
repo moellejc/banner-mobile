@@ -1,14 +1,19 @@
 import React, { useEffect } from "react";
-import { View, Text } from "react-native";
+import { View, Text, TouchableOpacity } from "react-native";
+import { useNavigation } from "@react-navigation/native";
 import { styles } from "./styles";
 
 interface ProfileProps {}
-const Profile = () => {
+const ProfileScreen = () => {
+  const navigation = useNavigation();
   return (
     <View style={styles.container}>
       <Text style={styles.screenText}>Profile Screen</Text>
+      <TouchableOpacity onPress={() => navigation.navigate("Settings")}>
+        <Text>Settings</Text>
+      </TouchableOpacity>
     </View>
   );
 };
 
-export default Profile;
+export default ProfileScreen;

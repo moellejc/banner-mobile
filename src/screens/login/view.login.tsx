@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from "react";
-import { View, StyleSheet, Dimensions, Image } from "react-native";
-import { TextInput, Button, Text } from "react-native-paper";
-import AppTheme, { textInputTheme } from "../../constants/styles/Theme";
+import { View, StyleSheet, Dimensions, Image, Text } from "react-native";
+import { Input, Button } from "native-base";
+import { useTheme } from "native-base";
 import { useNavigation } from "@react-navigation/native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import BannerButton from "../../components/general/buttons/bannerButton";
 import { useLogin } from "./use.login";
 import { useDispatch } from "react-redux";
-import { FieldError } from "../../graphql/generator/BannerGQLTypes";
+import { FieldError } from "../../types";
 import { styles } from "./styles";
 
 const defaultState = {
@@ -24,6 +24,7 @@ const screenWidth = Dimensions.get("window").width - 60;
 
 export const LoginScreen: React.FC = () => {
   const dispatch = useDispatch();
+  const theme = useTheme();
   const navigation = useNavigation();
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
@@ -81,28 +82,24 @@ export const LoginScreen: React.FC = () => {
         </View>
         <View style={[{ flex: 3 }, styles.row]}>
           <View style={{ alignContent: "center" }}>
-            <TextInput
+            <Input
               style={styles.input}
               textAlign="left"
-              mode="flat"
-              label="Email"
               value={email}
-              theme={textInputTheme}
-              underlineColor="white"
-              onChangeText={(email) => setEmail(email)}
-              selectionColor={AppTheme.colors.bannerPurple}
+              placeholder="Email"
+              variant="underlined"
+              onChangeText={(email: string) => setEmail(email)}
+              selectionColor={theme.colors.primary[400]}
             />
-            <TextInput
+            <Input
               style={styles.input}
               textAlign="left"
-              mode="flat"
-              label="Password"
               secureTextEntry={true}
               value={password}
-              theme={textInputTheme}
-              underlineColor="white"
-              onChangeText={(password) => setPassword(password)}
-              selectionColor={AppTheme.colors.bannerPurple}
+              placeholder="Password"
+              variant="underlined"
+              onChangeText={(password: string) => setPassword(password)}
+              selectionColor={theme.colors.primary[400]}
             />
             <Text style={styles.error}>{errorMessage}</Text>
           </View>
@@ -118,7 +115,6 @@ export const LoginScreen: React.FC = () => {
           />
           <Button
             style={styles.buttonRegister}
-            labelStyle={{ fontSize: 12 }}
             color="lightgray"
             onPress={() => navigation.navigate("Register")}
           >

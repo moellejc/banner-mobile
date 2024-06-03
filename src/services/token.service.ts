@@ -1,6 +1,6 @@
 import * as SecureStore from "expo-secure-store";
 import jwt_decode from "jwt-decode";
-import * as TokenAPI from "../api/token.api";
+import * as TokenAPI from "../api/auth/token";
 import * as HereMapsAPI from "../api/heremaps.api";
 import { Actions, store } from "../state";
 
